@@ -1,14 +1,16 @@
 /**
  * Footer — High Ridge Web Design
- * Minimal dark footer with logo, links, and copyright.
+ * Dark footer with logo, links, contact info, and copyright.
+ * Jeremy Black, Founder — Sylva, NC | Western NC | Globally Available
  */
-import { Mail, ArrowUp } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 const LOGO_URL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/logo-trimmed_4ca12aee.png";
 
 const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
+const CONTACT_PHONE = "(828) 598-9262";
 
 const footerLinks = [
   { label: "Services", href: "#services" },
@@ -36,11 +38,14 @@ export default function Footer() {
               <img
                 src={LOGO_URL}
                 alt="High Ridge Web Design"
-                className="h-20 w-auto mb-4"
+                className="h-[7.5rem] w-auto mb-4"
               />
               <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
                 Design. Automate. Grow. — We build websites, AI bots, and
                 automations that help local businesses thrive.
+              </p>
+              <p className="text-xs text-foreground/40 mt-3">
+                Founded by Jeremy Black in Sylva, NC
               </p>
             </div>
 
@@ -71,16 +76,30 @@ export default function Footer() {
               <h4 className="font-serif font-bold text-white mb-4 text-sm uppercase tracking-wider">
                 Contact
               </h4>
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-brand-orange transition-colors"
-              >
-                <Mail className="w-4 h-4" />
-                {CONTACT_EMAIL}
-              </a>
-              <p className="text-sm text-foreground/40 mt-2">
-                Serving local businesses nationwide
-              </p>
+              <div className="flex flex-col gap-3">
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-brand-orange transition-colors"
+                >
+                  <Mail className="w-4 h-4 shrink-0" />
+                  {CONTACT_EMAIL}
+                </a>
+                <a
+                  href="tel:+18285989262"
+                  className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-brand-orange transition-colors"
+                >
+                  <Phone className="w-4 h-4 shrink-0" />
+                  {CONTACT_PHONE}
+                </a>
+                <div className="inline-flex items-start gap-2 text-sm text-foreground/40">
+                  <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
+                  <span>
+                    Sylva, NC — Proudly serving Western North Carolina
+                    <br />
+                    <span className="text-foreground/30">Also available globally for remote projects</span>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 

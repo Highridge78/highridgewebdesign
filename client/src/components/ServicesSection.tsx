@@ -1,9 +1,9 @@
 /**
  * ServicesSection — High Ridge Web Design
- * Three service pillars: Web Design, AI Bots, Business Automation.
+ * Four service pillars: Web Design & Remodeling, SEO & AI Search, AI Bots, Business Automation.
  * Dark cards with orange accent borders and generated service images.
  */
-import { Globe, Bot, Zap, ArrowRight } from "lucide-react";
+import { Globe, Bot, Zap, Search, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 const SERVICES_WEB =
@@ -16,16 +16,30 @@ const SERVICES_AUTO =
 const services = [
   {
     icon: Globe,
-    title: "Custom Web Design",
+    title: "Custom Web Design & Remodeling",
     subtitle: "The Foundation",
     image: SERVICES_WEB,
     description:
-      "Fast, mobile-responsive websites built to convert visitors into customers. No templates — every site is hand-crafted for your brand.",
+      "Whether you need a brand-new site or your current one is outdated and underperforming, we build and remodel websites that turn visitors into paying customers.",
     features: [
-      "Custom-coded, blazing-fast sites",
+      "Custom-coded, blazing-fast websites",
+      "Full redesigns of outdated or underperforming sites",
       "Mobile-first responsive design",
-      "Local SEO & Google Business setup",
       "High-converting landing pages",
+    ],
+  },
+  {
+    icon: Search,
+    title: "SEO & AI Search Optimization",
+    subtitle: "The Visibility Engine",
+    image: null,
+    description:
+      "Ranking on Google is just the beginning. We optimize your business to appear in AI-powered search results from ChatGPT, Perplexity, Google AI Overviews, and beyond — so customers find you no matter how they search.",
+    features: [
+      "Local SEO & Google Business optimization",
+      "AI search engine visibility (ChatGPT, Perplexity)",
+      "Structured data & schema markup",
+      "Content strategy for traditional & AI search",
     ],
   },
   {
@@ -76,40 +90,60 @@ export default function ServicesSection() {
               What We Do
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-              Three Pillars of{" "}
+              Four Pillars of{" "}
               <span className="text-gradient-orange">Digital Growth</span>
             </h2>
             <p className="mt-4 text-foreground/60 max-w-2xl mx-auto text-lg">
               We don't just build websites. We build automated systems that
-              capture leads, schedule appointments, and save you hours every week.
+              capture leads, dominate search results, and save you hours every week.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Service cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Service cards — 2x2 grid on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, i) => (
-            <ScrollReveal key={service.title} delay={i * 150}>
+            <ScrollReveal key={service.title} delay={i * 120}>
               <div className="group relative rounded-xl overflow-hidden border border-border bg-card hover:border-brand-orange/40 transition-all duration-500 h-full">
-                {/* Image */}
-                <div className="relative h-52 overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
-                  {/* Icon badge */}
-                  <div className="absolute bottom-4 left-6 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-brand-orange/20 border border-brand-orange/30 flex items-center justify-center">
-                      <service.icon className="w-5 h-5 text-brand-orange" />
+                {/* Image (if available) */}
+                {service.image ? (
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                    {/* Icon badge */}
+                    <div className="absolute bottom-4 left-6 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-brand-orange/20 border border-brand-orange/30 flex items-center justify-center">
+                        <service.icon className="w-5 h-5 text-brand-orange" />
+                      </div>
+                      <span className="text-xs font-medium text-brand-amber uppercase tracking-wider">
+                        {service.subtitle}
+                      </span>
                     </div>
-                    <span className="text-xs font-medium text-brand-amber uppercase tracking-wider">
-                      {service.subtitle}
-                    </span>
                   </div>
-                </div>
+                ) : (
+                  /* No image — icon header */
+                  <div className="relative h-32 overflow-hidden bg-gradient-to-br from-brand-orange/10 via-brand-orange/5 to-transparent">
+                    <div className="absolute inset-0 bg-[oklch(0.12_0.02_260)]" />
+                    {/* Decorative search grid pattern */}
+                    <div className="absolute inset-0 opacity-[0.04]" style={{
+                      backgroundImage: `radial-gradient(circle, oklch(0.75 0.18 55) 1px, transparent 1px)`,
+                      backgroundSize: '24px 24px'
+                    }} />
+                    <div className="absolute bottom-4 left-6 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-brand-orange/20 border border-brand-orange/30 flex items-center justify-center">
+                        <service.icon className="w-5 h-5 text-brand-orange" />
+                      </div>
+                      <span className="text-xs font-medium text-brand-amber uppercase tracking-wider">
+                        {service.subtitle}
+                      </span>
+                    </div>
+                  </div>
+                )}
 
                 {/* Content */}
                 <div className="p-6 pt-4">

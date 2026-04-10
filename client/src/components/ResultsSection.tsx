@@ -158,7 +158,7 @@ export default function ResultsSection() {
               </div>
               <div className="grid grid-cols-3 gap-4 text-center">
                 {[
-                  { value: "50+", label: "Projects Delivered" },
+                  { value: "#1", label: "Google & AI Search Rankings" },
                   { value: "98%", label: "Client Satisfaction" },
                   { value: "3x", label: "Average ROI" },
                 ].map((s) => (

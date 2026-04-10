@@ -43,7 +43,7 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-20 md:h-24">
+      <div className="container flex items-center justify-between h-[7.5rem] md:h-[9rem]">
         {/* Logo */}
         <a
           href="#"
@@ -56,7 +56,7 @@ export default function Navbar() {
           <img
             src={LOGO_URL}
             alt="High Ridge Web Design"
-            className="h-20 md:h-24 w-auto"
+            className="h-[7.5rem] md:h-[9rem] w-auto"
           />
         </a>
 

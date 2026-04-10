@@ -1,6 +1,7 @@
 /**
  * ContactSection — High Ridge Web Design
  * Lead capture form + contact info. Form submits via Web3Forms API.
+ * Jeremy Black — Sylva, NC | Western NC | Globally Available
  */
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Mail,
+  Phone,
   MapPin,
+  Globe,
   Send,
   CheckCircle2,
   Loader2,
@@ -16,6 +19,7 @@ import {
 import ScrollReveal from "./ScrollReveal";
 
 const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
+const CONTACT_PHONE = "(828) 598-9262";
 const WEB3FORMS_KEY = "87f4e030-820f-4c08-b796-f5efa493fbe7";
 
 export default function ContactSection() {
@@ -38,7 +42,6 @@ export default function ContactSection() {
     e.preventDefault();
     setFormState("sending");
 
-    // Build mailto link as fallback
     const subject = encodeURIComponent(
       `New Lead from ${formData.name} — ${formData.business || "Website Inquiry"}`
     );
@@ -46,7 +49,6 @@ export default function ContactSection() {
       `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nBusiness: ${formData.business}\n\nMessage:\n${formData.message}`
     );
 
-    // Try Web3Forms first
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -71,7 +73,6 @@ export default function ContactSection() {
       // Fallback to mailto
     }
 
-    // Fallback: open mailto
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
     setFormState("sent");
     setFormData({ name: "", email: "", phone: "", business: "", message: "" });
@@ -80,7 +81,6 @@ export default function ContactSection() {
   return (
     <section id="contact" className="relative py-20 md:py-24">
       <div className="absolute inset-0 bg-[oklch(0.12_0.02_260)]" />
-      {/* Subtle orange glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-orange/[0.04] rounded-full blur-3xl" />
 
       <div className="relative z-10 container">
@@ -178,7 +178,6 @@ export default function ContactSection() {
                   />
                 </div>
 
-                {/* Honeypot spam protection */}
                 <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
 
                 <Button
@@ -236,16 +235,47 @@ export default function ContactSection() {
                     </div>
                   </a>
 
+                  <a
+                    href="tel:+18285989262"
+                    className="flex items-start gap-3 group"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0 group-hover:bg-brand-orange/20 transition-colors">
+                      <Phone className="w-4 h-4 text-brand-orange" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-foreground/80 group-hover:text-brand-orange transition-colors">
+                        Call Us
+                      </div>
+                      <div className="text-xs text-foreground/50">
+                        {CONTACT_PHONE}
+                      </div>
+                    </div>
+                  </a>
+
                   <div className="flex items-start gap-3">
                     <div className="w-9 h-9 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0">
                       <MapPin className="w-4 h-4 text-brand-orange" />
                     </div>
                     <div>
                       <div className="text-sm font-medium text-foreground/80">
-                        Location
+                        Based in Sylva, NC
                       </div>
                       <div className="text-xs text-foreground/50">
-                        Serving local businesses nationwide
+                        Serving all of Western North Carolina
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0">
+                      <Globe className="w-4 h-4 text-brand-orange" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-foreground/80">
+                        Available Globally
+                      </div>
+                      <div className="text-xs text-foreground/50">
+                        Remote projects welcome worldwide
                       </div>
                     </div>
                   </div>
@@ -260,7 +290,8 @@ export default function ContactSection() {
                 <ul className="space-y-2">
                   {[
                     "Complete digital presence audit",
-                    "Competitor analysis report",
+                    "SEO & AI search visibility report",
+                    "Competitor analysis breakdown",
                     "Custom automation roadmap",
                     "No-obligation strategy call",
                   ].map((item) => (

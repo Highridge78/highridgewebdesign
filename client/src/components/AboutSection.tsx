@@ -1,7 +1,8 @@
 /**
  * AboutSection — High Ridge Web Design
  * Problem-Solution narrative: why local businesses need automation.
- * Split layout with stats and brand story.
+ * Jeremy Black, Founder — Sylva, NC | Western NC | Globally Available
+ * Includes website remodeling/redesign messaging.
  */
 import { Clock, PhoneOff, TrendingDown, Flame } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
@@ -94,15 +95,21 @@ export default function AboutSection() {
                   about their online presence.
                 </p>
                 <p>
-                  Our approach combines stunning, fast websites with AI-powered
-                  chatbots and automated workflows. The result? Your business
-                  captures every lead, responds instantly, and books more
-                  appointments — all without you lifting a finger.
+                  Whether you need a brand-new website built from the ground up or
+                  your existing site is outdated, slow, and failing to convert,
+                  we transform underperforming web presences into client-producing
+                  machines. We pair high-performance design with AI-powered
+                  chatbots and automated workflows so your business captures every
+                  lead, responds instantly, and books more appointments — all
+                  without you lifting a finger.
                 </p>
                 <p>
-                  Founded by Jeremy, a technologist who saw too many great local
-                  businesses losing out to competitors with better digital
-                  presence. We're here to level the playing field.
+                  Founded by Jeremy Black in Sylva, North Carolina, High Ridge
+                  was born from watching too many great local businesses lose out
+                  to competitors with a better digital presence. We proudly serve
+                  all of Western North Carolina and are available globally for
+                  remote projects. Our mission is simple: level the playing field
+                  so your work speaks for itself.
                 </p>
               </div>
 

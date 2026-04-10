@@ -48,7 +48,7 @@ export default function HeroSection() {
         <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
           <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
           <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
-            Web Design &bull; AI Bots &bull; Automation
+            Web Design &bull; SEO &bull; AI Bots &bull; Automation
           </span>
         </div>
 
@@ -60,9 +60,10 @@ export default function HeroSection() {
 
         {/* Subheading */}
         <p className="mt-6 text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-          We build blazing-fast websites, intelligent AI chatbots, and
-          business automations that help local businesses capture more
-          leads and close more deals — on autopilot.
+          We build and remodel high-performance websites, optimize for
+          Google and AI-powered search, and deploy intelligent chatbots
+          and automations that help local businesses capture more leads
+          and close more deals — on autopilot.
         </p>
 
         {/* CTA buttons */}
