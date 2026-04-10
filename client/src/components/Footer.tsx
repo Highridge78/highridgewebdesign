@@ -36,7 +36,7 @@ export default function Footer() {
               <img
                 src={LOGO_URL}
                 alt="High Ridge Web Design"
-                className="h-12 w-auto mb-4"
+                className="h-20 w-auto mb-4"
               />
               <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
                 Design. Automate. Grow. — We build websites, AI bots, and
