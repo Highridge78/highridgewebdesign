@@ -31,7 +31,7 @@ const services = [
     icon: Search,
     title: "Get Found Where Customers Are Searching",
     subtitle: "Visibility Engine",
-    image: null,
+    image: "/seo-search-banner.png",
     description:
       "If customers can’t find you, they can’t hire you. We position your business to show up on Google and AI-powered search platforms.",
     features: [

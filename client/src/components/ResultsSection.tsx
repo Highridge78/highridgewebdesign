@@ -59,7 +59,6 @@ export default function ResultsSection() {
       <div className="absolute inset-0 bg-[oklch(0.10_0.02_260)]" />
 
       <div className="relative z-10 container">
-        {/* Industries we serve */}
         <div className="mb-16 md:mb-20">
           <ScrollReveal>
             <div className="text-center mb-10">
@@ -94,7 +93,6 @@ export default function ResultsSection() {
           </div>
         </div>
 
-        {/* Our Process */}
         <div className="mb-16 md:mb-20">
           <ScrollReveal>
             <div className="text-center mb-10">
@@ -123,7 +121,6 @@ export default function ResultsSection() {
                       {step.description}
                     </p>
                   </div>
-                  {/* Connector arrow (hidden on last item and mobile) */}
                   {i < processSteps.length - 1 && (
                     <div className="hidden lg:flex absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
                       <ArrowRight className="w-6 h-6 text-brand-orange/30" />
@@ -135,32 +132,32 @@ export default function ResultsSection() {
           </div>
         </div>
 
-        {/* Social proof CTA */}
         <ScrollReveal>
           <div className="rounded-2xl bg-gradient-to-br from-[oklch(0.15_0.03_50)] to-[oklch(0.12_0.02_260)] border border-brand-orange/20 p-8 md:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-4">
-                  Ready to Stop Losing Leads?
+                  Your Website Is Costing You Customers Right Now
                 </h3>
                 <p className="text-foreground/60 mb-6 leading-relaxed">
-                  Every day without automation is another day your competitors are
-                  capturing the leads you're missing. Let us show you exactly
-                  where your business is leaking revenue — completely free.
+                  If your website isn’t generating consistent leads, it’s actively costing you money. Every missed call, slow response, or weak design is sending potential customers straight to your competitors.
                 </p>
                 <button
                   onClick={scrollToContact}
-                  className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 py-3 rounded-lg glow-orange transition-all duration-300"
+                  className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 py-3 rounded-lg shadow-[0_0_25px_rgba(255,106,0,0.35)] transition-all duration-300"
                 >
-                  Get Your Free Audit
+                  Get My Free Website Audit
                   <ArrowRight className="w-4 h-4" />
                 </button>
+                <p className="mt-4 text-sm text-white/70">
+                  Takes less than 60 seconds — no commitment required
+                </p>
               </div>
               <div className="grid grid-cols-3 gap-4 text-center">
                 {[
-                  { value: "#1", label: "Google & AI Search Rankings" },
-                  { value: "98%", label: "Client Satisfaction" },
-                  { value: "3x", label: "Average ROI" },
+                  { value: "Fast", label: "Turnaround Times" },
+                  { value: "Local", label: "Business Focus" },
+                  { value: "Real", label: "Results That Matter" },
                 ].map((s) => (
                   <div key={s.label} className="p-4">
                     <div className="text-2xl md:text-3xl font-bold font-serif text-brand-orange">
