@@ -53,18 +53,14 @@ export default function HeroSection() {
         </div>
 
         {/* Main heading */}
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight max-w-4xl mx-auto">
-          Design. Automate.{" "}
-          <span className="text-gradient-orange">Grow.</span>
-        </h1>
+        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+  Your Website Should Be Bringing You Customers — Not Sitting There Doing Nothing
+</h1>
 
         {/* Subheading */}
-        <p className="mt-6 text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-          We build and remodel high-performance websites, optimize for
-          Google and AI-powered search, and deploy intelligent chatbots
-          and automations that help local businesses capture more leads
-          and close more deals — on autopilot.
-        </p>
+        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl">
+  We build high-performance websites for service businesses that want more calls, more leads, and real growth — not just a pretty design.
+</p>
 
         {/* CTA buttons */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -73,21 +69,25 @@ export default function HeroSection() {
             size="lg"
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
           >
-            Get Your Free Audit
+            Get My Free Website Audit
           </Button>
           <Button
             onClick={() => scrollTo("#services")}
             variant="outline"
             size="lg"
             className="border-white/30 text-white hover:bg-white/10 font-medium text-base px-8 py-6 rounded-lg backdrop-blur-sm"
-          >
-            See Our Services
-          </Button>
-        </div>
+                  >
+          See What We Can Do
+        </Button>
+      </div>
 
-        {/* Scroll indicator */}
-        <button
-          onClick={() => scrollTo("#services")}
+      <p className="mt-6 text-sm text-gray-400">
+        Most business websites lose potential customers within seconds. Let’s fix that.
+      </p>
+
+      {/* Scroll indicator */}
+      <button
+        onClick={() => scrollTo("#services")}
           className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 animate-bounce"
           aria-label="Scroll down"
         >
