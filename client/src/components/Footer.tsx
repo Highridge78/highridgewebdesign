@@ -38,7 +38,7 @@ export default function Footer() {
                 <img
                   src="/logo-trimmed-256.webp"
                   alt="High Ridge Web Design"
-                  className="h-[7.5rem] w-auto mb-4"
+                  className="h-[8.5rem] w-auto mb-4"
                   loading="lazy"
                   decoding="async"
                   width={256}
