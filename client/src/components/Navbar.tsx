@@ -7,8 +7,9 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
-const LOGO_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/logo-trimmed_4ca12aee.png";
+const LOGO_FALLBACK = "/logo-trimmed-512.webp";
+const LOGO_AVIF = "/logo-trimmed-256.avif";
+const LOGO_WEBP = "/logo-trimmed-256.webp";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -53,16 +54,20 @@ export default function Navbar() {
           }}
           className="flex items-center shrink-0"
         >
-          <img
-            src={LOGO_URL}
-            alt="High Ridge Web Design"
-            className="h-[7.5rem] md:h-[9rem] w-auto"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            width={512}
-            height={512}
-          />
+          <picture>
+            <source srcSet={LOGO_AVIF} type="image/avif" />
+            <source srcSet={LOGO_WEBP} type="image/webp" />
+            <img
+              src={LOGO_FALLBACK}
+              alt="High Ridge Web Design"
+              className="h-[7.5rem] md:h-[9rem] w-auto"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              width={256}
+              height={252}
+            />
+          </picture>
         </a>
 
         {/* Desktop links */}
