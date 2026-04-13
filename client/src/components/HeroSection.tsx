@@ -12,15 +12,31 @@ const HERO_BG =
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const latestScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!heroRef.current) return;
-      const y = window.scrollY;
-      heroRef.current.style.transform = `translateY(${y * 0.3}px)`;
+    const updateParallax = () => {
+      if (heroRef.current) {
+        heroRef.current.style.transform = `translateY(${latestScrollY.current * 0.3}px)`;
+      }
+      rafRef.current = null;
     };
+
+    const handleScroll = () => {
+      latestScrollY.current = window.scrollY;
+      if (rafRef.current !== null) return;
+      rafRef.current = window.requestAnimationFrame(updateParallax);
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, []);
 
   const scrollTo = (id: string) => {

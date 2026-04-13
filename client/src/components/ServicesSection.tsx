@@ -2,6 +2,7 @@
  * ServicesSection — High Ridge Web Design
  * Service cards focused on outcomes, conversions, visibility, and automation.
  */
+import { useCallback } from "react";
 import { Globe, Bot, Zap, Search, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
@@ -72,9 +73,9 @@ const services = [
 ];
 
 export default function ServicesSection() {
-  const scrollToContact = () => {
+  const scrollToContact = useCallback(() => {
     document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
     <section id="services" className="relative py-20 md:py-24">
