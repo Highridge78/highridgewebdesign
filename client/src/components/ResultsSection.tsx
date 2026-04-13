@@ -11,6 +11,7 @@ import {
   Home,
   ArrowRight,
 } from "lucide-react";
+import { useCallback } from "react";
 import ScrollReveal from "./ScrollReveal";
 
 const industries = [
@@ -50,9 +51,9 @@ const processSteps = [
 ];
 
 export default function ResultsSection() {
-  const scrollToContact = () => {
+  const scrollToContact = useCallback(() => {
     document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
     <section id="results" className="relative py-20 md:py-24">
