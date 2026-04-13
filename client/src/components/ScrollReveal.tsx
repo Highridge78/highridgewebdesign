@@ -1,4 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useIsMobile } from "@/hooks/useMobile";
 import type { ReactNode, CSSProperties } from "react";
 
 interface ScrollRevealProps {
@@ -18,26 +19,34 @@ export default function ScrollReveal({
   distance = 30,
   duration = 700,
 }: ScrollRevealProps) {
-  const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
+  const isMobile = useIsMobile();
+  const shouldReduceMotion = isMobile;
+  const { ref, isVisible } = useScrollReveal<HTMLDivElement>({
+    disabled: shouldReduceMotion,
+  });
+
+  const effectiveDistance = shouldReduceMotion ? 0 : distance;
+  const effectiveDuration = shouldReduceMotion ? 0 : duration;
+  const effectiveDelay = shouldReduceMotion ? 0 : delay;
 
   const directionMap: Record<string, CSSProperties> = {
-    up: { transform: `translateY(${distance}px)` },
-    down: { transform: `translateY(-${distance}px)` },
-    left: { transform: `translateX(${distance}px)` },
-    right: { transform: `translateX(-${distance}px)` },
+    up: { transform: `translateY(${effectiveDistance}px)` },
+    down: { transform: `translateY(-${effectiveDistance}px)` },
+    left: { transform: `translateX(${effectiveDistance}px)` },
+    right: { transform: `translateX(-${effectiveDistance}px)` },
     none: { transform: "none" },
   };
 
   const hiddenStyle: CSSProperties = {
     opacity: 0,
     ...directionMap[direction],
-    transition: `opacity ${duration}ms ease-out ${delay}ms, transform ${duration}ms ease-out ${delay}ms`,
+    transition: `opacity ${effectiveDuration}ms ease-out ${effectiveDelay}ms, transform ${effectiveDuration}ms ease-out ${effectiveDelay}ms`,
   };
 
   const visibleStyle: CSSProperties = {
     opacity: 1,
     transform: "translateY(0) translateX(0)",
-    transition: `opacity ${duration}ms ease-out ${delay}ms, transform ${duration}ms ease-out ${delay}ms`,
+    transition: `opacity ${effectiveDuration}ms ease-out ${effectiveDelay}ms, transform ${effectiveDuration}ms ease-out ${effectiveDelay}ms`,
   };
 
   return (

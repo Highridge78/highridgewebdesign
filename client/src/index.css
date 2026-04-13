@@ -158,6 +158,14 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  @media (max-width: 767px) {
+    /* Reduce expensive glow paints on mobile GPUs. */
+    .glow-orange,
+    .glow-orange:hover {
+      box-shadow: none;
+    }
+  }
 }
 
 /* Smooth scrolling */

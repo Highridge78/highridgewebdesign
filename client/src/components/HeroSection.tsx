@@ -6,14 +6,18 @@
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
+import { useIsMobile } from "@/hooks/useMobile";
 
 const HERO_BG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/hero-bg-user_e8b373ac.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/hero-bg-6AP37PrEwkYVivEqXtb2BS.webp";
 
 export default function HeroSection() {
-  const heroRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLImageElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
+    if (isMobile) return;
+
     const handleScroll = () => {
       if (!heroRef.current) return;
       const y = window.scrollY;
@@ -21,7 +25,7 @@ export default function HeroSection() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isMobile]);
 
   const scrollTo = (id: string) => {
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
@@ -30,10 +34,14 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background image with parallax */}
-      <div
+      <img
         ref={heroRef}
-        className="absolute inset-0 -top-20 -bottom-20 bg-cover bg-center bg-no-repeat will-change-transform"
-        style={{ backgroundImage: `url(${HERO_BG})` }}
+        src={HERO_BG}
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
       />
 
       {/* Dark overlay gradient — heavier at top for nav readability, lighter at center */}
@@ -46,7 +54,7 @@ export default function HeroSection() {
       <div className="relative z-10 container text-center px-4">
         {/* Tagline badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
-          <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-brand-orange md:animate-pulse" />
           <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
             Web Design &bull; SEO &bull; AI Bots &bull; Automation
           </span>
@@ -88,7 +96,7 @@ export default function HeroSection() {
       {/* Scroll indicator */}
       <button
         onClick={() => scrollTo("#services")}
-          className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 animate-bounce"
+          className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 md:animate-bounce"
           aria-label="Scroll down"
         >
           <span className="text-xs uppercase tracking-widest">Explore</span>

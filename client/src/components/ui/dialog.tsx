@@ -1,23 +1,11 @@
 import { cn } from "@/lib/utils";
+import {
+  DialogCompositionContext,
+  useDialogComposition,
+} from "@/components/ui/dialog-composition";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { XIcon } from "lucide-react";
 import * as React from "react";
-
-// Context to track composition state across dialog children
-const DialogCompositionContext = React.createContext<{
-  isComposing: () => boolean;
-  setComposing: (composing: boolean) => void;
-  justEndedComposing: () => boolean;
-  markCompositionEnd: () => void;
-}>({
-  isComposing: () => false,
-  setComposing: () => {},
-  justEndedComposing: () => false,
-  markCompositionEnd: () => {},
-});
-
-export const useDialogComposition = () =>
-  React.useContext(DialogCompositionContext);
 
 function Dialog({
   ...props

@@ -1,14 +1,18 @@
+import { lazy, Suspense } from "react";
 import { Route, Switch } from "wouter";
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import DemoPage from "./pages/demo";
+
+const Home = lazy(() => import("./pages/Home"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const DemoPage = lazy(() => import("./pages/demo"));
 
 export default function App() {
   return (
-    <Switch>
-      <Route path="/demo" component={DemoPage} />
-      <Route path="/" component={Home} />
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={null}>
+      <Switch>
+        <Route path="/demo" component={DemoPage} />
+        <Route path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }

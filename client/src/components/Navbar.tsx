@@ -57,6 +57,11 @@ export default function Navbar() {
             src={LOGO_URL}
             alt="High Ridge Web Design"
             className="h-[7.5rem] md:h-[9rem] w-auto"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            width={512}
+            height={512}
           />
         </a>
 

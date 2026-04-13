@@ -39,6 +39,8 @@ export default function Footer() {
                 src={LOGO_URL}
                 alt="High Ridge Web Design"
                 className="h-[7.5rem] w-auto mb-4"
+                loading="lazy"
+                decoding="async"
               />
               <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
                 Design. Automate. Grow. — We build websites, AI bots, and
