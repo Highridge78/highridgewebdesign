@@ -33,16 +33,16 @@ export default function Footer() {
             {/* Logo & tagline */}
             <div>
               <picture>
-                <source srcSet="/logo-trimmed-256.avif" type="image/avif" />
-                <source srcSet="/logo-trimmed-256.webp" type="image/webp" />
+                <source srcSet="/new-logo-320.avif" type="image/avif" />
+                <source srcSet="/new-logo-320.webp" type="image/webp" />
                 <img
-                  src="/logo-trimmed-256.webp"
+                  src="/new-logo-640.webp"
                   alt="High Ridge Web Design"
                   className="h-[8.5rem] w-auto mb-4"
                   loading="lazy"
                   decoding="async"
-                  width={256}
-                  height={252}
+                  width={320}
+                  height={320}
                 />
               </picture>
               <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">

@@ -7,9 +7,9 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
-const LOGO_FALLBACK = "/logo-trimmed-512.webp";
-const LOGO_AVIF = "/logo-trimmed-256.avif";
-const LOGO_WEBP = "/logo-trimmed-256.webp";
+const LOGO_FALLBACK = "/new-logo-640.webp";
+const LOGO_AVIF = "/new-logo-320.avif";
+const LOGO_WEBP = "/new-logo-320.webp";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -64,8 +64,8 @@ export default function Navbar() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              width={256}
-              height={252}
+              width={320}
+              height={320}
             />
           </picture>
         </a>
