@@ -6,11 +6,11 @@ import { Globe, Bot, Zap, Search, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 const SERVICES_WEB =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/services-web-L7PL3M9GEdLC28yTUAy6uP.webp";
+  "/services-web-960.webp";
 const SERVICES_AI =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/services-ai-Pc2uLtLVbDvCAwwNrvF7Cm.webp";
+  "/services-ai-960.webp";
 const SERVICES_AUTO =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/services-auto-RUTvdvHyYcCR6C5FshLFqK.webp";
+  "/services-auto-960.webp";
 
 const services = [
   {
@@ -18,6 +18,7 @@ const services = [
     title: "Websites That Turn Visitors Into Customers",
     subtitle: "Conversion First",
     image: SERVICES_WEB,
+    imageAvif: "/services-web-960.avif",
     description:
       "Your website should be your #1 sales tool. We build high-performance sites designed to turn traffic into real calls, leads, and paying customers.",
     features: [
@@ -47,6 +48,7 @@ const services = [
     title: "AI That Captures Leads 24/7",
     subtitle: "Always Working",
     image: SERVICES_AI,
+    imageAvif: "/services-ai-960.avif",
     description:
       "Never miss another lead. Our AI systems respond instantly, qualify prospects, and help convert visitors into booked customers — even while you sleep.",
     features: [
@@ -61,6 +63,7 @@ const services = [
     title: "Automation That Saves You Time",
     subtitle: "Efficiency System",
     image: SERVICES_AUTO,
+    imageAvif: "/services-auto-960.avif",
     description:
       "Stop wasting time on repetitive tasks. We build systems that streamline your business so you can focus on growth.",
     features: [
