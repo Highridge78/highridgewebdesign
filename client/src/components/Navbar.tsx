@@ -6,6 +6,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { useLocation } from "wouter";
 
 const LOGO_FALLBACK = "/new-logo-640.webp";
 const LOGO_AVIF = "/new-logo-320.avif";
@@ -13,6 +14,7 @@ const LOGO_WEBP = "/new-logo-320.webp";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
+  { label: "Demo Sites", href: "/portfolio" },
   { label: "About", href: "#about" },
   { label: "Results", href: "#results" },
   { label: "Contact", href: "#contact" },
@@ -21,6 +23,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [location, setLocation] = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -30,6 +33,16 @@ export default function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
+    if (href.startsWith("/")) {
+      setLocation(href);
+      return;
+    }
+
+    if (location !== "/") {
+      setLocation(`/${href}`);
+      return;
+    }
+
     const el = document.querySelector(href);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
@@ -50,6 +63,10 @@ export default function Navbar() {
           href="#"
           onClick={(e) => {
             e.preventDefault();
+            if (location !== "/") {
+              setLocation("/");
+              return;
+            }
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           className="flex items-center shrink-0"
