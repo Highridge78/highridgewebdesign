@@ -143,12 +143,6 @@ export interface LeadOutreachMessageEntry {
   createdAt: string;
 }
 
-export interface LeadLifecycleTimestamps {
-  createdAt: string;
-  updatedAt: string;
-  lastContactedAt?: string;
-}
-
 export interface PersistedLead {
   id: string;
   businessName: string;
@@ -162,7 +156,9 @@ export interface PersistedLead {
     history: LeadOutreachMessageEntry[];
   };
   status: LeadPipelineStatus;
-  timestamps: LeadLifecycleTimestamps;
+  createdAt: string;
+  updatedAt: string;
+  lastContactedAt?: string;
   followUpCount: number;
 }
 
@@ -611,31 +607,29 @@ export function createPersistedLeadFromScoredLead(
       history: existing?.outreachMessages.history ?? [],
     },
     status: existing?.status ?? "new",
-    timestamps: {
-      createdAt: existing?.timestamps.createdAt ?? now,
-      updatedAt: existing?.timestamps.updatedAt ?? now,
-      lastContactedAt: existing?.timestamps.lastContactedAt,
-    },
+    createdAt: existing?.createdAt ?? now,
+    updatedAt: existing?.updatedAt ?? now,
+    lastContactedAt: existing?.lastContactedAt,
     followUpCount: existing?.followUpCount ?? 0,
   };
 }
 
-export function generateFollowUpMessage(options: {
+export function generateFollowUpMessage(lead: {
   businessName: string;
   score: number;
   previousMessage?: string;
 }) {
   const reference =
-    options.previousMessage?.trim().slice(0, 120) ??
+    lead.previousMessage?.trim().slice(0, 120) ??
     "I noticed a few opportunities on your website";
 
-  if (options.score <= 3) {
-    return `Hey, quick follow-up — ${reference.toLowerCase()}. This is likely costing ${options.businessName} calls each week. Want me to send over a fast fix plan?`;
+  if (lead.score <= 3) {
+    return `Hey, quick follow-up — ${reference.toLowerCase()}. This is likely costing ${lead.businessName} calls right now. Want my 2-minute fix plan?`;
   }
 
-  if (options.score <= 6) {
-    return `Hey, just following up — ${reference.toLowerCase()}. There are a couple quick wins that can help ${options.businessName} get more calls. Want me to send them over?`;
+  if (lead.score <= 6) {
+    return `Hey, just following up — ${reference.toLowerCase()}. I found a few quick fixes that could help ${lead.businessName} pull in more calls this month. Want me to send them over?`;
   }
 
-  return `Hey, circling back — ${reference.toLowerCase()}. I spotted a few direct conversion wins for ${options.businessName}. Want the short breakdown?`;
+  return `Hey, circling back — ${reference.toLowerCase()}. I spotted a few optimization wins that can lift conversions for ${lead.businessName}. Want the short breakdown?`;
 }

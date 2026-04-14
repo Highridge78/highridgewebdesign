@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import {
-  loadPersistedLeads,
-  persistLeads,
+  loadLeads,
+  saveLeads,
   updateLeadStatus,
 } from "@/lib/leadPipelineStorage";
 import { useLocation } from "wouter";
@@ -41,7 +41,7 @@ export default function PipelinePage() {
       "Track lead lifecycle from new to closed with a local-first, persistent outreach pipeline board.",
   });
 
-  const [leads, setLeads] = useState<PersistedLead[]>(() => loadPersistedLeads());
+  const [leads, setLeads] = useState<PersistedLead[]>(() => loadLeads());
   const [statusText, setStatusText] = useState("Manage your lead lifecycle in one place.");
   const [, setLocation] = useLocation();
 
@@ -56,7 +56,7 @@ export default function PipelinePage() {
 
     for (const status of LEAD_PIPELINE_STATUSES) {
       groups[status].sort((a, b) =>
-        b.timestamps.updatedAt.localeCompare(a.timestamps.updatedAt)
+        b.updatedAt.localeCompare(a.updatedAt)
       );
     }
 
@@ -66,7 +66,7 @@ export default function PipelinePage() {
   const updateLeads = (updater: (current: PersistedLead[]) => PersistedLead[]) => {
     setLeads((current) => {
       const next = updater(current);
-      persistLeads(next);
+      saveLeads(next);
       return next;
     });
   };
@@ -151,10 +151,10 @@ export default function PipelinePage() {
                         <p className="mt-2 text-xs text-foreground/65 break-all">
                           {lead.contactInfo.email ?? lead.contactInfo.phone ?? "No contact info"}
                         </p>
-                        {lead.timestamps.lastContactedAt ? (
+                        {lead.lastContactedAt ? (
                           <p className="mt-1 text-xs text-foreground/50">
                             Last contact:{" "}
-                            {new Date(lead.timestamps.lastContactedAt).toLocaleString()}
+                            {new Date(lead.lastContactedAt).toLocaleString()}
                           </p>
                         ) : null}
                         <label className="mt-3 block">

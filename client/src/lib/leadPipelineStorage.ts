@@ -8,7 +8,7 @@ import {
   type ScoredLeadWithOutreach,
 } from "@shared/leadEngine";
 
-const LEAD_PIPELINE_STORAGE_KEY = "highridge.lead-pipeline.v1";
+const LEAD_PIPELINE_STORAGE_KEY = "lead.pipeline.v1";
 
 function isPipelineStatus(value: unknown): value is LeadPipelineStatus {
   return (
@@ -172,21 +172,19 @@ function normalizePersistedLead(value: unknown): PersistedLead | null {
       history: normalizedHistory,
     },
     status: isPipelineStatus(candidate.status) ? candidate.status : "new",
-    timestamps: {
-      createdAt:
-        typeof rawTimestamps.createdAt === "string"
-          ? rawTimestamps.createdAt
-          : typeof candidate.createdAt === "string"
-            ? candidate.createdAt
-            : now,
-      updatedAt:
-        typeof rawTimestamps.updatedAt === "string"
-          ? rawTimestamps.updatedAt
-          : typeof candidate.updatedAt === "string"
-            ? candidate.updatedAt
-            : now,
-      lastContactedAt,
-    },
+    createdAt:
+      typeof rawTimestamps.createdAt === "string"
+        ? rawTimestamps.createdAt
+        : typeof candidate.createdAt === "string"
+          ? candidate.createdAt
+          : now,
+    updatedAt:
+      typeof rawTimestamps.updatedAt === "string"
+        ? rawTimestamps.updatedAt
+        : typeof candidate.updatedAt === "string"
+          ? candidate.updatedAt
+          : now,
+    lastContactedAt,
     followUpCount:
       typeof candidate.followUpCount === "number"
         ? candidate.followUpCount
@@ -194,7 +192,7 @@ function normalizePersistedLead(value: unknown): PersistedLead | null {
   };
 }
 
-export function loadPersistedLeads(): PersistedLead[] {
+export function loadLeads(): PersistedLead[] {
   if (typeof window === "undefined") {
     return [];
   }
@@ -220,6 +218,15 @@ export function persistLeads(leads: PersistedLead[]) {
   window.localStorage.setItem(LEAD_PIPELINE_STORAGE_KEY, JSON.stringify(leads));
 }
 
+export const saveLeads = persistLeads;
+
+function withUpdatedAt(lead: PersistedLead, updatedAt: string): PersistedLead {
+  return {
+    ...lead,
+    updatedAt,
+  };
+}
+
 export function mergeScoredLeadsIntoPersisted(
   current: PersistedLead[],
   scoredLeads: ScoredLeadWithOutreach[]
@@ -243,6 +250,8 @@ export function mergeScoredLeadsIntoPersisted(
   return merged;
 }
 
+export const upsertLeadsFromSearch = mergeScoredLeadsIntoPersisted;
+
 export function updateLeadStatus(
   leads: PersistedLead[],
   leadId: string,
@@ -251,16 +260,23 @@ export function updateLeadStatus(
   const now = new Date().toISOString();
   return leads.map((lead) =>
     lead.id === leadId
-      ? {
-          ...lead,
-          status,
-          timestamps: {
-            ...lead.timestamps,
-            updatedAt: now,
+      ? withUpdatedAt(
+          {
+            ...lead,
+            status,
           },
-        }
+          now
+        )
       : lead
   );
+}
+
+export function updateLeadStatusById(
+  leads: PersistedLead[],
+  leadId: string,
+  status: LeadPipelineStatus
+) {
+  return updateLeadStatus(leads, leadId, status);
 }
 
 export function addLeadOutreachHistoryEntry(
@@ -271,28 +287,35 @@ export function addLeadOutreachHistoryEntry(
   const now = new Date().toISOString();
   return leads.map((lead) =>
     lead.id === leadId
-      ? {
-          ...lead,
-          outreachMessages: {
-            ...lead.outreachMessages,
-            history: [
-              ...lead.outreachMessages.history,
-              {
-                id: `${leadId}-${entry.type}-${Date.now()}`,
-                createdAt: now,
-                ...entry,
-              },
-            ],
+      ? withUpdatedAt(
+          {
+            ...lead,
+            outreachMessages: {
+              ...lead.outreachMessages,
+              history: [
+                ...lead.outreachMessages.history,
+                {
+                  id: `${leadId}-${entry.type}-${Date.now()}`,
+                  createdAt: now,
+                  ...entry,
+                },
+              ],
+            },
+            followUpCount:
+              entry.type === "follow-up" ? lead.followUpCount + 1 : lead.followUpCount,
           },
-          followUpCount:
-            entry.type === "follow-up" ? lead.followUpCount + 1 : lead.followUpCount,
-          timestamps: {
-            ...lead.timestamps,
-            updatedAt: now,
-          },
-        }
+          now
+        )
       : lead
   );
+}
+
+export function addOutreachHistory(
+  leads: PersistedLead[],
+  leadId: string,
+  entry: Omit<LeadOutreachMessageEntry, "id" | "createdAt">
+) {
+  return addLeadOutreachHistoryEntry(leads, leadId, entry);
 }
 
 export function markLeadAsContacted(
@@ -303,19 +326,29 @@ export function markLeadAsContacted(
 ): PersistedLead[] {
   return leads.map((lead) =>
     lead.id === leadId
-      ? {
-          ...lead,
-          status: nextStatus,
-          timestamps: {
-            ...lead.timestamps,
-            updatedAt: contactedAt,
+      ? withUpdatedAt(
+          {
+            ...lead,
+            status: nextStatus,
             lastContactedAt: contactedAt,
           },
-        }
+          contactedAt
+        )
       : lead
   );
+}
+
+export function markContacted(
+  leads: PersistedLead[],
+  leadId: string,
+  contactedAt = new Date().toISOString(),
+  nextStatus: LeadPipelineStatus = "contacted"
+) {
+  return markLeadAsContacted(leads, leadId, contactedAt, nextStatus);
 }
 
 export function getLeadMapById(leads: PersistedLead[]) {
   return new Map(leads.map((lead) => [lead.id, lead]));
 }
+
+export const loadPersistedLeads = loadLeads;

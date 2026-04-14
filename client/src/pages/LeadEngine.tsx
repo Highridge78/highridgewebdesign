@@ -15,12 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import {
-  addLeadOutreachHistoryEntry,
+  addOutreachHistory,
   getLeadMapById,
-  loadPersistedLeads,
+  loadLeads,
   markLeadAsContacted,
-  mergeScoredLeadsIntoPersisted,
-  persistLeads,
+  upsertLeadsFromSearch,
+  saveLeads,
   updateLeadStatus,
 } from "@/lib/leadPipelineStorage";
 import type {
@@ -108,14 +108,14 @@ export default function LeadEnginePage() {
   const [sortKey, setSortKey] = useState<LeadSortKey>("score");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [selectedOutreachLeadId, setSelectedOutreachLeadId] = useState<string | null>(null);
-  const [persistedLeads, setPersistedLeads] = useState<PersistedLead[]>(() => loadPersistedLeads());
+  const [persistedLeads, setPersistedLeads] = useState<PersistedLead[]>(() => loadLeads());
   const [sendingState, setSendingState] = useState<Record<string, { email: boolean; sms: boolean }>>({});
   const [, setLocation] = useLocation();
 
   const updatePersistedLeads = (updater: (current: PersistedLead[]) => PersistedLead[]) => {
     setPersistedLeads((current) => {
       const next = updater(current);
-      persistLeads(next);
+      saveLeads(next);
       return next;
     });
   };
@@ -204,8 +204,8 @@ export default function LeadEnginePage() {
 
       const sentAt = payload.sentAt ?? new Date().toISOString();
       updatePersistedLeads((current) => {
-        const ensured = mergeScoredLeadsIntoPersisted(current, [lead]);
-        const withHistory = addLeadOutreachHistoryEntry(ensured, lead.id, {
+        const ensured = upsertLeadsFromSearch(current, [lead]);
+        const withHistory = addOutreachHistory(ensured, lead.id, {
           type: channel,
           subject: channel === "email" ? lead.outreach.subject : undefined,
           body: channel === "email" ? lead.outreach.emailMessage : lead.outreach.smsMessage,
@@ -269,7 +269,7 @@ export default function LeadEnginePage() {
 
       const payload = (await response.json()) as LeadEngineSearchResponse;
       setResults(payload);
-      updatePersistedLeads((current) => mergeScoredLeadsIntoPersisted(current, payload.leads));
+      updatePersistedLeads((current) => upsertLeadsFromSearch(current, payload.leads));
       setStatusText(
         payload.usedProvider === "google-places"
           ? `Search completed using Google Places data. ${payload.leads.length} leads are now tracked in your pipeline.`
@@ -349,8 +349,8 @@ export default function LeadEnginePage() {
     });
 
     updatePersistedLeads((current) => {
-      const ensured = mergeScoredLeadsIntoPersisted(current, [lead]);
-      return addLeadOutreachHistoryEntry(ensured, lead.id, {
+      const ensured = upsertLeadsFromSearch(current, [lead]);
+      return addOutreachHistory(ensured, lead.id, {
         type: "follow-up",
         subject: `Follow-up for ${lead.name}`,
         body: followUpMessage,
@@ -671,10 +671,10 @@ export default function LeadEnginePage() {
                             <p className="mt-2 text-xs text-foreground/55">
                               Follow-ups: {trackedLead?.followUpCount ?? 0}
                             </p>
-                            {trackedLead?.timestamps.lastContactedAt ? (
+                            {trackedLead?.lastContactedAt ? (
                               <p className="mt-1 text-xs text-foreground/55">
                                 Last contact:{" "}
-                                {new Date(trackedLead.timestamps.lastContactedAt).toLocaleString()}
+                                {new Date(trackedLead.lastContactedAt).toLocaleString()}
                               </p>
                             ) : null}
                           </td>
