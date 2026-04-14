@@ -81,6 +81,32 @@ export interface LeadScoreRequest {
   lead: LeadBusiness;
 }
 
+export interface SendEmailRequest {
+  to: string;
+  subject: string;
+  body: string;
+  leadId?: string;
+  businessName?: string;
+}
+
+export interface SendSmsRequest {
+  to: string;
+  message: string;
+  leadId?: string;
+  businessName?: string;
+}
+
+export type SendProvider = "resend" | "sendgrid" | "twilio" | "mock";
+
+export interface SendOutreachResponse {
+  success: boolean;
+  provider: SendProvider;
+  mode: "live" | "mock";
+  message: string;
+  sentAt: string;
+  messageId?: string;
+}
+
 export type LeadSortKey = "score" | "name" | "city" | "businessType";
 export type SortDirection = "asc" | "desc";
 

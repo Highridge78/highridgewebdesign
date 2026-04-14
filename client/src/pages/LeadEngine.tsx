@@ -11,6 +11,7 @@ import type {
   LeadSearchInput,
   LeadSortKey,
   LeadScoreBreakdown,
+  SendOutreachResponse,
   ScoredLeadWithOutreach,
   SortDirection,
 } from "@shared/leadEngine";
@@ -79,6 +80,18 @@ export default function LeadEnginePage() {
   const [sortKey, setSortKey] = useState<LeadSortKey>("score");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [selectedOutreachLeadId, setSelectedOutreachLeadId] = useState<string | null>(null);
+  const [leadStatuses, setLeadStatuses] = useState<
+    Record<
+      string,
+      {
+        status: "new" | "sent" | "failed" | "replied";
+        lastSentAt?: string;
+        lastChannel?: "email" | "sms";
+        error?: string;
+      }
+    >
+  >({});
+  const [sendingState, setSendingState] = useState<Record<string, { email: boolean; sms: boolean }>>({});
 
   const sortedLeads = useMemo(() => {
     if (!results) return [];
@@ -89,6 +102,109 @@ export default function LeadEnginePage() {
     () => sortedLeads.find((lead) => lead.id === selectedOutreachLeadId) ?? null,
     [selectedOutreachLeadId, sortedLeads]
   );
+
+  const getLeadStatus = (leadId: string) => {
+    return leadStatuses[leadId] ?? { status: "new" as const };
+  };
+
+  const setSending = (leadId: string, channel: "email" | "sms", isSending: boolean) => {
+    setSendingState((prev) => ({
+      ...prev,
+      [leadId]: {
+        email: channel === "email" ? isSending : prev[leadId]?.email ?? false,
+        sms: channel === "sms" ? isSending : prev[leadId]?.sms ?? false,
+      },
+    }));
+  };
+
+  const sendOutreach = async (
+    lead: ScoredLeadWithOutreach,
+    channel: "email" | "sms"
+  ) => {
+    if (channel === "email" && !lead.email) {
+      setStatusText(`No email found for ${lead.name}.`);
+      return;
+    }
+    if (channel === "sms" && !lead.phone) {
+      setStatusText(`No phone number found for ${lead.name}.`);
+      return;
+    }
+
+    setSending(lead.id, channel, true);
+    setStatusText(
+      channel === "email"
+        ? `Sending email to ${lead.name}...`
+        : `Sending SMS to ${lead.name}...`
+    );
+
+    try {
+      const response = await fetch(
+        channel === "email" ? "/api/outreach/send-email" : "/api/outreach/send-sms",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body:
+            channel === "email"
+              ? JSON.stringify({
+                  leadId: lead.id,
+                  to: lead.email,
+                  subject: lead.outreach.subject,
+                  body: lead.outreach.emailMessage,
+                })
+              : JSON.stringify({
+                  leadId: lead.id,
+                  to: lead.phone,
+                  message: lead.outreach.smsMessage,
+                }),
+        }
+      );
+
+      const payload = (await response.json().catch(() => null)) as
+        | SendOutreachResponse
+        | { error?: string; detail?: string }
+        | null;
+
+      if (!response.ok || !payload || !("success" in payload) || !payload.success) {
+        throw new Error(
+          (payload && "detail" in payload && payload.detail) ||
+            (payload && "error" in payload && payload.error) ||
+            "Send failed"
+        );
+      }
+
+      const sentAt = payload.sentAt ?? new Date().toISOString();
+      setLeadStatuses((prev) => ({
+        ...prev,
+        [lead.id]: {
+          status: "sent",
+          lastSentAt: sentAt,
+          lastChannel: channel,
+        },
+      }));
+      setStatusText(
+        channel === "email"
+          ? `Email sent to ${lead.name}${payload.mode === "mock" ? " (mock mode)" : ""}.`
+          : `SMS sent to ${lead.name}${payload.mode === "mock" ? " (mock mode)" : ""}.`
+      );
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Send failed";
+      setLeadStatuses((prev) => ({
+        ...prev,
+        [lead.id]: {
+          status: "failed",
+          lastChannel: channel,
+          error: message,
+        },
+      }));
+      setStatusText(
+        channel === "email"
+          ? `Failed to send email to ${lead.name}.`
+          : `Failed to send SMS to ${lead.name}.`
+      );
+    } finally {
+      setSending(lead.id, channel, false);
+    }
+  };
 
   const copyText = async (text: string, label: string) => {
     await navigator.clipboard.writeText(text);
@@ -366,7 +482,15 @@ export default function LeadEnginePage() {
                 <table className="min-w-full divide-y divide-border text-sm">
                   <thead className="bg-background/75">
                     <tr>
-                      {["Business", "Contact", "Website", "Score", "Notes", "Outreach"].map((header) => (
+                      {[
+                        "Business",
+                        "Contact",
+                        "Website",
+                        "Score",
+                        "Notes",
+                        "Status",
+                        "Actions",
+                      ].map((header) => (
                         <th
                           key={header}
                           className="px-4 py-3 text-left text-xs uppercase tracking-wider text-foreground/60"
@@ -379,7 +503,7 @@ export default function LeadEnginePage() {
                   <tbody className="divide-y divide-border/70">
                     {sortedLeads.length === 0 && !loading ? (
                       <tr>
-                        <td colSpan={6} className="px-4 py-8 text-center text-foreground/60">
+                        <td colSpan={7} className="px-4 py-8 text-center text-foreground/60">
                           No leads yet. Run a search to generate scored prospects.
                         </td>
                       </tr>
@@ -461,15 +585,77 @@ export default function LeadEnginePage() {
                             : "No major issues detected"}
                         </td>
                         <td className="px-4 py-3">
-                          <Button
-                            type="button"
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setSelectedOutreachLeadId(lead.id)}
-                          >
-                            <MessageSquareText className="h-4 w-4" />
-                            View Outreach
-                          </Button>
+                          {(() => {
+                            const status = getLeadStatus(lead.id);
+                            const classes =
+                              status.status === "sent"
+                                ? "bg-emerald-500/15 text-emerald-200 border-emerald-500/30"
+                                : status.status === "failed"
+                                  ? "bg-red-500/15 text-red-200 border-red-500/30"
+                                  : "bg-slate-500/10 text-foreground/70 border-border";
+                            return (
+                              <>
+                                <span
+                                  className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold capitalize ${classes}`}
+                                >
+                                  {status.status}
+                                </span>
+                                {status.lastSentAt ? (
+                                  <p className="mt-2 text-xs text-foreground/55">
+                                    {new Date(status.lastSentAt).toLocaleString()}
+                                  </p>
+                                ) : null}
+                                {status.error ? (
+                                  <p className="mt-2 text-xs text-red-300">{status.error}</p>
+                                ) : null}
+                              </>
+                            );
+                          })()}
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="flex flex-col gap-2">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              disabled={
+                                !lead.email || sendingState[lead.id]?.email || sendingState[lead.id]?.sms
+                              }
+                              onClick={() => sendOutreach(lead, "email")}
+                            >
+                              {sendingState[lead.id]?.email ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                <Mail className="h-4 w-4" />
+                              )}
+                              Send Email
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              disabled={
+                                !lead.phone || sendingState[lead.id]?.sms || sendingState[lead.id]?.email
+                              }
+                              onClick={() => sendOutreach(lead, "sms")}
+                            >
+                              {sendingState[lead.id]?.sms ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                <MessageSquareText className="h-4 w-4" />
+                              )}
+                              Send SMS
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              onClick={() => setSelectedOutreachLeadId(lead.id)}
+                            >
+                              <MessageSquareText className="h-4 w-4" />
+                              View Outreach
+                            </Button>
+                          </div>
                         </td>
                       </tr>
                     ))}
