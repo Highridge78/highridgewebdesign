@@ -1,20 +1,48 @@
-import { useMemo, useState } from "react";
-import { ArrowDownUp, Download, Loader2, Search, Copy, MessageSquareText, Mail } from "lucide-react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import {
+  ArrowDownUp,
+  Download,
+  Loader2,
+  Search,
+  Copy,
+  MessageSquareText,
+  Mail,
+  Workflow,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { usePageMeta } from "@/hooks/usePageMeta";
+import {
+  addLeadOutreachHistoryEntry,
+  getLeadMapById,
+  loadPersistedLeads,
+  markLeadAsContacted,
+  mergeScoredLeadsIntoPersisted,
+  persistLeads,
+  updateLeadStatus,
+} from "@/lib/leadPipelineStorage";
 import type {
+  LeadPipelineStatus,
   LeadEngineSearchResponse,
   LeadOutreach,
   LeadSearchInput,
   LeadSortKey,
   LeadScoreBreakdown,
+  PersistedLead,
   SendOutreachResponse,
   ScoredLeadWithOutreach,
   SortDirection,
 } from "@shared/leadEngine";
+import {
+  LEAD_PIPELINE_STATUS_LABELS,
+  LEAD_PIPELINE_STATUSES,
+  generateFollowUpMessage,
+} from "@shared/leadEngine";
+import { useLocation } from "wouter";
+
+const INITIAL_CONTACT_STATUS: LeadPipelineStatus = "contacted";
 
 const DEFAULT_FORM: LeadSearchInput = {
   city: "",
@@ -80,18 +108,19 @@ export default function LeadEnginePage() {
   const [sortKey, setSortKey] = useState<LeadSortKey>("score");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [selectedOutreachLeadId, setSelectedOutreachLeadId] = useState<string | null>(null);
-  const [leadStatuses, setLeadStatuses] = useState<
-    Record<
-      string,
-      {
-        status: "new" | "sent" | "failed" | "replied";
-        lastSentAt?: string;
-        lastChannel?: "email" | "sms";
-        error?: string;
-      }
-    >
-  >({});
+  const [persistedLeads, setPersistedLeads] = useState<PersistedLead[]>(() => loadPersistedLeads());
   const [sendingState, setSendingState] = useState<Record<string, { email: boolean; sms: boolean }>>({});
+  const [, setLocation] = useLocation();
+
+  const updatePersistedLeads = (updater: (current: PersistedLead[]) => PersistedLead[]) => {
+    setPersistedLeads((current) => {
+      const next = updater(current);
+      persistLeads(next);
+      return next;
+    });
+  };
+
+  const persistedLeadMap = useMemo(() => getLeadMapById(persistedLeads), [persistedLeads]);
 
   const sortedLeads = useMemo(() => {
     if (!results) return [];
@@ -103,9 +132,10 @@ export default function LeadEnginePage() {
     [selectedOutreachLeadId, sortedLeads]
   );
 
-  const getLeadStatus = (leadId: string) => {
-    return leadStatuses[leadId] ?? { status: "new" as const };
-  };
+  const selectedPersistedLead = useMemo(
+    () => (selectedOutreachLead ? persistedLeadMap.get(selectedOutreachLead.id) ?? null : null),
+    [persistedLeadMap, selectedOutreachLead]
+  );
 
   const setSending = (leadId: string, channel: "email" | "sms", isSending: boolean) => {
     setSendingState((prev) => ({
@@ -173,33 +203,26 @@ export default function LeadEnginePage() {
       }
 
       const sentAt = payload.sentAt ?? new Date().toISOString();
-      setLeadStatuses((prev) => ({
-        ...prev,
-        [lead.id]: {
-          status: "sent",
-          lastSentAt: sentAt,
-          lastChannel: channel,
-        },
-      }));
+      updatePersistedLeads((current) => {
+        const ensured = mergeScoredLeadsIntoPersisted(current, [lead]);
+        const withHistory = addLeadOutreachHistoryEntry(ensured, lead.id, {
+          type: channel,
+          subject: channel === "email" ? lead.outreach.subject : undefined,
+          body: channel === "email" ? lead.outreach.emailMessage : lead.outreach.smsMessage,
+        });
+        return markLeadAsContacted(withHistory, lead.id, sentAt, INITIAL_CONTACT_STATUS);
+      });
       setStatusText(
         channel === "email"
-          ? `Email sent to ${lead.name}${payload.mode === "mock" ? " (mock mode)" : ""}.`
-          : `SMS sent to ${lead.name}${payload.mode === "mock" ? " (mock mode)" : ""}.`
+          ? `Email sent to ${lead.name}${payload.mode === "mock" ? " (mock mode)" : ""}. Status updated to contacted.`
+          : `SMS sent to ${lead.name}${payload.mode === "mock" ? " (mock mode)" : ""}. Status updated to contacted.`
       );
     } catch (err) {
       const message = err instanceof Error ? err.message : "Send failed";
-      setLeadStatuses((prev) => ({
-        ...prev,
-        [lead.id]: {
-          status: "failed",
-          lastChannel: channel,
-          error: message,
-        },
-      }));
       setStatusText(
         channel === "email"
-          ? `Failed to send email to ${lead.name}.`
-          : `Failed to send SMS to ${lead.name}.`
+          ? `Failed to send email to ${lead.name}: ${message}`
+          : `Failed to send SMS to ${lead.name}: ${message}`
       );
     } finally {
       setSending(lead.id, channel, false);
@@ -212,7 +235,7 @@ export default function LeadEnginePage() {
   };
 
   const handleChange =
-    (key: keyof LeadSearchInput) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    (key: keyof LeadSearchInput) => (event: ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value;
       setForm((prev: LeadSearchInput) => ({
         ...prev,
@@ -223,7 +246,7 @@ export default function LeadEnginePage() {
       }));
     };
 
-  const runSearch = async (event: React.FormEvent) => {
+  const runSearch = async (event: FormEvent) => {
     event.preventDefault();
     setLoading(true);
     setError(null);
@@ -246,10 +269,11 @@ export default function LeadEnginePage() {
 
       const payload = (await response.json()) as LeadEngineSearchResponse;
       setResults(payload);
+      updatePersistedLeads((current) => mergeScoredLeadsIntoPersisted(current, payload.leads));
       setStatusText(
         payload.usedProvider === "google-places"
-          ? "Search completed using Google Places data."
-          : "Search completed using demo data provider."
+          ? `Search completed using Google Places data. ${payload.leads.length} leads are now tracked in your pipeline.`
+          : `Search completed using demo data provider. ${payload.leads.length} leads are now tracked in your pipeline.`
       );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unexpected error during search.");
@@ -299,14 +323,43 @@ export default function LeadEnginePage() {
   const copySummary = async () => {
     if (sortedLeads.length === 0) return;
     const text = sortedLeads
-      .map(
-        (lead) =>
-          `${lead.name} | Score ${lead.websiteScore}/10 | ${lead.phone ?? "No phone"} | ${
-            lead.website ?? "No website"
-          }`
-      )
+      .map((lead) => {
+        const tracked = persistedLeadMap.get(lead.id);
+        return `${lead.name} | Score ${lead.websiteScore}/10 | Status ${
+          tracked?.status ?? "new"
+        } | ${lead.phone ?? "No phone"} | ${lead.website ?? "No website"}`;
+      })
       .join("\n");
     await copyText(text, "Lead summary");
+  };
+
+  const handleStatusChange = (leadId: string, status: LeadPipelineStatus) => {
+    updatePersistedLeads((current) => updateLeadStatus(current, leadId, status));
+    setStatusText(`Lead moved to ${LEAD_PIPELINE_STATUS_LABELS[status]}.`);
+  };
+
+  const generateFollowUp = async (lead: ScoredLeadWithOutreach) => {
+    const trackedLead = persistedLeadMap.get(lead.id);
+    const previousMessage =
+      trackedLead?.outreachMessages.history.at(-1)?.body ?? lead.outreach.emailMessage;
+    const followUpMessage = generateFollowUpMessage({
+      businessName: lead.name,
+      score: lead.websiteScore,
+      previousMessage,
+    });
+
+    updatePersistedLeads((current) => {
+      const ensured = mergeScoredLeadsIntoPersisted(current, [lead]);
+      return addLeadOutreachHistoryEntry(ensured, lead.id, {
+        type: "follow-up",
+        subject: `Follow-up for ${lead.name}`,
+        body: followUpMessage,
+      });
+    });
+
+    setSelectedOutreachLeadId(lead.id);
+    await copyText(followUpMessage, "Follow-up message");
+    setStatusText(`Follow-up generated for ${lead.name}. Added to outreach history.`);
   };
 
   const formatAuditSummary = (outreach: LeadOutreach): string =>
@@ -328,6 +381,17 @@ export default function LeadEnginePage() {
               Search local business categories by geography, score website quality,
               and export outreach-ready lead lists in minutes.
             </p>
+            <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-foreground/65">
+              <Workflow className="h-4 w-4 text-brand-orange" />
+              <span>{persistedLeads.length} leads currently tracked in your pipeline.</span>
+              <button
+                type="button"
+                onClick={() => setLocation("/pipeline")}
+                className="text-brand-amber hover:text-brand-orange transition-colors underline underline-offset-2"
+              >
+                Open pipeline board
+              </button>
+            </div>
           </div>
 
           <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_1.3fr]">
@@ -503,162 +567,177 @@ export default function LeadEnginePage() {
                   <tbody className="divide-y divide-border/70">
                     {sortedLeads.length === 0 && !loading ? (
                       <tr>
-                        <td colSpan={7} className="px-4 py-8 text-center text-foreground/60">
+                        <td colSpan={8} className="px-4 py-8 text-center text-foreground/60">
                           No leads yet. Run a search to generate scored prospects.
                         </td>
                       </tr>
                     ) : null}
-                    {sortedLeads.map((lead) => (
-                      <tr key={lead.id} className="align-top">
-                        <td className="px-4 py-3">
-                          <p className="font-semibold text-white">{lead.name}</p>
-                          <p className="text-xs text-foreground/60">
-                            {lead.businessType} • {lead.city}, {lead.state}
-                          </p>
-                        </td>
-                        <td className="px-4 py-3 text-foreground/75">
-                          <p>{lead.phone ?? "No phone found"}</p>
-                          <p className="text-xs mt-1">{lead.email ?? "No email detected"}</p>
-                        </td>
-                        <td className="px-4 py-3">
-                          {lead.website ? (
-                            <a
-                              href={lead.website}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="text-brand-amber hover:text-brand-orange transition-colors break-all"
+                    {sortedLeads.map((lead) => {
+                      const trackedLead = persistedLeadMap.get(lead.id);
+                      return (
+                        <tr key={lead.id} className="align-top">
+                          <td className="px-4 py-3">
+                            <p className="font-semibold text-white">{lead.name}</p>
+                            <p className="text-xs text-foreground/60">
+                              {lead.businessType} • {lead.city}, {lead.state}
+                            </p>
+                          </td>
+                          <td className="px-4 py-3 text-foreground/75">
+                            <p>{lead.phone ?? "No phone found"}</p>
+                            <p className="text-xs mt-1">{lead.email ?? "No email detected"}</p>
+                          </td>
+                          <td className="px-4 py-3">
+                            {lead.website ? (
+                              <a
+                                href={lead.website}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-brand-amber hover:text-brand-orange transition-colors break-all"
+                              >
+                                {lead.website}
+                              </a>
+                            ) : (
+                              <span className="text-foreground/55">No website found</span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold ${scoreBadgeClass(
+                                lead.websiteScore
+                              )}`}
                             >
-                              {lead.website}
-                            </a>
-                          ) : (
-                            <span className="text-foreground/55">No website found</span>
-                          )}
-                        </td>
-                        <td className="px-4 py-3">
-                          <span
-                            className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold ${scoreBadgeClass(
-                              lead.websiteScore
-                            )}`}
-                          >
-                            {lead.websiteScore}/10
-                          </span>
-                          <p className="mt-2 text-xs text-foreground/55 max-w-[180px]">
-                            {formatScoreReasoning([
-                              { factor: "website", value: lead.website ? 2 : 0 },
-                              {
-                                factor: "load",
-                                value:
-                                  lead.analysis.loadMs == null
-                                    ? 1
-                                    : lead.analysis.loadMs <= 1500
+                              {lead.websiteScore}/10
+                            </span>
+                            <p className="mt-2 text-xs text-foreground/55 max-w-[180px]">
+                              {formatScoreReasoning([
+                                { factor: "website", value: lead.website ? 2 : 0 },
+                                {
+                                  factor: "load",
+                                  value:
+                                    lead.analysis.loadMs == null
+                                      ? 1
+                                      : lead.analysis.loadMs <= 1500
+                                        ? 2
+                                        : lead.analysis.loadMs <= 3500
+                                          ? 1
+                                          : 0,
+                                },
+                                {
+                                  factor: "mobile",
+                                  value: lead.analysis.viewportResponsive ? 2 : lead.analysis.hasViewport ? 1 : 0,
+                                },
+                                { factor: "https", value: lead.analysis.hasHttps ? 2 : 0 },
+                                {
+                                  factor: "structure",
+                                  value:
+                                    Number(lead.analysis.hasMain) +
+                                      Number(lead.analysis.hasH1) +
+                                      Number(lead.analysis.hasMetaDescription) >=
+                                    3
                                       ? 2
-                                      : lead.analysis.loadMs <= 3500
+                                      : Number(lead.analysis.hasMain) +
+                                          Number(lead.analysis.hasH1) +
+                                          Number(lead.analysis.hasMetaDescription) >=
+                                        1
                                         ? 1
                                         : 0,
-                              },
-                              {
-                                factor: "mobile",
-                                value: lead.analysis.viewportResponsive ? 2 : lead.analysis.hasViewport ? 1 : 0,
-                              },
-                              { factor: "https", value: lead.analysis.hasHttps ? 2 : 0 },
-                              {
-                                factor: "structure",
-                                value:
-                                  Number(lead.analysis.hasMain) +
-                                    Number(lead.analysis.hasH1) +
-                                    Number(lead.analysis.hasMetaDescription) >=
-                                  3
-                                    ? 2
-                                    : Number(lead.analysis.hasMain) +
-                                        Number(lead.analysis.hasH1) +
-                                        Number(lead.analysis.hasMetaDescription) >=
-                                      1
-                                      ? 1
-                                      : 0,
-                              },
-                            ])}
-                          </p>
-                        </td>
-                        <td className="px-4 py-3 text-foreground/70">
-                          {lead.analysis.notes.length > 0
-                            ? lead.analysis.notes.join("; ")
-                            : "No major issues detected"}
-                        </td>
-                        <td className="px-4 py-3">
-                          {(() => {
-                            const status = getLeadStatus(lead.id);
-                            const classes =
-                              status.status === "sent"
-                                ? "bg-emerald-500/15 text-emerald-200 border-emerald-500/30"
-                                : status.status === "failed"
-                                  ? "bg-red-500/15 text-red-200 border-red-500/30"
-                                  : "bg-slate-500/10 text-foreground/70 border-border";
-                            return (
-                              <>
-                                <span
-                                  className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold capitalize ${classes}`}
-                                >
-                                  {status.status}
-                                </span>
-                                {status.lastSentAt ? (
-                                  <p className="mt-2 text-xs text-foreground/55">
-                                    {new Date(status.lastSentAt).toLocaleString()}
-                                  </p>
-                                ) : null}
-                                {status.error ? (
-                                  <p className="mt-2 text-xs text-red-300">{status.error}</p>
-                                ) : null}
-                              </>
-                            );
-                          })()}
-                        </td>
-                        <td className="px-4 py-3">
-                          <div className="flex flex-col gap-2">
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              disabled={
-                                !lead.email || sendingState[lead.id]?.email || sendingState[lead.id]?.sms
+                                },
+                              ])}
+                            </p>
+                          </td>
+                          <td className="px-4 py-3 text-foreground/70">
+                            {lead.analysis.notes.length > 0
+                              ? lead.analysis.notes.join("; ")
+                              : "No major issues detected"}
+                          </td>
+                          <td className="px-4 py-3 min-w-[180px]">
+                            <label className="sr-only" htmlFor={`status-${lead.id}`}>
+                              Update status for {lead.name}
+                            </label>
+                            <select
+                              id={`status-${lead.id}`}
+                              value={trackedLead?.status ?? "new"}
+                              onChange={(event) =>
+                                handleStatusChange(lead.id, event.target.value as LeadPipelineStatus)
                               }
-                              onClick={() => sendOutreach(lead, "email")}
+                              className="w-full rounded-md border border-border bg-background px-2.5 py-1.5 text-xs text-foreground"
                             >
-                              {sendingState[lead.id]?.email ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <Mail className="h-4 w-4" />
-                              )}
-                              Send Email
-                            </Button>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              disabled={
-                                !lead.phone || sendingState[lead.id]?.sms || sendingState[lead.id]?.email
-                              }
-                              onClick={() => sendOutreach(lead, "sms")}
-                            >
-                              {sendingState[lead.id]?.sms ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
+                              {LEAD_PIPELINE_STATUSES.map((statusOption) => (
+                                <option key={statusOption} value={statusOption}>
+                                  {LEAD_PIPELINE_STATUS_LABELS[statusOption]}
+                                </option>
+                              ))}
+                            </select>
+                            <p className="mt-2 text-xs text-foreground/55">
+                              Follow-ups: {trackedLead?.followUpCount ?? 0}
+                            </p>
+                            {trackedLead?.timestamps.lastContactedAt ? (
+                              <p className="mt-1 text-xs text-foreground/55">
+                                Last contact:{" "}
+                                {new Date(trackedLead.timestamps.lastContactedAt).toLocaleString()}
+                              </p>
+                            ) : null}
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex flex-col gap-2">
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                disabled={
+                                  !lead.email || sendingState[lead.id]?.email || sendingState[lead.id]?.sms
+                                }
+                                onClick={() => sendOutreach(lead, "email")}
+                              >
+                                {sendingState[lead.id]?.email ? (
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                  <Mail className="h-4 w-4" />
+                                )}
+                                Send Email
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                disabled={
+                                  !lead.phone || sendingState[lead.id]?.sms || sendingState[lead.id]?.email
+                                }
+                                onClick={() => sendOutreach(lead, "sms")}
+                              >
+                                {sendingState[lead.id]?.sms ? (
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                  <MessageSquareText className="h-4 w-4" />
+                                )}
+                                Send SMS
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                disabled={sendingState[lead.id]?.sms || sendingState[lead.id]?.email}
+                                onClick={() => {
+                                  void generateFollowUp(lead);
+                                }}
+                              >
                                 <MessageSquareText className="h-4 w-4" />
-                              )}
-                              Send SMS
-                            </Button>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setSelectedOutreachLeadId(lead.id)}
-                            >
-                              <MessageSquareText className="h-4 w-4" />
-                              View Outreach
-                            </Button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                                Follow-Up
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setSelectedOutreachLeadId(lead.id)}
+                              >
+                                <MessageSquareText className="h-4 w-4" />
+                                View Outreach
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -750,12 +829,38 @@ export default function LeadEnginePage() {
                     </Button>
                   </div>
                   <ul className="mt-3 grid gap-2 text-sm text-foreground/80">
-                  {selectedOutreachLead.outreach.auditSummary.map((item: string) => (
+                    {selectedOutreachLead.outreach.auditSummary.map((item: string) => (
                       <li key={item} className="flex items-start gap-2">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-orange shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
+                  </ul>
+                </article>
+
+                <article className="rounded-xl border border-border bg-background/40 p-4 lg:col-span-2">
+                  <h3 className="font-semibold text-white">Message History</h3>
+                  <ul className="mt-3 grid gap-3">
+                    {(selectedPersistedLead?.outreachMessages.history ?? []).length === 0 ? (
+                      <li className="text-sm text-foreground/60">
+                        No outreach history yet. Send a message or generate a follow-up.
+                      </li>
+                    ) : (
+                      selectedPersistedLead?.outreachMessages.history
+                        .slice()
+                        .reverse()
+                        .map((entry) => (
+                          <li key={entry.id} className="rounded-lg border border-border/70 p-3">
+                            <p className="text-xs uppercase tracking-wider text-foreground/60">
+                              {entry.type} • {new Date(entry.createdAt).toLocaleString()}
+                            </p>
+                            {entry.subject ? (
+                              <p className="mt-1 text-sm font-medium text-white">{entry.subject}</p>
+                            ) : null}
+                            <p className="mt-1 text-sm text-foreground/80">{entry.body}</p>
+                          </li>
+                        ))
+                    )}
                   </ul>
                 </article>
               </div>

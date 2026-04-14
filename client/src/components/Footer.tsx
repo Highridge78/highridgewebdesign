@@ -13,6 +13,7 @@ const CONTACT_PHONE = "(828) 598-9262";
 const footerLinks = [
   { label: "Demo Sites", href: "/demos" },
   { label: "Lead Engine", href: "/lead-engine" },
+  { label: "Pipeline", href: "/pipeline" },
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
   { label: "Results", href: "#results" },

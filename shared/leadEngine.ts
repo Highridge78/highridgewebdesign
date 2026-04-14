@@ -107,6 +107,65 @@ export interface SendOutreachResponse {
   messageId?: string;
 }
 
+export const LEAD_PIPELINE_STATUSES = [
+  "new",
+  "contacted",
+  "replied",
+  "closed",
+  "lost",
+] as const;
+
+export type LeadPipelineStatus = (typeof LEAD_PIPELINE_STATUSES)[number];
+export type OutreachMessageType = "email" | "sms" | "follow-up";
+
+export const LEAD_PIPELINE_STATUS_LABELS: Record<LeadPipelineStatus, string> = {
+  new: "New",
+  contacted: "Contacted",
+  replied: "Replied",
+  closed: "Closed",
+  lost: "Lost",
+};
+
+export interface LeadContactInfo {
+  phone?: string;
+  email?: string;
+  website?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+}
+
+export interface LeadOutreachMessageEntry {
+  id: string;
+  type: OutreachMessageType;
+  subject?: string;
+  body: string;
+  createdAt: string;
+}
+
+export interface LeadLifecycleTimestamps {
+  createdAt: string;
+  updatedAt: string;
+  lastContactedAt?: string;
+}
+
+export interface PersistedLead {
+  id: string;
+  businessName: string;
+  businessType: string;
+  source: LeadSource;
+  contactInfo: LeadContactInfo;
+  score: number;
+  scoreBand: ScoredLead["scoreBand"];
+  outreachMessages: {
+    initial: LeadOutreach;
+    history: LeadOutreachMessageEntry[];
+  };
+  status: LeadPipelineStatus;
+  timestamps: LeadLifecycleTimestamps;
+  followUpCount: number;
+}
+
 export type LeadSortKey = "score" | "name" | "city" | "businessType";
 export type SortDirection = "asc" | "desc";
 
@@ -525,4 +584,58 @@ export function addOutreachToScoredLead(lead: ScoredLead): ScoredLeadWithOutreac
     ...lead,
     outreach: generateOutreach(lead),
   };
+}
+
+export function createPersistedLeadFromScoredLead(
+  lead: ScoredLeadWithOutreach,
+  existing?: PersistedLead
+): PersistedLead {
+  const now = new Date().toISOString();
+  return {
+    id: lead.id,
+    businessName: lead.name,
+    businessType: lead.businessType,
+    source: lead.source,
+    contactInfo: {
+      phone: lead.phone,
+      email: lead.email,
+      website: lead.website,
+      address: lead.address,
+      city: lead.city,
+      state: lead.state,
+    },
+    score: lead.websiteScore,
+    scoreBand: lead.scoreBand,
+    outreachMessages: {
+      initial: lead.outreach,
+      history: existing?.outreachMessages.history ?? [],
+    },
+    status: existing?.status ?? "new",
+    timestamps: {
+      createdAt: existing?.timestamps.createdAt ?? now,
+      updatedAt: existing?.timestamps.updatedAt ?? now,
+      lastContactedAt: existing?.timestamps.lastContactedAt,
+    },
+    followUpCount: existing?.followUpCount ?? 0,
+  };
+}
+
+export function generateFollowUpMessage(options: {
+  businessName: string;
+  score: number;
+  previousMessage?: string;
+}) {
+  const reference =
+    options.previousMessage?.trim().slice(0, 120) ??
+    "I noticed a few opportunities on your website";
+
+  if (options.score <= 3) {
+    return `Hey, quick follow-up — ${reference.toLowerCase()}. This is likely costing ${options.businessName} calls each week. Want me to send over a fast fix plan?`;
+  }
+
+  if (options.score <= 6) {
+    return `Hey, just following up — ${reference.toLowerCase()}. There are a couple quick wins that can help ${options.businessName} get more calls. Want me to send them over?`;
+  }
+
+  return `Hey, circling back — ${reference.toLowerCase()}. I spotted a few direct conversion wins for ${options.businessName}. Want the short breakdown?`;
 }

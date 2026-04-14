@@ -3,6 +3,7 @@ import { Route, Switch } from "wouter";
 
 const Home = lazy(() => import("./pages/Home"));
 const LeadEngine = lazy(() => import("./pages/LeadEngine"));
+const Pipeline = lazy(() => import("./pages/Pipeline"));
 const DemosIndex = lazy(() => import("./pages/demos/index"));
 const DemoConversionPage = lazy(() => import("./pages/demos/demo-conversion"));
 const DemoPremiumPage = lazy(() => import("./pages/demos/demo-premium"));
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/demos/index" component={DemosIndex} />
           <Route path="/demos" component={DemosIndex} />
           <Route path="/lead-engine" component={LeadEngine} />
+          <Route path="/pipeline" component={Pipeline} />
           <Route path="/" component={Home} />
           <Route component={NotFound} />
         </Switch>
