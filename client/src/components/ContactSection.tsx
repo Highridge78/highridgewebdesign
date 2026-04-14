@@ -1,6 +1,6 @@
 /**
  * ContactSection — High Ridge Web Design
- * Lead capture form + contact info. Form submits via Web3Forms API.
+ * Lead capture form + contact info. Form submits to internal /api/leads endpoint.
  * Jeremy Black — Sylva, NC | Western NC | Globally Available
  */
 import { useState } from "react";
@@ -20,16 +20,17 @@ import ScrollReveal from "./ScrollReveal";
 
 const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
-const WEB3FORMS_KEY = "87f4e030-820f-4c08-b796-f5efa493fbe7";
 
 export default function ContactSection() {
   const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     business: "",
     message: "",
+    botcheck: "",
   });
 
   const handleChange = (
@@ -41,6 +42,7 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState("sending");
+    setErrorMessage("");
 
     const subject = encodeURIComponent(
       `New Lead from ${formData.name} — ${formData.business || "Website Inquiry"}`
@@ -50,32 +52,40 @@ export default function ContactSection() {
     );
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           business: formData.business,
           message: formData.message,
-          subject: `New Lead: ${formData.name} — ${formData.business || "Website Inquiry"}`,
+          botcheck: formData.botcheck,
         }),
       });
 
       if (res.ok) {
         setFormState("sent");
-        setFormData({ name: "", email: "", phone: "", business: "", message: "" });
+        setFormData({ name: "", email: "", phone: "", business: "", message: "", botcheck: "" });
         return;
       }
+
+      const payload = await res.json().catch(() => null);
+      const message =
+        typeof payload?.message === "string"
+          ? payload.message
+          : "Unable to submit your request right now.";
+      setFormState("error");
+      setErrorMessage(message);
     } catch {
-      // Fallback to mailto
+      setFormState("error");
+      setErrorMessage("Network issue detected. Opening your email app as a fallback.");
     }
 
+    // Last-resort fallback to mailto to avoid losing lead details.
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    setFormState("sent");
-    setFormData({ name: "", email: "", phone: "", business: "", message: "" });
+    setFormData({ name: "", email: "", phone: "", business: "", message: "", botcheck: "" });
   };
 
   return (
@@ -178,7 +188,16 @@ export default function ContactSection() {
                   />
                 </div>
 
-                <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
+                <input
+                  type="text"
+                  name="botcheck"
+                  value={formData.botcheck}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  tabIndex={-1}
+                  className="hidden"
+                  style={{ display: "none" }}
+                />
 
                 <Button
                   type="submit"
@@ -206,6 +225,11 @@ export default function ContactSection() {
                 {formState === "sent" && (
                   <p className="text-center text-sm text-green-400">
                     Thanks! We'll be in touch within 24 hours.
+                  </p>
+                )}
+                {formState === "error" && (
+                  <p className="text-center text-sm text-red-400">
+                    {errorMessage || "Something went wrong while sending your message."}
                   </p>
                 )}
               </form>
