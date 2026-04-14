@@ -23,7 +23,7 @@ export default function App() {
           <Route path="/demos/index" component={DemosIndex} />
           <Route path="/demos" component={DemosIndex} />
           <Route path="/admin/leads" component={AdminLeads} />
-          <Route path="/" component={Home} />
+          <Route path={/^\/$/} component={Home} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>
