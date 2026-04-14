@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowDownUp, Download, Loader2, Search } from "lucide-react";
+import { ArrowDownUp, Download, Loader2, Search, Copy, MessageSquareText, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,10 +7,11 @@ import { Input } from "@/components/ui/input";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import type {
   LeadEngineSearchResponse,
+  LeadOutreach,
   LeadSearchInput,
   LeadSortKey,
   LeadScoreBreakdown,
-  ScoredLead,
+  ScoredLeadWithOutreach,
   SortDirection,
 } from "@shared/leadEngine";
 
@@ -43,7 +44,11 @@ function formatScoreReasoning(reasoning: LeadScoreBreakdown[]) {
   return reasoning.map((item) => `${item.factor}: ${item.value}/2`).join(" • ");
 }
 
-function sortLeads(leads: ScoredLead[], key: LeadSortKey, direction: SortDirection): ScoredLead[] {
+function sortLeads(
+  leads: ScoredLeadWithOutreach[],
+  key: LeadSortKey,
+  direction: SortDirection
+): ScoredLeadWithOutreach[] {
   const sorted = [...leads].sort((a, b) => {
     if (key === "score") {
       return a.websiteScore - b.websiteScore;
@@ -73,11 +78,22 @@ export default function LeadEnginePage() {
   const [statusText, setStatusText] = useState("Ready to search local businesses.");
   const [sortKey, setSortKey] = useState<LeadSortKey>("score");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [selectedOutreachLeadId, setSelectedOutreachLeadId] = useState<string | null>(null);
 
   const sortedLeads = useMemo(() => {
     if (!results) return [];
     return sortLeads(results.leads, sortKey, sortDirection);
   }, [results, sortDirection, sortKey]);
+
+  const selectedOutreachLead = useMemo(
+    () => sortedLeads.find((lead) => lead.id === selectedOutreachLeadId) ?? null,
+    [selectedOutreachLeadId, sortedLeads]
+  );
+
+  const copyText = async (text: string, label: string) => {
+    await navigator.clipboard.writeText(text);
+    setStatusText(`${label} copied to clipboard.`);
+  };
 
   const handleChange =
     (key: keyof LeadSearchInput) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -174,9 +190,11 @@ export default function LeadEnginePage() {
           }`
       )
       .join("\n");
-    await navigator.clipboard.writeText(text);
-    setStatusText("Lead summary copied to clipboard.");
+    await copyText(text, "Lead summary");
   };
+
+  const formatAuditSummary = (outreach: LeadOutreach): string =>
+    outreach.auditSummary.map((line) => `• ${line}`).join("\n");
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -348,7 +366,7 @@ export default function LeadEnginePage() {
                 <table className="min-w-full divide-y divide-border text-sm">
                   <thead className="bg-background/75">
                     <tr>
-                      {["Business", "Contact", "Website", "Score", "Notes"].map((header) => (
+                      {["Business", "Contact", "Website", "Score", "Notes", "Outreach"].map((header) => (
                         <th
                           key={header}
                           className="px-4 py-3 text-left text-xs uppercase tracking-wider text-foreground/60"
@@ -361,7 +379,7 @@ export default function LeadEnginePage() {
                   <tbody className="divide-y divide-border/70">
                     {sortedLeads.length === 0 && !loading ? (
                       <tr>
-                        <td colSpan={5} className="px-4 py-8 text-center text-foreground/60">
+                        <td colSpan={6} className="px-4 py-8 text-center text-foreground/60">
                           No leads yet. Run a search to generate scored prospects.
                         </td>
                       </tr>
@@ -442,6 +460,17 @@ export default function LeadEnginePage() {
                             ? lead.analysis.notes.join("; ")
                             : "No major issues detected"}
                         </td>
+                        <td className="px-4 py-3">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setSelectedOutreachLeadId(lead.id)}
+                          >
+                            <MessageSquareText className="h-4 w-4" />
+                            View Outreach
+                          </Button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -450,6 +479,103 @@ export default function LeadEnginePage() {
             </section>
           </div>
         </section>
+
+        {selectedOutreachLead ? (
+          <section className="container mt-8">
+            <div className="rounded-2xl border border-border bg-card/75 p-6 md:p-8">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-brand-orange font-semibold">
+                    Outreach Generator
+                  </p>
+                  <h2 className="mt-1 font-serif text-2xl text-white">
+                    {selectedOutreachLead.name}
+                  </h2>
+                  <p className="mt-1 text-sm text-foreground/65">
+                    Personalized outreach based on website score {selectedOutreachLead.websiteScore}/10
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setSelectedOutreachLeadId(null)}
+                >
+                  Close
+                </Button>
+              </div>
+
+              <div className="mt-6 grid gap-5 lg:grid-cols-2">
+                <article className="rounded-xl border border-border bg-background/40 p-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-semibold text-white flex items-center gap-2">
+                      <Mail className="h-4 w-4 text-brand-orange" />
+                      Cold Email
+                    </h3>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => copyText(selectedOutreachLead.outreach.emailMessage, "Email")}
+                    >
+                      <Copy className="h-4 w-4" />
+                      Copy Email
+                    </Button>
+                  </div>
+                  <pre className="mt-3 whitespace-pre-wrap text-sm text-foreground/80 font-sans">
+                    {selectedOutreachLead.outreach.emailMessage}
+                  </pre>
+                </article>
+
+                <article className="rounded-xl border border-border bg-background/40 p-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-semibold text-white flex items-center gap-2">
+                      <MessageSquareText className="h-4 w-4 text-brand-orange" />
+                      SMS Message
+                    </h3>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => copyText(selectedOutreachLead.outreach.smsMessage, "SMS")}
+                    >
+                      <Copy className="h-4 w-4" />
+                      Copy SMS
+                    </Button>
+                  </div>
+                  <p className="mt-3 text-sm text-foreground/80 leading-relaxed">
+                    {selectedOutreachLead.outreach.smsMessage}
+                  </p>
+                </article>
+
+                <article className="rounded-xl border border-border bg-background/40 p-4 lg:col-span-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-semibold text-white">Quick Audit Summary</h3>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        copyText(formatAuditSummary(selectedOutreachLead.outreach), "Audit summary")
+                      }
+                    >
+                      <Copy className="h-4 w-4" />
+                      Copy Audit
+                    </Button>
+                  </div>
+                  <ul className="mt-3 grid gap-2 text-sm text-foreground/80">
+                  {selectedOutreachLead.outreach.auditSummary.map((item: string) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-orange shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </div>
+            </div>
+          </section>
+        ) : null}
       </main>
       <Footer />
     </div>

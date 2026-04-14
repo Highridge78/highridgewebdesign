@@ -41,10 +41,21 @@ export interface WebsiteAnalysis {
   notes: string[];
 }
 
+export interface LeadOutreach {
+  subject: string;
+  emailMessage: string;
+  smsMessage: string;
+  auditSummary: string[];
+}
+
 export interface ScoredLead extends LeadBusiness {
   websiteScore: number;
   scoreBand: "poor" | "needs-work" | "strong";
   analysis: WebsiteAnalysis;
+}
+
+export interface ScoredLeadWithOutreach extends ScoredLead {
+  outreach: LeadOutreach;
 }
 
 export interface LeadScoreResponse {
@@ -81,7 +92,7 @@ export interface LeadScoreBreakdown {
 export interface LeadEngineSearchResponse {
   usedProvider: LeadSource;
   query: LeadSearchInput;
-  leads: ScoredLead[];
+  leads: ScoredLeadWithOutreach[];
 }
 
 const GOOGLE_PLACES_SEARCH_URL =
@@ -401,6 +412,91 @@ export function buildSearchResponse(
   return {
     usedProvider,
     query,
-    leads,
+    leads: leads.map(addOutreachToScoredLead),
+  };
+}
+
+function issuePointsFromLead(lead: ScoredLead): string[] {
+  if (!lead.website) {
+    return [
+      "No website detected",
+      "Missing a 24/7 online lead capture channel",
+      "Losing customers to competitors with better digital presence",
+    ];
+  }
+
+  const points: string[] = [];
+  if (lead.analysis.loadMs != null && lead.analysis.loadMs > 3500) {
+    points.push("Page appears to load slowly");
+  }
+  if (!lead.analysis.viewportResponsive) {
+    points.push("Weak mobile experience");
+  }
+  if (!lead.analysis.hasMetaDescription) {
+    points.push("Weak search snippet setup");
+  }
+  if (!lead.analysis.hasH1 || !lead.analysis.hasMain) {
+    points.push("Basic structure and trust signals can be improved");
+  }
+  if (!lead.analysis.hasHttps) {
+    points.push("Site security/HTTPS trust could be stronger");
+  }
+  if (points.length === 0) {
+    points.push("Site can likely convert more visitors into calls");
+  }
+  return points.slice(0, 4);
+}
+
+function summarizeLeadProblem(lead: ScoredLead): string {
+  if (!lead.website) {
+    return "you currently don't have a strong website presence";
+  }
+  if (lead.websiteScore <= 3) {
+    return "your current site likely has major gaps that are costing calls";
+  }
+  if (lead.websiteScore <= 6) {
+    return "your site has solid basics but still leaves easy wins on the table";
+  }
+  return "your site is decent, but there are clear opportunities to boost conversion";
+}
+
+export function generateOutreach(lead: ScoredLead): LeadOutreach {
+  const issuePoints = issuePointsFromLead(lead);
+  const primaryIssue = issuePoints[0].toLowerCase();
+  const subject = `Quick fix for ${lead.name} website`;
+  const summary = summarizeLeadProblem(lead);
+
+  const emailMessage = [
+    `Hey ${lead.name} team,`,
+    `I took a quick look at your website and noticed ${summary}.`,
+    `The biggest issue I spotted was ${primaryIssue}, which can reduce calls and booked jobs from local search traffic.`,
+    `We help local businesses improve site speed, trust, and conversion flow so more visitors turn into paying customers.`,
+    `Want me to show you what I'd fix?`,
+  ].join(" ");
+
+  const smsMessage =
+    lead.websiteScore <= 6
+      ? `Hey, I took a quick look at ${lead.name}'s website — a few things are likely costing you customers. Want me to show you what I'd fix?`
+      : `Hey, quick note on ${lead.name}'s site — it's solid, and I can still show a few easy wins to increase calls. Want me to send them over?`;
+
+  return {
+    subject,
+    emailMessage,
+    smsMessage,
+    auditSummary: issuePoints,
+  };
+}
+
+export function attachOutreachToLead(lead: ScoredLead): ScoredLeadWithOutreach {
+  return {
+    ...lead,
+    outreach: generateOutreach(lead),
+  };
+}
+
+export function addOutreachToScoredLead(lead: ScoredLead): ScoredLeadWithOutreach {
+  return {
+    ...lead,
+    outreach: generateOutreach(lead),
   };
 }

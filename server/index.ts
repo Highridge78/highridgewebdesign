@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import type { LeadSearchRequest, LeadScoreRequest } from "@shared/leadEngine";
 import {
+  attachOutreachToLead,
   buildSearchInput,
   buildSearchResponse,
   buildScoreSummary,
@@ -40,7 +41,8 @@ async function startServer() {
           ? await searchLeadsWithPlaces(searchInput)
           : getMockLeads(searchInput);
       const scoredLeads = await Promise.all(businesses.map((lead) => scoreLead(lead)));
-      res.json(buildSearchResponse(source, searchInput, scoredLeads));
+      const leadsWithOutreach = scoredLeads.map((lead) => attachOutreachToLead(lead));
+      res.json(buildSearchResponse(source, searchInput, leadsWithOutreach));
     } catch (error) {
       res.status(500).json({
         error: "Failed to search leads",
@@ -57,7 +59,8 @@ async function startServer() {
       }
 
       const scoredLead = await scoreLead(payload.lead);
-      res.json({ lead: scoredLead, summary: buildScoreSummary([scoredLead]) });
+      const leadWithOutreach = attachOutreachToLead(scoredLead);
+      res.json({ lead: leadWithOutreach, summary: buildScoreSummary([leadWithOutreach]) });
     } catch (error) {
       res.status(500).json({
         error: "Failed to score lead",
