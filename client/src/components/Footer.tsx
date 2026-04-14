@@ -5,11 +5,13 @@
  */
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { useLocation } from "wouter";
 
 const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
 
 const footerLinks = [
+  { label: "Demo Sites", href: "/demos" },
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
   { label: "Results", href: "#results" },
@@ -17,12 +19,24 @@ const footerLinks = [
 ];
 
 export default function Footer() {
+  const [location, setLocation] = useLocation();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleNavClick = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("/")) {
+      setLocation(href);
+      return;
+    }
+
+    if (href.startsWith("#")) {
+      if (location === "/") {
+        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.location.href = `/${href}`;
+      }
+    }
   };
 
   return (

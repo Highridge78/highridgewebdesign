@@ -109,6 +109,15 @@ export default function DemosIndexPage() {
               );
             })}
           </div>
+          <div className="mt-10">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-foreground/80 hover:bg-white/5 hover:text-white transition-colors"
+            >
+              Back to main site
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
     </main>

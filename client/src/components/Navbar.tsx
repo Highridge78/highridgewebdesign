@@ -6,6 +6,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { useLocation } from "wouter";
 
 const LOGO_FALLBACK = "/new-logo-640.webp";
 const LOGO_AVIF = "/new-logo-320.avif";
@@ -15,12 +16,14 @@ const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
   { label: "Results", href: "#results" },
+  { label: "Demo Sites", href: "/demos" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [location, setLocation] = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -30,10 +33,19 @@ export default function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      if (location === "/") {
+        const el = document.querySelector(href);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        window.location.href = `/${href}`;
+      }
+      return;
     }
+
+    setLocation(href);
   };
 
   return (
@@ -50,7 +62,11 @@ export default function Navbar() {
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (location === "/") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              setLocation("/");
+            }
           }}
           className="flex items-center shrink-0"
         >
@@ -75,12 +91,19 @@ export default function Navbar() {
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={link.href.startsWith("#") ? link.href : link.href}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              className="text-sm font-medium text-foreground/70 hover:text-brand-orange-bright transition-colors duration-200 tracking-wide uppercase"
+              aria-current={
+                !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
+              }
+              className={`text-sm font-medium transition-colors duration-200 tracking-wide uppercase ${
+                !link.href.startsWith("#") && location.startsWith(link.href)
+                  ? "text-brand-orange"
+                  : "text-foreground/70 hover:text-brand-orange-bright"
+              }`}
             >
               {link.label}
             </a>
@@ -110,12 +133,19 @@ export default function Navbar() {
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={link.href.startsWith("#") ? link.href : link.href}
                 onClick={(e) => {
                   e.preventDefault();
                   handleNavClick(link.href);
                 }}
-                className="text-base font-medium text-foreground/80 hover:text-brand-orange-bright py-2 transition-colors uppercase tracking-wide"
+                aria-current={
+                  !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
+                }
+                className={`text-base font-medium py-2 transition-colors uppercase tracking-wide ${
+                  !link.href.startsWith("#") && location.startsWith(link.href)
+                    ? "text-brand-orange"
+                    : "text-foreground/80 hover:text-brand-orange-bright"
+                }`}
               >
                 {link.label}
               </a>
