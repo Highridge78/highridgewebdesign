@@ -1,7 +1,6 @@
 /**
  * ContactSection — High Ridge Web Design
- * Lead capture form + contact info. Form submits to internal /api/leads endpoint.
- * Jeremy Black — Sylva, NC | Western NC | Globally Available
+ * Conversion-focused contact section for strategy calls.
  */
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -97,15 +96,15 @@ export default function ContactSection() {
         <ScrollReveal>
           <div className="text-center mb-10">
             <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-              Get Started
+              Book a Strategy Call
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-              Claim Your{" "}
-              <span className="text-gradient-orange">Free Audit</span>
+              Build a Website That{" "}
+              <span className="text-gradient-orange">Produces Better Leads</span>
             </h2>
             <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-              Tell us about your business and we'll show you exactly where
-              you're losing leads — and how to fix it. No cost, no obligation.
+              Tell us about your business goals and current pipeline challenges.
+              We will map your highest-impact website and conversion opportunities.
             </p>
           </div>
         </ScrollReveal>
@@ -181,7 +180,7 @@ export default function ContactSection() {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="What does your business do? What's your biggest challenge with getting new customers online?"
+                    placeholder="What services do you offer, where do you serve, and where are leads dropping off today?"
                     required
                     rows={4}
                     className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange resize-none"
@@ -217,14 +216,14 @@ export default function ContactSection() {
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      Get My Free Audit
+                      Book My Strategy Call
                     </>
                   )}
                 </Button>
 
                 {formState === "sent" && (
                   <p className="text-center text-sm text-green-400">
-                    Thanks! We'll be in touch within 24 hours.
+                    Thanks. We will reach out with next steps shortly.
                   </p>
                 )}
                 {formState === "error" && (
@@ -239,7 +238,7 @@ export default function ContactSection() {
             <div className="lg:col-span-2 space-y-6">
               <div className="p-6 rounded-xl bg-[oklch(0.15_0.02_260)] border border-border">
                 <h3 className="font-serif text-lg font-bold text-white mb-4">
-                  Get In Touch
+                  Contact Details
                 </h3>
                 <div className="space-y-4">
                   <a
@@ -309,15 +308,15 @@ export default function ContactSection() {
               {/* Quick promise */}
               <div className="p-6 rounded-xl bg-gradient-to-br from-brand-orange/10 to-transparent border border-brand-orange/20">
                 <h4 className="font-serif font-bold text-white mb-2">
-                  What You'll Get
+                  What Happens on the Call
                 </h4>
                 <ul className="space-y-2">
                   {[
-                    "Complete digital presence audit",
-                    "SEO & AI search visibility report",
-                    "Competitor analysis breakdown",
-                    "Custom automation roadmap",
-                    "No-obligation strategy call",
+                    "Review of your current site and conversion flow",
+                    "Breakdown of lead leaks hurting booked jobs",
+                    "Prioritized roadmap for pages, SEO, and follow-up",
+                    "Clear recommendation on fit and next steps",
+                    "Zero pressure if it is not the right match",
                   ].map((item) => (
                     <li
                       key={item}

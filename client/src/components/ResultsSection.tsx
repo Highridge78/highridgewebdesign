@@ -1,51 +1,43 @@
 /**
  * ResultsSection — High Ridge Web Design
- * Social proof, target industries, and process overview.
+ * Service-market focus, process clarity, and proof-style CTA.
  */
-import {
-  Wrench,
-  Scale,
-  TreePine,
-  Building2,
-  Stethoscope,
-  Home,
-  ArrowRight,
-} from "lucide-react";
+import { Wrench, Hammer, PaintRoller, Droplets, Wind, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 const industries = [
-  { icon: Wrench, name: "HVAC & Plumbing", pain: "Missing calls on the job" },
-  { icon: Scale, name: "Law Firms", pain: "Qualifying leads manually" },
-  { icon: TreePine, name: "Landscapers", pain: "No online presence" },
-  { icon: Building2, name: "Contractors", pain: "Losing bids to competitors" },
-  { icon: Stethoscope, name: "Medical & Dental", pain: "High no-show rates" },
-  { icon: Home, name: "Real Estate", pain: "Slow follow-up on inquiries" },
+  { icon: Hammer, name: "General Contractors", pain: "Need more qualified project inquiries" },
+  { icon: Wind, name: "HVAC Companies", pain: "Losing urgent leads after hours" },
+  { icon: Droplets, name: "Plumbing Services", pain: "Inconsistent booking flow from web traffic" },
+  { icon: Wrench, name: "Electrical Services", pain: "Weak local visibility and trust cues" },
+  { icon: PaintRoller, name: "Remodeling & Trades", pain: "Getting low-intent quote requests" },
+  { icon: Hammer, name: "Roofing & Exterior", pain: "High ad spend with low site conversion" },
 ];
 
 const processSteps = [
   {
     step: "01",
-    title: "Free Audit",
+    title: "Revenue-Focused Website Audit",
     description:
-      "We analyze your current digital presence, identify gaps, and show you exactly where you're losing leads.",
+      "We review your current site, lead paths, and local search structure to pinpoint where revenue opportunities are leaking.",
   },
   {
     step: "02",
-    title: "Custom Strategy",
+    title: "Growth Plan and Offer Architecture",
     description:
-      "We build a tailored plan combining web design, AI bots, and automations specific to your industry.",
+      "We map your page strategy, messaging hierarchy, and conversion paths around your highest-value services.",
   },
   {
     step: "03",
-    title: "Build & Launch",
+    title: "Build, Integrate, and Launch",
     description:
-      "We design, develop, and deploy your complete system — fast. Most projects go live within 2-3 weeks.",
+      "We execute the website and lead system with speed, then connect forms, follow-up, and tracking for operational use.",
   },
   {
     step: "04",
-    title: "Grow & Optimize",
+    title: "Optimize for Lead Quality",
     description:
-      "We monitor performance, optimize conversions, and scale your automations as your business grows.",
+      "We refine messaging and conversion points based on performance so lead quality and close rates improve over time.",
   },
 ];
 
@@ -67,11 +59,11 @@ export default function ResultsSection() {
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
                 Built for{" "}
-                <span className="text-gradient-orange">Local Businesses</span>
+                <span className="text-gradient-orange">Contractors and Home Services</span>
               </h2>
               <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-                We specialize in industries where speed, trust, and local
-                reputation are everything.
+                We focus on service businesses where inbound demand, response
+                speed, and trust directly impact booked jobs.
               </p>
             </div>
           </ScrollReveal>
@@ -100,8 +92,8 @@ export default function ResultsSection() {
                 Our Process
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-                From Audit to{" "}
-                <span className="text-gradient-orange">Autopilot</span>
+                From Website Redesign to{" "}
+                <span className="text-gradient-orange">Lead Performance Engine</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -137,27 +129,29 @@ export default function ResultsSection() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-4">
-                  Your Website Is Costing You Customers Right Now
+                  What You Get in a Strategy Call
                 </h3>
                 <p className="text-foreground/60 mb-6 leading-relaxed">
-                  If your website isn’t generating consistent leads, it’s actively costing you money. Every missed call, slow response, or weak design is sending potential customers straight to your competitors.
+                  We walk through your current website, identify conversion
+                  blockers, and show exactly what to change to increase qualified
+                  leads and booked jobs.
                 </p>
                 <button
                   onClick={scrollToContact}
                   className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 py-3 rounded-lg shadow-[0_0_25px_rgba(255,106,0,0.35)] transition-all duration-300"
                 >
-                  Get My Free Website Audit
+                  Book My Strategy Call
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <p className="mt-4 text-sm text-white/70">
-                  Takes less than 60 seconds — no commitment required
+                  Clear recommendations. No generic pitch deck.
                 </p>
               </div>
               <div className="grid grid-cols-3 gap-4 text-center">
                 {[
-                  { value: "Fast", label: "Turnaround Times" },
-                  { value: "Local", label: "Business Focus" },
-                  { value: "Real", label: "Results That Matter" },
+                  { value: "45m", label: "Strategy Session" },
+                  { value: "3-5", label: "Top Fixes Prioritized" },
+                  { value: "1", label: "Clear Execution Plan" },
                 ].map((s) => (
                   <div key={s.label} className="p-4">
                     <div className="text-2xl md:text-3xl font-bold font-serif text-brand-orange">

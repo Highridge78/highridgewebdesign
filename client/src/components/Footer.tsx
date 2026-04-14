@@ -12,10 +12,10 @@ const CONTACT_PHONE = "(828) 598-9262";
 
 const footerLinks = [
   { label: "Demo Sites", href: "/demos" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Results", href: "#results" },
-  { label: "Contact", href: "#contact" },
+  { label: "How It Works", href: "#services" },
+  { label: "Why Highridge", href: "#about" },
+  { label: "Process", href: "#results" },
+  { label: "Book a Call", href: "#contact" },
 ];
 
 export default function Footer() {
@@ -60,8 +60,8 @@ export default function Footer() {
                 />
               </picture>
               <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
-                Design. Automate. Grow. — We build websites, AI bots, and
-                automations that help local businesses thrive.
+                We build conversion-focused websites and lead systems for
+                contractors and service businesses that need more qualified jobs.
               </p>
               <p className="text-xs text-foreground/40 mt-3">
                 Founded by Jeremy Black in Sylva, NC
