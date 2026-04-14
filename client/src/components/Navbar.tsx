@@ -44,7 +44,7 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-[8.5rem] md:h-[10.5rem]">
+      <div className="container flex items-center justify-between h-[8rem] md:h-[10.5rem]">
         {/* Logo */}
         <a
           href="#"
@@ -60,7 +60,7 @@ export default function Navbar() {
             <img
               src={LOGO_FALLBACK}
               alt="High Ridge Web Design"
-              className="h-[8.5rem] md:h-[10.5rem] w-auto"
+              className="h-[8rem] md:h-[10.5rem] w-auto"
               loading="eager"
               fetchPriority="high"
               decoding="async"
