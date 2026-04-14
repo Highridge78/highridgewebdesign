@@ -84,12 +84,13 @@ if (!columnNames.has("source")) {
   db.exec("ALTER TABLE leads ADD COLUMN source TEXT NOT NULL DEFAULT 'website'");
 }
 if (!columnNames.has("updated_at")) {
-  db.exec("ALTER TABLE leads ADD COLUMN updated_at TEXT NOT NULL DEFAULT ''");
+  db.exec("ALTER TABLE leads ADD COLUMN updated_at TEXT");
+  db.exec("UPDATE leads SET updated_at = created_at WHERE updated_at IS NULL OR trim(updated_at) = ''");
 }
 
 db.exec("UPDATE leads SET source = 'website' WHERE source IS NULL OR source = '' OR source = 'website-contact-form'");
 db.exec("UPDATE leads SET status = 'new' WHERE status IS NULL OR status = ''");
-db.exec("UPDATE leads SET updated_at = created_at WHERE updated_at IS NULL OR updated_at = ''");
+db.exec("UPDATE leads SET updated_at = created_at WHERE updated_at IS NULL OR trim(updated_at) = ''");
 
 const insertLeadStatement = db.prepare(`
   INSERT INTO leads (name, email, phone, business, message, status, score, source, created_at, updated_at)
