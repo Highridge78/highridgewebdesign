@@ -1,6 +1,7 @@
 /**
  * ServicesSection — High Ridge Web Design
  * Service cards focused on outcomes, conversions, visibility, and automation.
+ * Framed as practical examples local businesses can adapt quickly.
  */
 import { Globe, Bot, Zap, Search, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
@@ -93,15 +94,15 @@ export default function ServicesSection() {
         <ScrollReveal>
           <div className="text-center mb-14 md:mb-16">
             <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-              What We Do
+              Real Examples
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-              Websites & Systems Built to{" "}
-              <span className="text-gradient-orange">Grow Your Business</span>
+              Examples of What Your{" "}
+              <span className="text-gradient-orange">Business Could Look Like</span>
             </h2>
             <p className="mt-4 text-foreground/60 max-w-2xl mx-auto text-lg">
-              We don’t just build websites — we build systems that bring in leads,
-              increase visibility, and help your business grow consistently.
+              Each direction is built for one job: increase qualified calls and
+              bookings from local business owners.
             </p>
           </div>
         </ScrollReveal>
@@ -195,7 +196,7 @@ export default function ServicesSection() {
                     onClick={scrollToContact}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-brand-orange hover:text-white hover:bg-brand-orange px-4 py-2 rounded-md transition-all duration-300"
                   >
-                    Get Started
+                    View Demo
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>

@@ -5,6 +5,10 @@
  */
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import TrustStripSection from "@/components/TrustStripSection";
+import BeforeAfterSection from "@/components/BeforeAfterSection";
+import DemoConversionSection from "@/components/DemoConversionSection";
+import PainPointSection from "@/components/PainPointSection";
 import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import ResultsSection from "@/components/ResultsSection";
@@ -17,6 +21,10 @@ export default function Home() {
       <Navbar />
       <main id="main-content">
         <HeroSection />
+        <TrustStripSection />
+        <BeforeAfterSection />
+        <DemoConversionSection />
+        <PainPointSection />
         <ServicesSection />
         <AboutSection />
         <ResultsSection />

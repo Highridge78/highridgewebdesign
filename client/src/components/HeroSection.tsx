@@ -5,7 +5,7 @@
  */
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, CheckCircle2 } from "lucide-react";
 import { useIsMobile } from "@/hooks/useMobile";
 import { Link } from "wouter";
 
@@ -42,7 +42,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen pt-30 md:pt-0 flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
       {/* Background image with parallax */}
       <picture>
         <source
@@ -86,12 +86,15 @@ export default function HeroSection() {
 
         {/* Main heading */}
         <h1 className="mx-auto max-w-4xl text-4xl md:text-6xl font-bold leading-tight text-white">
-          Websites and AI systems built to generate leads and close more jobs.
+          More Calls, More Customers, More Revenue for Local Businesses
         </h1>
 
         {/* Subheading */}
         <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg text-gray-100">
-          High Ridge helps local businesses turn website traffic into qualified inquiries with conversion-first design, AI chat, and automated follow-up.
+          We turn outdated websites into conversion-focused systems that help local owners book more jobs.
+        </p>
+        <p className="mx-auto mt-3 max-w-2xl text-sm md:text-base text-brand-amber/90">
+          Trusted by local teams that need measurable lead growth, not just a prettier homepage.
         </p>
 
         {/* CTA buttons */}
@@ -101,30 +104,33 @@ export default function HeroSection() {
             size="lg"
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
           >
-            Book My Free Strategy Call
+            Get a Free Website Audit
           </Button>
           <Button
-            onClick={() => scrollTo("#services")}
+            asChild
             variant="outline"
             size="lg"
             className="border-white/30 text-white hover:bg-white/10 font-medium text-base px-8 py-6 rounded-lg backdrop-blur-sm"
-                  >
-          Explore Services
-        </Button>
-      </div>
+          >
+            <Link href="/demos">See Real Examples</Link>
+          </Button>
+        </div>
 
-      <div className="mt-4">
-        <Link
-          href="/demos"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange-bright transition-colors"
-        >
-          Preview Demo Sites
-        </Link>
-      </div>
-
-      <p className="mt-5 text-sm text-gray-100">
-        Your site should be your best salesperson, even after hours.
-      </p>
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:gap-4">
+          {[
+            "Fast turnaround",
+            "Built for local businesses",
+            "No upfront risk",
+          ].map((item) => (
+            <div
+              key={item}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/25 px-3 py-1.5 text-xs font-medium text-gray-100"
+            >
+              <CheckCircle2 className="h-3.5 w-3.5 text-brand-orange" />
+              {item}
+            </div>
+          ))}
+        </div>
 
       {/* Scroll indicator */}
       <button
