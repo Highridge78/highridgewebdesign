@@ -78,14 +78,17 @@ export default function ContactSection() {
           : "Unable to submit your request right now.";
       setFormState("error");
       setErrorMessage(message);
+      if (res.status >= 500) {
+        window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+        setFormData({ name: "", email: "", phone: "", business: "", message: "", botcheck: "" });
+      }
     } catch {
       setFormState("error");
       setErrorMessage("Network issue detected. Opening your email app as a fallback.");
+      // Last-resort fallback to mailto to avoid losing lead details.
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      setFormData({ name: "", email: "", phone: "", business: "", message: "", botcheck: "" });
     }
-
-    // Last-resort fallback to mailto to avoid losing lead details.
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    setFormData({ name: "", email: "", phone: "", business: "", message: "", botcheck: "" });
   };
 
   return (
