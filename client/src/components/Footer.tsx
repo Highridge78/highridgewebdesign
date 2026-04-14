@@ -6,9 +6,6 @@
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
-const LOGO_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/logo-trimmed_4ca12aee.png";
-
 const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
 
@@ -35,11 +32,19 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {/* Logo & tagline */}
             <div>
-              <img
-                src={LOGO_URL}
-                alt="High Ridge Web Design"
-                className="h-[7.5rem] w-auto mb-4"
-              />
+              <picture>
+                <source srcSet="/new-logo-320.avif" type="image/avif" />
+                <source srcSet="/new-logo-320.webp" type="image/webp" />
+                <img
+                  src="/new-logo-640.webp"
+                  alt="High Ridge Web Design"
+                  className="h-[8.5rem] w-auto mb-4"
+                  loading="lazy"
+                  decoding="async"
+                  width={320}
+                  height={320}
+                />
+              </picture>
               <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
                 Design. Automate. Grow. — We build websites, AI bots, and
                 automations that help local businesses thrive.

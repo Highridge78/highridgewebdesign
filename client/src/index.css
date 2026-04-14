@@ -50,8 +50,8 @@
   --color-brand-darker: oklch(0.10 0.02 260);
   --color-brand-slate: oklch(0.55 0.02 260);
 
-  --font-serif: "IBM Plex Serif", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 :root {
@@ -157,6 +157,14 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  @media (max-width: 767px) {
+    /* Reduce expensive glow paints on mobile GPUs. */
+    .glow-orange,
+    .glow-orange:hover {
+      box-shadow: none;
+    }
   }
 }
 

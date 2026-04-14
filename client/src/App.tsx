@@ -1,14 +1,27 @@
+import { lazy, Suspense } from "react";
 import { Route, Switch } from "wouter";
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import DemoPage from "./pages/demo";
+
+const Home = lazy(() => import("./pages/Home"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const DemoPage = lazy(() => import("./pages/demo"));
+
+// Hint route chunks likely needed on user interactions.
+const preloadRoutes = () => {
+  import("./pages/Home");
+  import("./pages/NotFound");
+  import("./pages/demo");
+};
 
 export default function App() {
   return (
-    <Switch>
-      <Route path="/demo" component={DemoPage} />
-      <Route path="/" component={Home} />
-      <Route component={NotFound} />
-    </Switch>
+    <div onPointerEnter={preloadRoutes} onFocus={preloadRoutes}>
+      <Suspense fallback={null}>
+        <Switch>
+          <Route path="/demo" component={DemoPage} />
+          <Route path="/" component={Home} />
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
+    </div>
   );
 }

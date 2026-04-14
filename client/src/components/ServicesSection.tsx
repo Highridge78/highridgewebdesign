@@ -6,11 +6,11 @@ import { Globe, Bot, Zap, Search, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 const SERVICES_WEB =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/services-web-L7PL3M9GEdLC28yTUAy6uP.webp";
+  "/services-web-960.webp";
 const SERVICES_AI =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/services-ai-Pc2uLtLVbDvCAwwNrvF7Cm.webp";
+  "/services-ai-960.webp";
 const SERVICES_AUTO =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/services-auto-RUTvdvHyYcCR6C5FshLFqK.webp";
+  "/services-auto-960.webp";
 
 const services = [
   {
@@ -18,6 +18,7 @@ const services = [
     title: "Websites That Turn Visitors Into Customers",
     subtitle: "Conversion First",
     image: SERVICES_WEB,
+    imageAvif: "/services-web-960.avif",
     description:
       "Your website should be your #1 sales tool. We build high-performance sites designed to turn traffic into real calls, leads, and paying customers.",
     features: [
@@ -31,7 +32,8 @@ const services = [
     icon: Search,
     title: "Get Found Where Customers Are Searching",
     subtitle: "Visibility Engine",
-    image: "/seo-search-banner.png",
+    image: "/seo-search-banner.webp",
+    imageAvif: "/seo-search-banner.avif",
     description:
       "If customers can’t find you, they can’t hire you. We position your business to show up on Google and AI-powered search platforms.",
     features: [
@@ -46,6 +48,7 @@ const services = [
     title: "AI That Captures Leads 24/7",
     subtitle: "Always Working",
     image: SERVICES_AI,
+    imageAvif: "/services-ai-960.avif",
     description:
       "Never miss another lead. Our AI systems respond instantly, qualify prospects, and help convert visitors into booked customers — even while you sleep.",
     features: [
@@ -60,6 +63,7 @@ const services = [
     title: "Automation That Saves You Time",
     subtitle: "Efficiency System",
     image: SERVICES_AUTO,
+    imageAvif: "/services-auto-960.avif",
     description:
       "Stop wasting time on repetitive tasks. We build systems that streamline your business so you can focus on growth.",
     features: [
@@ -103,12 +107,22 @@ export default function ServicesSection() {
               <div className="group relative rounded-xl overflow-hidden border border-border bg-card hover:border-brand-orange/40 transition-all duration-500 h-full">
                 {service.image ? (
                   <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
+                    <picture>
+                      {"imageAvif" in service && service.imageAvif ? (
+                        <source srcSet={service.imageAvif} type="image/avif" />
+                      ) : null}
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
+                        width={960}
+                        height={640}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
                     <div className="absolute bottom-4 left-6 flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-brand-orange/20 border border-brand-orange/30 flex items-center justify-center">
