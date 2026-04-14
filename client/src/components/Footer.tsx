@@ -12,6 +12,8 @@ const CONTACT_PHONE = "(828) 598-9262";
 
 const footerLinks = [
   { label: "Demo Sites", href: "/demos" },
+  { label: "Lead Engine", href: "/lead-engine" },
+  { label: "Pipeline", href: "/pipeline" },
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
   { label: "Results", href: "#results" },
@@ -47,16 +49,16 @@ export default function Footer() {
             {/* Logo & tagline */}
             <div>
               <picture>
-                <source srcSet="/new-logo-320.avif" type="image/avif" />
-                <source srcSet="/new-logo-320.webp" type="image/webp" />
+                <source srcSet="/logo-trimmed-256.avif" type="image/avif" />
+                <source srcSet="/logo-trimmed-512.webp" type="image/webp" />
                 <img
-                  src="/new-logo-640.webp"
+                  src="/logo-trimmed-512.webp"
                   alt="High Ridge Web Design"
-                  className="h-[8.5rem] w-auto mb-4"
+                  className="h-[6.75rem] md:h-[7.5rem] w-auto mb-4 object-contain"
                   loading="lazy"
                   decoding="async"
-                  width={320}
-                  height={320}
+                  width={512}
+                  height={502}
                 />
               </picture>
               <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">

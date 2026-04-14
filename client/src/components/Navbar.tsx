@@ -3,19 +3,20 @@
  * Design: Dark sticky nav with logo, smooth-scroll links, and CTA button.
  * Brand: Deep black bg, fiery orange accent, IBM Plex Serif headings, Inter body.
  */
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
-const LOGO_FALLBACK = "/new-logo-640.webp";
-const LOGO_AVIF = "/new-logo-320.avif";
-const LOGO_WEBP = "/new-logo-320.webp";
+const LOGO_1X = "/logo-trimmed-256.webp";
+const LOGO_2X = "/logo-trimmed-512.webp";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
   { label: "Results", href: "#results" },
+  { label: "Lead Engine", href: "/lead-engine" },
+  { label: "Pipeline", href: "/pipeline" },
   { label: "Demo Sites", href: "/demos" },
   { label: "Contact", href: "#contact" },
 ];
@@ -56,7 +57,7 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-[7.5rem] md:h-[10.5rem]">
+      <div className="container flex h-20 items-center justify-between md:h-24">
         {/* Logo */}
         <a
           href="#"
@@ -71,17 +72,16 @@ export default function Navbar() {
           className="flex items-center shrink-0"
         >
           <picture>
-            <source srcSet={LOGO_AVIF} type="image/avif" />
-            <source srcSet={LOGO_WEBP} type="image/webp" />
+            <source srcSet={`${LOGO_1X} 1x, ${LOGO_2X} 2x`} type="image/webp" />
             <img
-              src={LOGO_FALLBACK}
+              src={LOGO_2X}
               alt="High Ridge Web Design"
-              className="h-[7.5rem] md:h-[10.5rem] w-auto"
+              className="h-16 w-auto md:h-20"
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              width={320}
-              height={320}
+              width={512}
+              height={502}
             />
           </picture>
         </a>

@@ -1,16 +1,30 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Switch } from "wouter";
 
 const Home = lazy(() => import("./pages/Home"));
+const LeadEngine = lazy(() => import("./pages/LeadEngine"));
+const Pipeline = lazy(() => import("./pages/Pipeline"));
 const DemosIndex = lazy(() => import("./pages/demos/index"));
 const DemoConversionPage = lazy(() => import("./pages/demos/demo-conversion"));
 const DemoPremiumPage = lazy(() => import("./pages/demos/demo-premium"));
 const DemoCreativePage = lazy(() => import("./pages/demos/demo-creative"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+function FocusManagement() {
+  useEffect(() => {
+    const root = document.getElementById("root");
+    if (root && !root.hasAttribute("tabindex")) {
+      root.setAttribute("tabindex", "-1");
+    }
+  }, []);
+
+  return null;
+}
+
 export default function App() {
   return (
     <div>
+      <FocusManagement />
       <Suspense fallback={null}>
         <Switch>
           <Route path="/demos/demo-1" component={DemoConversionPage} />
@@ -21,6 +35,8 @@ export default function App() {
           <Route path="/demos/demo-creative" component={DemoCreativePage} />
           <Route path="/demos/index" component={DemosIndex} />
           <Route path="/demos" component={DemosIndex} />
+          <Route path="/lead-engine" component={LeadEngine} />
+          <Route path="/pipeline" component={Pipeline} />
           <Route path="/" component={Home} />
           <Route component={NotFound} />
         </Switch>

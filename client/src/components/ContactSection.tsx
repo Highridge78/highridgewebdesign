@@ -97,6 +97,9 @@ export default function ContactSection() {
               Tell us about your business and we'll show you exactly where
               you're losing leads — and how to fix it. No cost, no obligation.
             </p>
+            <p className="mt-3 text-sm text-foreground/70">
+              No pressure. No obligation. Just a quick look at how your site can improve.
+            </p>
           </div>
         </ScrollReveal>
 
@@ -158,6 +161,18 @@ export default function ContactSection() {
                       value={formData.business}
                       onChange={handleChange}
                       placeholder="Smith's HVAC"
+                      className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                      Website (Optional)
+                    </label>
+                    <Input
+                      name="website"
+                      value={(formData as typeof formData & { website?: string }).website ?? ""}
+                      onChange={handleChange}
+                      placeholder="https://yourbusiness.com"
                       className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
                     />
                   </div>

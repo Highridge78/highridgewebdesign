@@ -1,16 +1,14 @@
 /**
  * ServicesSection — High Ridge Web Design
  * Service cards focused on outcomes, conversions, visibility, and automation.
+ * Framed as practical examples local businesses can adapt quickly.
  */
 import { Globe, Bot, Zap, Search, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
-const SERVICES_WEB =
-  "/services-web-960.webp";
-const SERVICES_AI =
-  "/services-ai-960.webp";
-const SERVICES_AUTO =
-  "/services-auto-960.webp";
+const SERVICES_WEB = "/services-web-960.webp";
+const SERVICES_AI = "/services-ai-960.webp";
+const SERVICES_AUTO = "/services-auto-960.webp";
 
 const services = [
   {
@@ -19,6 +17,8 @@ const services = [
     subtitle: "Conversion First",
     image: SERVICES_WEB,
     imageAvif: "/services-web-960.avif",
+    imageWebp640: "/services-web-640.webp",
+    imageAvif640: "/services-web-640.avif",
     description:
       "Your website should be your #1 sales tool. We build high-performance sites designed to turn traffic into real calls, leads, and paying customers.",
     features: [
@@ -34,6 +34,8 @@ const services = [
     subtitle: "Visibility Engine",
     image: "/seo-search-banner.webp",
     imageAvif: "/seo-search-banner.avif",
+    imageWebp640: "/seo-search-banner-640.webp",
+    imageAvif640: "/seo-search-banner-640.avif",
     description:
       "If customers can’t find you, they can’t hire you. We position your business to show up on Google and AI-powered search platforms.",
     features: [
@@ -49,6 +51,8 @@ const services = [
     subtitle: "Always Working",
     image: SERVICES_AI,
     imageAvif: "/services-ai-960.avif",
+    imageWebp640: "/services-ai-640.webp",
+    imageAvif640: "/services-ai-640.avif",
     description:
       "Never miss another lead. Our AI systems respond instantly, qualify prospects, and help convert visitors into booked customers — even while you sleep.",
     features: [
@@ -64,6 +68,8 @@ const services = [
     subtitle: "Efficiency System",
     image: SERVICES_AUTO,
     imageAvif: "/services-auto-960.avif",
+    imageWebp640: "/services-auto-640.webp",
+    imageAvif640: "/services-auto-640.avif",
     description:
       "Stop wasting time on repetitive tasks. We build systems that streamline your business so you can focus on growth.",
     features: [
@@ -88,15 +94,15 @@ export default function ServicesSection() {
         <ScrollReveal>
           <div className="text-center mb-14 md:mb-16">
             <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-              What We Do
+              Real Examples
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-              Websites & Systems Built to{" "}
-              <span className="text-gradient-orange">Grow Your Business</span>
+              Examples of What Your{" "}
+              <span className="text-gradient-orange">Business Could Look Like</span>
             </h2>
             <p className="mt-4 text-foreground/60 max-w-2xl mx-auto text-lg">
-              We don’t just build websites — we build systems that bring in leads,
-              increase visibility, and help your business grow consistently.
+              Each direction is built for one job: increase qualified calls and
+              bookings from local business owners.
             </p>
           </div>
         </ScrollReveal>
@@ -109,7 +115,18 @@ export default function ServicesSection() {
                   <div className="relative h-48 overflow-hidden">
                     <picture>
                       {"imageAvif" in service && service.imageAvif ? (
-                        <source srcSet={service.imageAvif} type="image/avif" />
+                        <source
+                          srcSet={`${service.imageAvif640 ?? service.imageAvif} 640w, ${service.imageAvif} 960w`}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 480px"
+                          type="image/avif"
+                        />
+                      ) : null}
+                      {"imageWebp640" in service && service.imageWebp640 ? (
+                        <source
+                          srcSet={`${service.imageWebp640} 640w, ${service.image} 960w`}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 480px"
+                          type="image/webp"
+                        />
                       ) : null}
                       <img
                         src={service.image}
@@ -120,7 +137,7 @@ export default function ServicesSection() {
                         fetchPriority="low"
                         width={960}
                         height={640}
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 480px"
                       />
                     </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
@@ -179,7 +196,7 @@ export default function ServicesSection() {
                     onClick={scrollToContact}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-brand-orange hover:text-white hover:bg-brand-orange px-4 py-2 rounded-md transition-all duration-300"
                   >
-                    Get Started
+                    View Demo
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>

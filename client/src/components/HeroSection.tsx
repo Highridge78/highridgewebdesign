@@ -5,12 +5,14 @@
  */
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, CheckCircle2 } from "lucide-react";
 import { useIsMobile } from "@/hooks/useMobile";
 import { Link } from "wouter";
 
-const HERO_BG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/hero-bg-6AP37PrEwkYVivEqXtb2BS.webp";
+const HERO_BG_768_AVIF = "/hero-bg-768.avif";
+const HERO_BG_1280_AVIF = "/hero-bg-1280.avif";
+const HERO_BG_768_WEBP = "/hero-bg-768.webp";
+const HERO_BG_1280_WEBP = "/hero-bg-1280.webp";
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLImageElement>(null);
@@ -18,12 +20,19 @@ export default function HeroSection() {
 
   useEffect(() => {
     if (isMobile) return;
+    let ticking = false;
 
     const handleScroll = () => {
-      if (!heroRef.current) return;
-      const y = window.scrollY;
-      heroRef.current.style.transform = `translateY(${y * 0.3}px)`;
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        if (heroRef.current) {
+          heroRef.current.style.transform = `translate3d(0, ${window.scrollY * 0.3}px, 0)`;
+        }
+        ticking = false;
+      });
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobile]);
@@ -35,15 +44,29 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
       {/* Background image with parallax */}
-      <img
-        ref={heroRef}
-        src={HERO_BG}
-        alt=""
-        aria-hidden="true"
-        fetchPriority="high"
-        decoding="async"
-        className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
-      />
+      <picture>
+        <source
+          type="image/avif"
+          srcSet={`${HERO_BG_768_AVIF} 768w, ${HERO_BG_1280_AVIF} 1280w`}
+          sizes="100vw"
+        />
+        <source
+          type="image/webp"
+          srcSet={`${HERO_BG_768_WEBP} 768w, ${HERO_BG_1280_WEBP} 1280w`}
+          sizes="100vw"
+        />
+        <img
+          ref={heroRef}
+          src={HERO_BG_1280_WEBP}
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
+          width={1280}
+          height={714}
+          className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
+        />
+      </picture>
 
       {/* Dark overlay gradient — heavier at top for nav readability, lighter at center */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
@@ -54,54 +77,60 @@ export default function HeroSection() {
       {/* Content */}
       <div className="relative z-10 container text-center px-4">
         {/* Tagline badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
           <span className="w-2 h-2 rounded-full bg-brand-orange md:animate-pulse" />
           <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
-            Web Design &bull; SEO &bull; AI Bots &bull; Automation
+            Websites • AI Chatbots • Automation
           </span>
         </div>
 
         {/* Main heading */}
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-  Your Website Should Be Bringing You Customers — Not Sitting There Doing Nothing
-</h1>
+        <h1 className="mx-auto max-w-4xl text-4xl md:text-6xl font-bold leading-tight text-white">
+          More Calls, More Customers, More Revenue for Local Businesses
+        </h1>
 
         {/* Subheading */}
-        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl">
-  We build high-performance websites for service businesses that want more calls, more leads, and real growth — not just a pretty design.
-</p>
+        <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg text-gray-100">
+          We turn outdated websites into conversion-focused systems that help local owners book more jobs.
+        </p>
+        <p className="mx-auto mt-3 max-w-2xl text-sm md:text-base text-brand-amber/90">
+          Trusted by local teams that need measurable lead growth, not just a prettier homepage.
+        </p>
 
         {/* CTA buttons */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
           <Button
             onClick={() => scrollTo("#contact")}
             size="lg"
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
           >
-            Get My Free Website Audit
+            Get a Free Website Audit
           </Button>
           <Button
-            onClick={() => scrollTo("#services")}
+            asChild
             variant="outline"
             size="lg"
             className="border-white/30 text-white hover:bg-white/10 font-medium text-base px-8 py-6 rounded-lg backdrop-blur-sm"
-                  >
-          See What We Can Do
-        </Button>
-      </div>
+          >
+            <Link href="/demos">See Real Examples</Link>
+          </Button>
+        </div>
 
-      <div className="mt-4">
-        <Link
-          href="/demos"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange-bright transition-colors"
-        >
-          Preview Demo Sites
-        </Link>
-      </div>
-
-      <p className="mt-6 text-sm text-gray-400">
-        Most business websites lose potential customers within seconds. Let’s fix that.
-      </p>
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:gap-4">
+          {[
+            "Fast turnaround",
+            "Built for local businesses",
+            "No upfront risk",
+          ].map((item) => (
+            <div
+              key={item}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/25 px-3 py-1.5 text-xs font-medium text-gray-100"
+            >
+              <CheckCircle2 className="h-3.5 w-3.5 text-brand-orange" />
+              {item}
+            </div>
+          ))}
+        </div>
 
       {/* Scroll indicator */}
       <button
