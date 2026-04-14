@@ -85,6 +85,30 @@ export default function DemoCreativePage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <header className="sticky top-0 z-40 border-b border-border/70 bg-[oklch(0.10_0.02_260/0.92)] backdrop-blur">
+        <div className="container flex items-center justify-between py-4">
+          <Link
+            href="/demos"
+            className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-amber hover:text-brand-orange transition-colors"
+          >
+            Website Demo Concepts
+          </Link>
+          <div className="flex items-center gap-2">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="border-white/20 bg-transparent text-white hover:bg-white/10"
+            >
+              <Link href="/">Main Site</Link>
+            </Button>
+            <Button asChild size="sm" className="bg-brand-orange text-white hover:bg-brand-orange-bright">
+              <Link href="/demos">All Demos</Link>
+            </Button>
+          </div>
+        </div>
+      </header>
+
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.16_0.05_255)] via-[oklch(0.12_0.03_260)] to-[oklch(0.10_0.02_260)]" />
         <div className="absolute top-[-180px] right-[-120px] h-[420px] w-[420px] rounded-full bg-brand-orange/15 blur-3xl" />
@@ -103,15 +127,21 @@ export default function DemoCreativePage() {
               website into a revenue engine.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-              <Button className="bg-brand-orange px-8 py-6 text-base font-semibold text-white hover:bg-brand-orange-bright">
-                Get My AI-Powered Site Plan
-                <ArrowRight className="h-4 w-4" />
+              <Button
+                asChild
+                className="bg-brand-orange px-8 py-6 text-base font-semibold text-white hover:bg-brand-orange-bright"
+              >
+                <Link href="/#contact">
+                  Get My AI-Powered Site Plan
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
               <Button
+                asChild
                 variant="outline"
                 className="border-white/25 bg-white/5 px-8 py-6 text-base text-white hover:bg-white/10"
               >
-                See The System
+                <a href="#system-flow">See The System</a>
               </Button>
             </div>
             <p className="mt-6 text-sm text-foreground/60">{localBusinessAudience}</p>
@@ -181,7 +211,7 @@ export default function DemoCreativePage() {
         </div>
       </section>
 
-      <section className="bg-[oklch(0.11_0.02_260)] py-16 md:py-20">
+      <section id="system-flow" className="bg-[oklch(0.11_0.02_260)] py-16 md:py-20">
         <div className="container">
           <h2 className="font-serif text-3xl font-bold text-white md:text-4xl">
             System Flow: Lead → Chatbot → Conversion
@@ -326,8 +356,10 @@ export default function DemoCreativePage() {
                 </p>
               </div>
               <Button className="bg-brand-orange px-8 py-6 text-base font-semibold text-white hover:bg-brand-orange-bright">
-                Book a Strategy Call
-                <ArrowRight className="h-4 w-4" />
+                <Link href="/#contact" className="inline-flex items-center gap-2">
+                  Book a Strategy Call
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -336,9 +368,15 @@ export default function DemoCreativePage() {
 
       <section className="py-10">
         <div className="container text-center">
-          <Link href="/demos" className="text-sm font-semibold text-brand-orange hover:text-brand-orange-bright">
-            Back to all demo concepts
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link href="/demos" className="text-sm font-semibold text-brand-orange hover:text-brand-orange-bright">
+              Back to all demo concepts
+            </Link>
+            <span aria-hidden className="text-foreground/30">•</span>
+            <Link href="/" className="text-sm font-semibold text-foreground/70 hover:text-white">
+              Return to main site
+            </Link>
+          </div>
         </div>
       </section>
     </main>

@@ -43,7 +43,7 @@ const demoOptions = [
 
 export default function DemosIndexPage() {
   usePageMeta({
-    title: "Highridge Redesign Concepts | High Ridge Web Design",
+    title: "Website Demo Concepts | High Ridge Web Design",
     description:
       "Compare three strategic homepage concepts built to improve conversion, positioning, and differentiation for local business websites.",
   });
@@ -58,7 +58,7 @@ export default function DemosIndexPage() {
               Demo Navigation
             </p>
             <h1 className="mt-3 font-serif text-4xl md:text-6xl font-bold leading-tight">
-              Highridge Redesign Concepts
+              Website Demo Concepts
             </h1>
             <p className="mt-5 text-foreground/70 text-lg max-w-3xl">
               Explore three fully built homepage strategies designed for different
@@ -102,19 +102,26 @@ export default function DemosIndexPage() {
                     href={demo.path}
                     className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-orange hover:text-white transition-colors"
                   >
-                    Open this demo
+                    View Demo
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </article>
               );
             })}
           </div>
-          <div className="mt-10">
+          <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href="/"
               className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-foreground/80 hover:bg-white/5 hover:text-white transition-colors"
             >
               Back to main site
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/#contact"
+              className="inline-flex items-center gap-2 rounded-full bg-brand-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-orange-bright transition-colors"
+            >
+              Request Your Version
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

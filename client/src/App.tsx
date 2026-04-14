@@ -13,8 +13,11 @@ export default function App() {
     <div>
       <Suspense fallback={null}>
         <Switch>
+          <Route path="/demos/demo-1" component={DemoConversionPage} />
           <Route path="/demos/demo-conversion" component={DemoConversionPage} />
+          <Route path="/demos/demo-2" component={DemoPremiumPage} />
           <Route path="/demos/demo-premium" component={DemoPremiumPage} />
+          <Route path="/demos/demo-3" component={DemoCreativePage} />
           <Route path="/demos/demo-creative" component={DemoCreativePage} />
           <Route path="/demos/index" component={DemosIndex} />
           <Route path="/demos" component={DemosIndex} />

@@ -62,3 +62,8 @@ export const objectionFaq: DemoFaq[] = [
 
 export const localBusinessAudience =
   "Built for local business owners who need more leads, stronger trust, and less manual follow-up.";
+
+export const demoQuickLinks = [
+  { label: "Back to main site", href: "/" },
+  { label: "Back to demo index", href: "/demos" },
+];

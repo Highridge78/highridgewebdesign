@@ -237,6 +237,17 @@ export default function DemoConversionPage() {
             </div>
           </div>
         </section>
+
+        <section className="pb-14">
+          <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-3 px-4 sm:flex-row sm:px-6 lg:px-8">
+            <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
+              <Link href="/demos">Back to demo index</Link>
+            </Button>
+            <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
+              <Link href="/">Back to main site</Link>
+            </Button>
+          </div>
+        </section>
       </main>
     </div>
   );

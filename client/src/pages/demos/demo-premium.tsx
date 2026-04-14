@@ -78,6 +78,23 @@ export default function DemoPremium() {
   return (
     <div className="min-h-screen bg-[oklch(0.09_0.02_260)] text-foreground">
       <main>
+        <section className="border-b border-white/10 bg-[oklch(0.08_0.02_260)] py-3">
+          <div className="container max-w-5xl flex flex-wrap items-center gap-3 text-sm">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-foreground/80 hover:bg-white/8 hover:text-white transition-colors"
+            >
+              Back to main site
+            </Link>
+            <Link
+              href="/demos"
+              className="inline-flex items-center gap-2 rounded-full border border-brand-orange/30 px-4 py-2 text-brand-orange hover:bg-brand-orange/10 transition-colors"
+            >
+              Back to demo index
+            </Link>
+          </div>
+        </section>
+
         <section className="relative py-24 md:py-36">
           <div className="absolute inset-0 bg-gradient-to-b from-[oklch(0.08_0.02_260)] to-[oklch(0.12_0.02_260)]" />
           <div className="relative z-10 container max-w-5xl">
@@ -106,7 +123,7 @@ export default function DemoPremium() {
                 href="/demos"
                 className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-sm font-medium text-white hover:bg-white/10 transition-colors"
               >
-                Compare Concepts
+                Back to Demo Index
               </Link>
             </div>
           </div>
@@ -284,6 +301,14 @@ export default function DemoPremium() {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>
+              <div className="mt-4">
+                <Link
+                  href="/demos"
+                  className="text-sm font-semibold text-white/75 hover:text-white transition-colors"
+                >
+                  Or compare all demo concepts
+                </Link>
+              </div>
             </div>
           </div>
         </section>
