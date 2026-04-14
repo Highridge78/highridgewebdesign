@@ -15,11 +15,13 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <HeroSection />
-      <ServicesSection />
-      <AboutSection />
-      <ResultsSection />
-      <ContactSection />
+      <main id="main-content">
+        <HeroSection />
+        <ServicesSection />
+        <AboutSection />
+        <ResultsSection />
+        <ContactSection />
+      </main>
       <Footer />
     </div>
   );

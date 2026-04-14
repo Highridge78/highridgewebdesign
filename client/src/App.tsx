@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Switch } from "wouter";
 
 const Home = lazy(() => import("./pages/Home"));
@@ -8,9 +8,21 @@ const DemoPremiumPage = lazy(() => import("./pages/demos/demo-premium"));
 const DemoCreativePage = lazy(() => import("./pages/demos/demo-creative"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+function FocusManagement() {
+  useEffect(() => {
+    const root = document.getElementById("root");
+    if (root && !root.hasAttribute("tabindex")) {
+      root.setAttribute("tabindex", "-1");
+    }
+  }, []);
+
+  return null;
+}
+
 export default function App() {
   return (
     <div>
+      <FocusManagement />
       <Suspense fallback={null}>
         <Switch>
           <Route path="/demos/demo-1" component={DemoConversionPage} />

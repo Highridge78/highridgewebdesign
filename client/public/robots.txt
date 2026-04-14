@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Avoid indexing internal build/runtime artifacts.
+Disallow: /node_modules/
+Disallow: /dist/
+
+Sitemap: https://highridgewebdesign.com/sitemap.xml

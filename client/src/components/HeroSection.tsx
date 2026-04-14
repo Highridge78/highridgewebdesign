@@ -9,8 +9,10 @@ import { ArrowDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/useMobile";
 import { Link } from "wouter";
 
-const HERO_BG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/hero-bg-6AP37PrEwkYVivEqXtb2BS.webp";
+const HERO_BG_768_AVIF = "/hero-bg-768.avif";
+const HERO_BG_1280_AVIF = "/hero-bg-1280.avif";
+const HERO_BG_768_WEBP = "/hero-bg-768.webp";
+const HERO_BG_1280_WEBP = "/hero-bg-1280.webp";
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLImageElement>(null);
@@ -18,12 +20,19 @@ export default function HeroSection() {
 
   useEffect(() => {
     if (isMobile) return;
+    let ticking = false;
 
     const handleScroll = () => {
-      if (!heroRef.current) return;
-      const y = window.scrollY;
-      heroRef.current.style.transform = `translateY(${y * 0.3}px)`;
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        if (heroRef.current) {
+          heroRef.current.style.transform = `translate3d(0, ${window.scrollY * 0.3}px, 0)`;
+        }
+        ticking = false;
+      });
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobile]);
@@ -35,15 +44,29 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen pt-30 md:pt-0 flex items-center justify-center overflow-hidden">
       {/* Background image with parallax */}
-      <img
-        ref={heroRef}
-        src={HERO_BG}
-        alt=""
-        aria-hidden="true"
-        fetchPriority="high"
-        decoding="async"
-        className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
-      />
+      <picture>
+        <source
+          type="image/avif"
+          srcSet={`${HERO_BG_768_AVIF} 768w, ${HERO_BG_1280_AVIF} 1280w`}
+          sizes="100vw"
+        />
+        <source
+          type="image/webp"
+          srcSet={`${HERO_BG_768_WEBP} 768w, ${HERO_BG_1280_WEBP} 1280w`}
+          sizes="100vw"
+        />
+        <img
+          ref={heroRef}
+          src={HERO_BG_1280_WEBP}
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
+          width={1280}
+          height={714}
+          className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
+        />
+      </picture>
 
       {/* Dark overlay gradient — heavier at top for nav readability, lighter at center */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
@@ -67,7 +90,7 @@ export default function HeroSection() {
         </h1>
 
         {/* Subheading */}
-        <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg text-gray-200">
+        <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg text-gray-100">
           High Ridge helps local businesses turn website traffic into qualified inquiries with conversion-first design, AI chat, and automated follow-up.
         </p>
 
@@ -99,7 +122,7 @@ export default function HeroSection() {
         </Link>
       </div>
 
-      <p className="mt-5 text-sm text-gray-300/90">
+      <p className="mt-5 text-sm text-gray-100">
         Your site should be your best salesperson, even after hours.
       </p>
 
