@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/useMobile";
+import { Link } from "wouter";
 
 const HERO_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/hero-bg-6AP37PrEwkYVivEqXtb2BS.webp";
@@ -87,6 +88,15 @@ export default function HeroSection() {
                   >
           See What We Can Do
         </Button>
+      </div>
+
+      <div className="mt-4">
+        <Link
+          href="/demos"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange-bright transition-colors"
+        >
+          Preview Demo Sites
+        </Link>
       </div>
 
       <p className="mt-6 text-sm text-gray-400">
