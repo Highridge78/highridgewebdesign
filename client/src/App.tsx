@@ -8,19 +8,9 @@ const DemoPremiumPage = lazy(() => import("./pages/demos/demo-premium"));
 const DemoCreativePage = lazy(() => import("./pages/demos/demo-creative"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Hint route chunks likely needed on user interactions.
-const preloadRoutes = () => {
-  import("./pages/Home");
-  import("./pages/demos/index");
-  import("./pages/demos/demo-conversion");
-  import("./pages/demos/demo-premium");
-  import("./pages/demos/demo-creative");
-  import("./pages/NotFound");
-};
-
 export default function App() {
   return (
-    <div onPointerEnter={preloadRoutes} onFocus={preloadRoutes}>
+    <div>
       <Suspense fallback={null}>
         <Switch>
           <Route path="/demos/demo-conversion" component={DemoConversionPage} />
