@@ -33,7 +33,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen pt-30 md:pt-0 flex items-center justify-center overflow-hidden">
       {/* Background image with parallax */}
       <img
         ref={heroRef}
@@ -54,31 +54,31 @@ export default function HeroSection() {
       {/* Content */}
       <div className="relative z-10 container text-center px-4">
         {/* Tagline badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
           <span className="w-2 h-2 rounded-full bg-brand-orange md:animate-pulse" />
           <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
-            Web Design &bull; SEO &bull; AI Bots &bull; Automation
+            Websites • AI Chatbots • Automation
           </span>
         </div>
 
         {/* Main heading */}
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-  Your Website Should Be Bringing You Customers — Not Sitting There Doing Nothing
-</h1>
+        <h1 className="mx-auto max-w-4xl text-4xl md:text-6xl font-bold leading-tight text-white">
+          Websites and AI systems built to generate leads and close more jobs.
+        </h1>
 
         {/* Subheading */}
-        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl">
-  We build high-performance websites for service businesses that want more calls, more leads, and real growth — not just a pretty design.
-</p>
+        <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg text-gray-200">
+          High Ridge helps local businesses turn website traffic into qualified inquiries with conversion-first design, AI chat, and automated follow-up.
+        </p>
 
         {/* CTA buttons */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
           <Button
             onClick={() => scrollTo("#contact")}
             size="lg"
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
           >
-            Get My Free Website Audit
+            Book My Free Strategy Call
           </Button>
           <Button
             onClick={() => scrollTo("#services")}
@@ -86,7 +86,7 @@ export default function HeroSection() {
             size="lg"
             className="border-white/30 text-white hover:bg-white/10 font-medium text-base px-8 py-6 rounded-lg backdrop-blur-sm"
                   >
-          See What We Can Do
+          Explore Services
         </Button>
       </div>
 
@@ -99,8 +99,8 @@ export default function HeroSection() {
         </Link>
       </div>
 
-      <p className="mt-6 text-sm text-gray-400">
-        Most business websites lose potential customers within seconds. Let’s fix that.
+      <p className="mt-5 text-sm text-gray-300/90">
+        Your site should be your best salesperson, even after hours.
       </p>
 
       {/* Scroll indicator */}
