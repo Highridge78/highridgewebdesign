@@ -32,7 +32,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
       {/* Background image with parallax */}
       <img
         ref={heroRef}
@@ -51,7 +51,7 @@ export default function HeroSection() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[oklch(0.10_0.02_260)] to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 container pt-20 md:pt-0 text-center px-4">
+      <div className="relative z-10 container text-center px-4">
         {/* Tagline badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
           <span className="w-2 h-2 rounded-full bg-brand-orange md:animate-pulse" />
