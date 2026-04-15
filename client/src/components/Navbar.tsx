@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
-const LOGO_FALLBACK = "/new-logo-640.webp";
-const LOGO_AVIF = "/new-logo-320.avif";
-const LOGO_WEBP = "/new-logo-320.webp";
+const LOGO_FALLBACK = "/logo-trimmed-512.webp";
+const LOGO_AVIF = "/logo-trimmed-256.avif";
+const LOGO_WEBP = "/logo-trimmed-256.webp";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -56,7 +56,7 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-[7.5rem] md:h-[10.5rem]">
+      <div className="container flex items-center justify-between h-[10.35rem] md:h-[14.49rem]">
         {/* Logo */}
         <a
           href="#"
@@ -76,12 +76,12 @@ export default function Navbar() {
             <img
               src={LOGO_FALLBACK}
               alt="High Ridge Web Design"
-              className="h-[7.5rem] md:h-[10.5rem] w-auto"
+              className="h-[10.35rem] md:h-[14.49rem] w-auto"
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              width={320}
-              height={320}
+              width={512}
+              height={512}
             />
           </picture>
         </a>
