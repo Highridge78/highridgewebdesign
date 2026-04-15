@@ -1,13 +1,16 @@
 /**
  * Home — High Ridge Web Design
- * Single-page layout: Navbar, Hero, Services, About, Results, Contact, Footer.
- * No pricing section per owner request.
+ * Single-page layout focused on conversion-first messaging.
  */
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import ServicesSection from "@/components/ServicesSection";
-import AboutSection from "@/components/AboutSection";
-import ResultsSection from "@/components/ResultsSection";
+import ProblemSection from "@/components/ProblemSection";
+import SolutionSection from "@/components/SolutionSection";
+import WhatYouGetSection from "@/components/WhatYouGetSection";
+import ProcessSection from "@/components/ProcessSection";
+import ProofSection from "@/components/ProofSection";
+import WhoThisIsForSection from "@/components/WhoThisIsForSection";
+import FinalCtaSection from "@/components/FinalCtaSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
@@ -16,9 +19,13 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <HeroSection />
-      <ServicesSection />
-      <AboutSection />
-      <ResultsSection />
+      <ProblemSection />
+      <SolutionSection />
+      <WhatYouGetSection />
+      <ProcessSection />
+      <ProofSection />
+      <WhoThisIsForSection />
+      <FinalCtaSection />
       <ContactSection />
       <Footer />
     </div>

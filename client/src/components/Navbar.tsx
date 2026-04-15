@@ -13,9 +13,11 @@ const LOGO_AVIF = "/new-logo-320.avif";
 const LOGO_WEBP = "/new-logo-320.webp";
 
 const NAV_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Results", href: "#results" },
+  { label: "Problem", href: "#problem" },
+  { label: "Solution", href: "#solution" },
+  { label: "What You Get", href: "#outcomes" },
+  { label: "Process", href: "#process" },
+  { label: "Proof", href: "#proof" },
   { label: "Demo Sites", href: "/demos" },
   { label: "Contact", href: "#contact" },
 ];
@@ -112,7 +114,7 @@ export default function Navbar() {
             onClick={() => handleNavClick("#contact")}
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 glow-orange transition-all duration-300"
           >
-            Free Audit
+            Get a Free Website &amp; Lead Audit
           </Button>
         </div>
 
@@ -154,7 +156,7 @@ export default function Navbar() {
               onClick={() => handleNavClick("#contact")}
               className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold mt-2 glow-orange"
             >
-              Free Audit
+              Get a Free Website &amp; Lead Audit
             </Button>
           </div>
         </div>
