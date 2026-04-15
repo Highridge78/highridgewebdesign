@@ -4,7 +4,6 @@
  */
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/useMobile";
 
 const HERO_BG =
@@ -46,15 +45,8 @@ export default function HeroSection() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[oklch(0.10_0.02_260)] to-transparent" />
 
       <div className="relative z-10 container text-center px-4">
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
-          <span className="w-2 h-2 rounded-full bg-brand-orange md:animate-pulse" />
-          <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
-            Lead Generation for Service Businesses
-          </span>
-        </div>
-
         <h1 className="text-4xl md:text-6xl font-bold leading-tight max-w-5xl mx-auto">
-          If your website isn&apos;t generating leads, it&apos;s costing you business.
+          If your website isn't generating leads, it's costing you business.
         </h1>
 
         <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
@@ -64,7 +56,7 @@ export default function HeroSection() {
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
-            onClick={() => scrollTo("#problem")}
+            onClick={() => scrollTo("#cost-of-inaction")}
             size="lg"
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
           >
@@ -81,17 +73,9 @@ export default function HeroSection() {
         </div>
 
         <p className="mt-6 text-sm text-gray-300">
-          Built for service businesses that need consistent inbound leads.
+          Built for service businesses that need consistent inbound leads - not
+          just traffic.
         </p>
-
-        <button
-          onClick={() => scrollTo("#problem")}
-          className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 md:animate-bounce"
-          aria-label="Scroll down"
-        >
-          <span className="text-xs uppercase tracking-widest">See the problem</span>
-          <ArrowDown size={20} />
-        </button>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import { MessageSquareX, CircleOff, MousePointerClick, Smartphone } from "lucide-react";
+import { MessageSquareX, UserX, ShieldX, AlertTriangle } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 const problemPoints = [
@@ -6,25 +6,25 @@ const problemPoints = [
     icon: MessageSquareX,
     title: "Unclear Messaging",
     description:
-      "Visitors don't understand what you do within seconds, so they leave before they ever contact you.",
+      "Visitors land on your site and still don’t understand what you do or why they should call you.",
   },
   {
-    icon: CircleOff,
-    title: "No Clear Advantage",
+    icon: UserX,
+    title: "Lost Leads",
     description:
-      "Your site gives no compelling reason to choose you over nearby competitors who look more trustworthy.",
+      "People click around, get confused, and leave without taking action.",
   },
   {
-    icon: MousePointerClick,
-    title: "Weak Calls to Action",
+    icon: ShieldX,
+    title: "Weak Trust Signals",
     description:
-      "If people can't quickly see what to do next, they won't call, request a quote, or book an appointment.",
+      "Outdated design, generic copy, and lack of proof make your business feel risky.",
   },
   {
-    icon: Smartphone,
-    title: "Poor Mobile Experience",
+    icon: AlertTriangle,
+    title: "Low Conversion Rates",
     description:
-      "Most traffic is mobile. Slow pages and clunky layouts kill conversions before visitors take action.",
+      "Traffic alone doesn’t grow your business. If your site can’t convert, your marketing is wasted.",
   },
 ];
 
@@ -37,12 +37,17 @@ export default function ProblemSection() {
         <ScrollReveal>
           <div className="text-center mb-12">
             <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-              The Problem
+              Why Most Websites Fail
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 max-w-4xl mx-auto">
-              Most Websites Quietly{" "}
+              Most Websites Look Fine — But Quietly{" "}
               <span className="text-gradient-orange">Lose Leads Every Day</span>
             </h2>
+            <p className="mt-4 text-foreground/60 max-w-3xl mx-auto text-lg">
+              If your website isn’t built to guide action, build trust fast, and
+              make contacting you effortless, potential customers leave and hire
+              someone else.
+            </p>
           </div>
         </ScrollReveal>
 
@@ -66,7 +71,7 @@ export default function ProblemSection() {
 
         <ScrollReveal delay={220}>
           <p className="mt-10 text-center text-lg text-foreground/70 max-w-3xl mx-auto">
-            If your site isn&apos;t actively generating leads, it&apos;s not doing its
+            If your website isn’t actively generating leads, it’s not doing its
             job.
           </p>
         </ScrollReveal>

@@ -23,15 +23,15 @@ export default function AuditOfferSection() {
           <div className="max-w-4xl mx-auto rounded-2xl border border-brand-orange/25 bg-gradient-to-br from-[oklch(0.15_0.03_50)] to-[oklch(0.12_0.02_260)] p-8 md:p-12">
             <div className="text-center">
               <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-                Free Audit Offer
+                Free Website &amp; Lead Audit
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
                 Find Out Exactly Where Your Website Is Losing Leads
               </h2>
               <p className="mt-4 text-foreground/70 max-w-3xl mx-auto leading-relaxed">
-                We&apos;ll review your current site and show you what&apos;s
-                working, what&apos;s not, and where you&apos;re losing potential
-                customers.
+                We&apos;ll review your website and show you what&apos;s working,
+                what&apos;s not, and where you&apos;re losing potential customers
+                along with clear steps to fix it.
               </p>
             </div>
 
@@ -58,8 +58,8 @@ export default function AuditOfferSection() {
                 Get Your Free Website &amp; Lead Audit
               </Button>
               <p className="mt-4 text-sm text-foreground/60">
-                No pressure. Just a clear breakdown of what to fix and why it
-                matters.
+                No pressure. No obligation. Just a clear breakdown of what to fix
+                and why it matters.
               </p>
             </div>
           </div>
