@@ -5,6 +5,8 @@
  */
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import ProblemSection from "@/components/ProblemSection";
+import AuditOfferSection from "@/components/AuditOfferSection";
 import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import ResultsSection from "@/components/ResultsSection";
@@ -16,6 +18,8 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <HeroSection />
+      <ProblemSection />
+      <AuditOfferSection />
       <ServicesSection />
       <AboutSection />
       <ResultsSection />
