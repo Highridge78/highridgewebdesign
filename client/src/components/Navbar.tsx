@@ -112,7 +112,7 @@ export default function Navbar() {
             onClick={() => handleNavClick("#contact")}
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 glow-orange transition-all duration-300"
           >
-            Free Audit
+            Free Website Audit
           </Button>
         </div>
 
@@ -154,7 +154,7 @@ export default function Navbar() {
               onClick={() => handleNavClick("#contact")}
               className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold mt-2 glow-orange"
             >
-              Free Audit
+              Free Website Audit
             </Button>
           </div>
         </div>

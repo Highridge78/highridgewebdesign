@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route, Switch } from "wouter";
 
 const Home = lazy(() => import("./pages/Home"));
+const RoofingWebsitesPage = lazy(() => import("./pages/RoofingWebsites"));
 const DemosIndex = lazy(() => import("./pages/demos/index"));
 const DemoConversionPage = lazy(() => import("./pages/demos/demo-conversion"));
 const DemoPremiumPage = lazy(() => import("./pages/demos/demo-premium"));
@@ -13,6 +14,7 @@ export default function App() {
     <div>
       <Suspense fallback={null}>
         <Switch>
+          <Route path="/roofing-websites" component={RoofingWebsitesPage} />
           <Route path="/demos/demo-1" component={DemoConversionPage} />
           <Route path="/demos/demo-conversion" component={DemoConversionPage} />
           <Route path="/demos/demo-2" component={DemoPremiumPage} />
