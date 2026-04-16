@@ -97,15 +97,17 @@ export default function ContactSection() {
         <ScrollReveal>
           <div className="text-center mb-10">
             <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-              Get Started
+              Free Website & Lead Audit
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-              Claim Your{" "}
-              <span className="text-gradient-orange">Free Audit</span>
+              Get a{" "}
+              <span className="text-gradient-orange">
+                Free Website &amp; Lead Audit
+              </span>
             </h2>
             <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-              Tell us about your business and we'll show you exactly where
-              you're losing leads — and how to fix it. No cost, no obligation.
+              We&apos;ll show you exactly where your current site is losing leads
+              and how to fix it. No cost, no obligation.
             </p>
           </div>
         </ScrollReveal>
@@ -217,7 +219,7 @@ export default function ContactSection() {
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      Get My Free Audit
+                      Get a Free Website &amp; Lead Audit
                     </>
                   )}
                 </Button>

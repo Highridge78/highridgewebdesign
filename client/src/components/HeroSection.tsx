@@ -1,7 +1,6 @@
 /**
  * HeroSection — High Ridge Web Design
- * Full-viewport hero with user-provided mountain ridge sunset background.
- * Light text on dark image. Tagline: "Design. Automate. Grow."
+ * Clear conversion-first hero for service businesses.
  */
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -34,7 +33,6 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
-      {/* Background image with parallax */}
       <img
         ref={heroRef}
         src={HERO_BG}
@@ -45,71 +43,57 @@ export default function HeroSection() {
         className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
       />
 
-      {/* Dark overlay gradient — heavier at top for nav readability, lighter at center */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
-
-      {/* Seamless transition to next section */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-black/80" />
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[oklch(0.10_0.02_260)] to-transparent" />
 
-      {/* Content */}
       <div className="relative z-10 container text-center px-4">
-        {/* Tagline badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
           <span className="w-2 h-2 rounded-full bg-brand-orange md:animate-pulse" />
           <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
-            Web Design &bull; SEO &bull; AI Bots &bull; Automation
+            Built for Service Businesses
           </span>
         </div>
 
-        {/* Main heading */}
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-  Your Website Should Be Bringing You Customers — Not Sitting There Doing Nothing
-</h1>
+        <h1 className="text-4xl md:text-6xl font-bold leading-tight max-w-5xl mx-auto">
+          We build high-converting websites for service businesses that turn
+          visitors into booked jobs.
+        </h1>
 
-        {/* Subheading */}
-        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl">
-  We build high-performance websites for service businesses that want more calls, more leads, and real growth — not just a pretty design.
-</p>
+        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+          If your website isn&apos;t generating consistent leads, it&apos;s costing
+          you business. We design and optimize websites that help you capture
+          more calls, more inquiries, and more revenue.
+        </p>
 
-        {/* CTA buttons */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
             onClick={() => scrollTo("#contact")}
             size="lg"
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
           >
-            Get My Free Website Audit
+            Get a Free Website &amp; Lead Audit
           </Button>
           <Button
-            onClick={() => scrollTo("#services")}
             variant="outline"
             size="lg"
             className="border-white/30 text-white hover:bg-white/10 font-medium text-base px-8 py-6 rounded-lg backdrop-blur-sm"
-                  >
-          See What We Can Do
-        </Button>
-      </div>
+            asChild
+          >
+            <Link href="/demos">View Example Projects</Link>
+          </Button>
+        </div>
 
-      <div className="mt-4">
-        <Link
-          href="/demos"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange-bright transition-colors"
-        >
-          Preview Demo Sites
-        </Link>
-      </div>
+        <p className="mt-6 text-sm text-gray-300">
+          Trusted by local service businesses that need qualified leads, not
+          just website traffic.
+        </p>
 
-      <p className="mt-6 text-sm text-gray-400">
-        Most business websites lose potential customers within seconds. Let’s fix that.
-      </p>
-
-      {/* Scroll indicator */}
-      <button
-        onClick={() => scrollTo("#services")}
+        <button
+          onClick={() => scrollTo("#problem")}
           className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 md:animate-bounce"
           aria-label="Scroll down"
         >
-          <span className="text-xs uppercase tracking-widest">Explore</span>
+          <span className="text-xs uppercase tracking-widest">See Why Sites Fail</span>
           <ArrowDown size={20} />
         </button>
       </div>
