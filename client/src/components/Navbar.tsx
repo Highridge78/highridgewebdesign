@@ -20,6 +20,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [location, setLocation] = useLocation();
+  const getNavOffset = () => (window.innerWidth >= 768 ? 96 : 80);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
@@ -27,7 +28,8 @@ export default function Navbar() {
       if (location === "/") {
         const el = document.querySelector(href);
         if (el) {
-          el.scrollIntoView({ behavior: "smooth" });
+          const target = el.getBoundingClientRect().top + window.pageYOffset - getNavOffset();
+          window.scrollTo({ top: target, behavior: "smooth" });
         }
       } else {
         window.location.href = `/${href}`;
@@ -40,11 +42,9 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30"
+      className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30"
     >
-      <div
-        className="container flex items-center justify-between h-20 md:h-24"
-      >
+      <div className="container flex h-20 md:h-24 items-center justify-between">
         {/* Logo */}
         <a
           href="#"

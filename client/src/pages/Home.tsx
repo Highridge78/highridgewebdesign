@@ -58,7 +58,7 @@ export default function Home() {
       <header>
         <Navbar />
       </header>
-      <main id="main-content">
+      <main id="main-content" className="pt-20 md:pt-24">
         <HeroSection />
         <ServicesSection />
         <AboutSection />
