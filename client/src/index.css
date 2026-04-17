@@ -94,8 +94,15 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply antialiased;
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground font-sans;
+  }
+  main {
+    display: block;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -168,12 +175,23 @@
   }
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
 /* Offset scroll targets for fixed navbar */
 [id] {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 6rem;
+}
+
+.logo-shell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  padding: 0.25rem 0;
+  max-width: 14rem;
+  min-height: 3rem;
+}
+
+@media (min-width: 768px) {
+  [id] {
+    scroll-margin-top: 7rem;
+  }
 }

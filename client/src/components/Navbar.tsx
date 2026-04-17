@@ -7,10 +7,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
-
-const LOGO_FALLBACK = "/new-logo-640.webp";
-const LOGO_AVIF = "/new-logo-320.avif";
-const LOGO_WEBP = "/new-logo-320.webp";
+import { BRAND_LOGO_ALT, BRAND_LOGO_SRC } from "@/lib/brand";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -49,14 +46,14 @@ export default function Navbar() {
   };
 
   return (
-    <nav
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30"
-          : "bg-transparent"
+          ? "bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30 border-b border-white/10"
+          : "bg-[oklch(0.08_0.02_260/0.88)] backdrop-blur-sm border-b border-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-[7.5rem] md:h-[10.5rem]">
+      <div className="container flex items-center justify-between min-h-20 md:min-h-24 py-2 md:py-3 gap-4">
         {/* Logo */}
         <a
           href="#"
@@ -69,25 +66,24 @@ export default function Navbar() {
             }
           }}
           className="flex items-center shrink-0"
+          aria-label="High Ridge Web Design home"
         >
-          <picture>
-            <source srcSet={LOGO_AVIF} type="image/avif" />
-            <source srcSet={LOGO_WEBP} type="image/webp" />
+          <span className="logo-shell" aria-hidden="true">
             <img
-              src={LOGO_FALLBACK}
-              alt="High Ridge Web Design"
-              className="h-[7.5rem] md:h-[10.5rem] w-auto"
+              src={BRAND_LOGO_SRC}
+              alt={BRAND_LOGO_ALT}
+              className="h-12 sm:h-14 md:h-16 w-auto max-w-[10.5rem] sm:max-w-[12.5rem] md:max-w-[14rem] object-contain"
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              width={320}
-              height={320}
+              width={360}
+              height={108}
             />
-          </picture>
+          </span>
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
+        <nav aria-label="Primary" className="hidden md:flex items-center gap-7">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -114,7 +110,7 @@ export default function Navbar() {
           >
             Free Audit
           </Button>
-        </div>
+        </nav>
 
         {/* Mobile hamburger */}
         <button
@@ -128,8 +124,11 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-[oklch(0.10_0.02_260/0.98)] backdrop-blur-md border-t border-border">
-          <div className="container py-4 flex flex-col gap-3">
+        <nav
+          aria-label="Mobile"
+          className="md:hidden bg-[oklch(0.10_0.02_260/0.98)] backdrop-blur-md border-t border-border"
+        >
+          <div className="container py-4 flex flex-col gap-2">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -157,8 +156,8 @@ export default function Navbar() {
               Free Audit
             </Button>
           </div>
-        </div>
+        </nav>
       )}
-    </nav>
+    </header>
   );
 }

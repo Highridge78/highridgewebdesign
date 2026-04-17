@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="108" viewBox="0 0 360 108" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Logo placeholder</title>
+  <desc id="desc">Temporary placeholder for High Ridge Web Design logo upload.</desc>
+  <rect width="360" height="108" rx="18" fill="#151A26"/>
+  <rect x="2" y="2" width="356" height="104" rx="16" stroke="#FF7A18" stroke-opacity=".45" stroke-width="2"/>
+  <path d="M36 71L56 44L72 62L86 48L110 71" stroke="#FF7A18" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M126 40H146C154.837 40 162 47.1634 162 56C162 64.8366 154.837 72 146 72H126V40ZM146 66C151.523 66 156 61.5228 156 56C156 50.4772 151.523 46 146 46H132V66H146Z" fill="#FAFBFD"/>
+  <path d="M175 40H182V53H198V40H205V72H198V59H182V72H175V40Z" fill="#FAFBFD"/>
+  <path d="M217 40H225L235 56L245 40H253L239 62V72H232V62L217 40Z" fill="#FAFBFD"/>
+  <path d="M262 40H269V66H286V72H262V40Z" fill="#FAFBFD"/>
+  <path d="M294 40H326V46H301V53H323V59H301V66H327V72H294V40Z" fill="#FAFBFD"/>
+</svg>
