@@ -2,47 +2,41 @@
  * HeroSection — High Ridge Web Design
  * Outcome-first hero focused on qualified leads and booked jobs.
  */
-import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, CheckCircle2 } from "lucide-react";
-import { useIsMobile } from "@/hooks/useMobile";
 import { Link } from "wouter";
 
-const HERO_BG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/hero-bg-6AP37PrEwkYVivEqXtb2BS.webp";
-
 export default function HeroSection() {
-  const heroRef = useRef<HTMLImageElement>(null);
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    const handleScroll = () => {
-      if (!heroRef.current) return;
-      const y = window.scrollY;
-      heroRef.current.style.transform = `translateY(${y * 0.3}px)`;
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
-
   const scrollTo = (id: string) => {
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
-      {/* Background image with parallax */}
-      <img
-        ref={heroRef}
-        src={HERO_BG}
-        alt=""
-        aria-hidden="true"
-        fetchPriority="high"
-        decoding="async"
-        className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
-      />
+      {/* Background image */}
+      <picture>
+        <source
+          type="image/avif"
+          srcSet="/hero-bg-960.avif 960w, /hero-bg-1600.avif 1600w"
+          sizes="100vw"
+        />
+        <source
+          type="image/webp"
+          srcSet="/hero-bg-960.webp 960w, /hero-bg-1600.webp 1600w"
+          sizes="100vw"
+        />
+        <img
+          src="/hero-bg-1600.webp"
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+          width={1600}
+          height={894}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </picture>
 
       {/* Dark overlay gradient — heavier at top for nav readability, lighter at center */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
@@ -54,7 +48,7 @@ export default function HeroSection() {
       <div className="relative z-10 container text-center px-4">
         {/* Tagline badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
-          <span className="w-2 h-2 rounded-full bg-brand-orange md:animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-brand-orange motion-safe:md:animate-pulse" />
           <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
             Built for Contractors & Local Service Businesses
           </span>
@@ -75,19 +69,19 @@ export default function HeroSection() {
         {/* CTA buttons */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
-            onClick={() => scrollTo("#contact")}
+            asChild
             size="lg"
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
           >
-            Book a Strategy Call
+            <a href="#contact">Book a Strategy Call</a>
           </Button>
           <Button
-            onClick={() => scrollTo("#services")}
+            asChild
             variant="outline"
             size="lg"
             className="border-white/30 text-white hover:bg-white/10 font-medium text-base px-8 py-6 rounded-lg backdrop-blur-sm"
           >
-            See How It Works
+            <a href="#services">See How It Works</a>
           </Button>
         </div>
 
@@ -120,15 +114,19 @@ export default function HeroSection() {
           No brochure websites. No template churn. Built to drive pipeline.
         </p>
 
-      {/* Scroll indicator */}
-      <button
-        onClick={() => scrollTo("#services")}
-          className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 md:animate-bounce"
-          aria-label="Scroll down"
+        {/* Scroll indicator */}
+        <a
+          href="#services"
+          onClick={(event) => {
+            event.preventDefault();
+            scrollTo("#services");
+          }}
+          className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 motion-safe:md:animate-bounce"
+          aria-label="Scroll down to services section"
         >
           <span className="text-xs uppercase tracking-widest">Explore</span>
           <ArrowDown size={20} />
-        </button>
+        </a>
       </div>
     </section>
   );

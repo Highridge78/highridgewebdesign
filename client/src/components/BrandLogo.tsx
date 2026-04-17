@@ -46,6 +46,8 @@ export default function BrandLogo({
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         fetchPriority={priority ? "high" : "low"}
+        width={isFooter ? 71 : 99}
+        height={isFooter ? 40 : 56}
       />
     </picture>
   );

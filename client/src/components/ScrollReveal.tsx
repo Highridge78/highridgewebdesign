@@ -1,6 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useIsMobile } from "@/hooks/useMobile";
 import type { ReactNode, CSSProperties } from "react";
+import { useEffect, useState } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -20,7 +21,16 @@ export default function ScrollReveal({
   duration = 700,
 }: ScrollRevealProps) {
   const isMobile = useIsMobile();
-  const shouldReduceMotion = isMobile;
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches);
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+  const shouldReduceMotion = isMobile || prefersReducedMotion;
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>({
     disabled: shouldReduceMotion,
   });

@@ -42,10 +42,6 @@ const processSteps = [
 ];
 
 export default function ResultsSection() {
-  const scrollToContact = () => {
-    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section id="results" className="relative py-20 md:py-24">
       <div className="absolute inset-0 bg-[oklch(0.10_0.02_260)]" />
@@ -136,13 +132,13 @@ export default function ResultsSection() {
                   blockers, and show exactly what to change to increase qualified
                   leads and booked jobs.
                 </p>
-                <button
-                  onClick={scrollToContact}
+                <a
+                  href="#contact"
                   className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 py-3 rounded-lg shadow-[0_0_25px_rgba(255,106,0,0.35)] transition-all duration-300"
                 >
                   Book My Strategy Call
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </a>
                 <p className="mt-4 text-sm text-white/70">
                   Clear recommendations. No generic pitch deck.
                 </p>

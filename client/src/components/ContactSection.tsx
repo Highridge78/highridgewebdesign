@@ -113,13 +113,22 @@ export default function ContactSection() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 max-w-5xl mx-auto">
             {/* Form */}
             <div className="lg:col-span-3">
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4"
+                noValidate
+                aria-describedby="contact-response-status"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                    <label
+                      htmlFor="contact-name"
+                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                    >
                       Your Name *
                     </label>
                     <Input
+                      id="contact-name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
@@ -129,10 +138,14 @@ export default function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                    <label
+                      htmlFor="contact-email"
+                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                    >
                       Email Address *
                     </label>
                     <Input
+                      id="contact-email"
                       name="email"
                       type="email"
                       value={formData.email}
@@ -146,10 +159,14 @@ export default function ContactSection() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                    <label
+                      htmlFor="contact-phone"
+                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                    >
                       Phone Number
                     </label>
                     <Input
+                      id="contact-phone"
                       name="phone"
                       type="tel"
                       value={formData.phone}
@@ -159,10 +176,14 @@ export default function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                    <label
+                      htmlFor="contact-business"
+                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                    >
                       Business Name
                     </label>
                     <Input
+                      id="contact-business"
                       name="business"
                       value={formData.business}
                       onChange={handleChange}
@@ -173,10 +194,14 @@ export default function ContactSection() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                  <label
+                    htmlFor="contact-message"
+                    className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                  >
                     Tell Us About Your Business *
                   </label>
                   <Textarea
+                    id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
@@ -189,6 +214,7 @@ export default function ContactSection() {
 
                 <input
                   type="text"
+                  aria-hidden="true"
                   name="botcheck"
                   value={formData.botcheck}
                   onChange={handleChange}
@@ -222,12 +248,21 @@ export default function ContactSection() {
                 </Button>
 
                 {formState === "sent" && (
-                  <p className="text-center text-sm text-green-400">
+                  <p
+                    id="contact-response-status"
+                    role="status"
+                    aria-live="polite"
+                    className="text-center text-sm text-green-400"
+                  >
                     Thanks. We will reach out with next steps shortly.
                   </p>
                 )}
                 {formState === "error" && (
-                  <p className="text-center text-sm text-red-400">
+                  <p
+                    id="contact-response-status"
+                    role="alert"
+                    className="text-center text-sm text-red-400"
+                  >
                     {errorMessage || "Something went wrong while sending your message."}
                   </p>
                 )}
