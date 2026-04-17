@@ -71,6 +71,25 @@ export default function AboutSection() {
 
           <ScrollReveal direction="right" delay={150}>
             <div className="rounded-2xl border border-border bg-[oklch(0.15_0.02_260)] p-7">
+              <picture className="mb-5 block overflow-hidden rounded-xl border border-border/70 bg-black/20">
+                <source
+                  srcSet="/images/founder-jeremy-460.avif 1x"
+                  type="image/avif"
+                />
+                <source
+                  srcSet="/images/founder-jeremy-460.webp 1x"
+                  type="image/webp"
+                />
+                <img
+                  src="/images/founder-jeremy-460.webp"
+                  alt="Jeremy Black, Founder of Highridge Web Design"
+                  loading="lazy"
+                  decoding="async"
+                  width={460}
+                  height={235}
+                  className="h-auto w-full object-cover"
+                />
+              </picture>
               <h3 className="font-serif text-xl font-bold text-white mb-5">
                 Best-Fit Clients
               </h3>
