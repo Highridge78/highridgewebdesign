@@ -1,22 +1,14 @@
-/**
- * Navbar — High Ridge Web Design
- * Design: Dark sticky nav with logo, smooth-scroll links, and CTA button.
- * Brand: Deep black bg, fiery orange accent, IBM Plex Serif headings, Inter body.
- */
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
-const LOGO_FALLBACK = "/new-logo-640.webp";
-const LOGO_AVIF = "/new-logo-320.avif";
-const LOGO_WEBP = "/new-logo-320.webp";
+const LOGO_PATH = "/new-logo.png";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
   { label: "Results", href: "#results" },
-  { label: "Demo Sites", href: "/demos" },
+  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -26,7 +18,7 @@ export default function Navbar() {
   const [location, setLocation] = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -37,14 +29,15 @@ export default function Navbar() {
       if (location === "/") {
         const el = document.querySelector(href);
         if (el) {
-          el.scrollIntoView({ behavior: "smooth" });
+          const navHeight = scrolled ? 64 : 80;
+          const target = el.getBoundingClientRect().top + window.pageYOffset - navHeight;
+          window.scrollTo({ top: target, behavior: "smooth" });
         }
       } else {
         window.location.href = `/${href}`;
       }
       return;
     }
-
     setLocation(href);
   };
 
@@ -52,14 +45,14 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30"
-          : "bg-transparent"
+          ? "bg-[oklch(0.08_0.02_260/0.98)] backdrop-blur-md shadow-xl py-3"
+          : "bg-transparent py-6"
       }`}
     >
-      <div className="container flex items-center justify-between h-[7.5rem] md:h-[10.5rem]">
+      <div className="container flex items-center justify-between px-6">
         {/* Logo */}
         <a
-          href="#"
+          href="/"
           onClick={(e) => {
             e.preventDefault();
             if (location === "/") {
@@ -70,93 +63,75 @@ export default function Navbar() {
           }}
           className="flex items-center shrink-0"
         >
-          <picture>
-            <source srcSet={LOGO_AVIF} type="image/avif" />
-            <source srcSet={LOGO_WEBP} type="image/webp" />
-            <img
-              src={LOGO_FALLBACK}
-              alt="High Ridge Web Design"
-              className="h-[7.5rem] md:h-[10.5rem] w-auto"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              width={320}
-              height={320}
-            />
-          </picture>
+          <img
+            src={LOGO_PATH}
+            alt="High Ridge Web Design"
+            className={`w-auto transition-all duration-300 ${
+              scrolled ? "h-9 md:h-12" : "h-10 md:h-14"
+            }`}
+            loading="eager"
+            fetchPriority="high"
+          />
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* Desktop Links & CTA */}
+        <div className="hidden lg:flex items-center gap-12">
+          <div className="flex items-center gap-10">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(link.href);
+                }}
+                className="text-xs font-bold uppercase tracking-widest text-foreground/80 hover:text-brand-orange transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+          
+          <Button
+            onClick={() => handleNavClick("#contact")}
+            className="bg-brand-orange hover:bg-brand-orange-bright text-white font-bold px-8 py-6 rounded-lg shadow-lg shadow-brand-orange/30 transition-all hover:scale-[1.02] active:scale-95 glow-orange"
+          >
+            Get My Free Audit
+          </Button>
+        </div>
+
+        {/* Mobile menu button */}
+        <button
+          className="lg:hidden text-foreground p-2 focus:outline-none"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[oklch(0.10_0.02_260/0.99)] backdrop-blur-2xl border-t border-white/5 p-8 space-y-6 shadow-2xl">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
-              href={link.href.startsWith("#") ? link.href : link.href}
+              href={link.href}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              aria-current={
-                !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
-              }
-              className={`text-sm font-medium transition-colors duration-200 tracking-wide uppercase ${
-                !link.href.startsWith("#") && location.startsWith(link.href)
-                  ? "text-brand-orange"
-                  : "text-foreground/70 hover:text-brand-orange-bright"
-              }`}
+              className="block text-lg font-bold uppercase tracking-widest text-foreground/90 border-b border-white/5 pb-4"
             >
               {link.label}
             </a>
           ))}
           <Button
             onClick={() => handleNavClick("#contact")}
-            className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 glow-orange transition-all duration-300"
+            className="w-full bg-brand-orange hover:bg-brand-orange-bright text-white font-bold py-8 text-lg rounded-xl shadow-xl shadow-brand-orange/30"
           >
-            Free Audit
+            Get My Free Audit
           </Button>
-        </div>
-
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden text-foreground p-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden bg-[oklch(0.10_0.02_260/0.98)] backdrop-blur-md border-t border-border">
-          <div className="container py-4 flex flex-col gap-3">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href.startsWith("#") ? link.href : link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(link.href);
-                }}
-                aria-current={
-                  !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
-                }
-                className={`text-base font-medium py-2 transition-colors uppercase tracking-wide ${
-                  !link.href.startsWith("#") && location.startsWith(link.href)
-                    ? "text-brand-orange"
-                    : "text-foreground/80 hover:text-brand-orange-bright"
-                }`}
-              >
-                {link.label}
-              </a>
-            ))}
-            <Button
-              onClick={() => handleNavClick("#contact")}
-              className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold mt-2 glow-orange"
-            >
-              Free Audit
-            </Button>
-          </div>
         </div>
       )}
     </nav>

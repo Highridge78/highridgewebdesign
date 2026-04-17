@@ -1,171 +1,72 @@
-/**
- * AboutSection — High Ridge Web Design
- * Problem-Solution narrative: why local businesses need automation.
- * Jeremy Black, Founder — Sylva, NC | Western NC | Globally Available
- * Includes website remodeling/redesign messaging.
- */
-import { Clock, PhoneOff, TrendingDown, Flame } from "lucide-react";
-import ScrollReveal from "./ScrollReveal";
-
-const problems = [
-  {
-    icon: PhoneOff,
-    stat: "62%",
-    label: "of calls go unanswered",
-    detail: "When you're on a job, leads call your competitor instead.",
-  },
-  {
-    icon: Clock,
-    stat: "5 min",
-    label: "is the response window",
-    detail: "After 5 minutes, your odds of converting a lead drop by 80%.",
-  },
-  {
-    icon: TrendingDown,
-    stat: "78%",
-    label: "of leads choose the first responder",
-    detail: "Speed wins. The business that responds first gets the job.",
-  },
-];
-
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-20 md:py-24 overflow-hidden">
-      {/* Subtle diagonal background */}
-      <div className="absolute inset-0 bg-[oklch(0.12_0.02_260)]" />
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-orange/[0.03] to-transparent" />
-
-      <div className="relative z-10 container">
-        {/* Problem section */}
-        <div className="mb-16 md:mb-20">
-          <ScrollReveal>
-            <div className="text-center mb-10">
-              <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-                The Problem
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 max-w-3xl mx-auto">
-                Your Business Is Losing Leads{" "}
-                <span className="text-gradient-orange">Right Now</span>
-              </h2>
+    <section id="about" className="relative py-32 overflow-hidden bg-[oklch(0.12_0.02_260)]">
+      {/* Decorative gradient */}
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-orange/[0.02] to-transparent pointer-events-none" />
+      
+      <div className="container relative z-10 px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          
+          {/* Founder Image Column */}
+          <div className="relative order-2 lg:order-1 flex justify-center lg:justify-start">
+            <div className="relative w-full max-w-md group">
+              <div className="aspect-[4/5] relative rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]">
+                <img 
+                  src="/founder-jeremy.png" 
+                  alt="Jeremy Black - Founder of High Ridge Web Design" 
+                  className="w-full h-full object-cover"
+                />
+                {/* Clean vignette overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.12_0.02_260)] via-transparent to-transparent opacity-80" />
+              </div>
+              
+              {/* Info Overlay */}
+              <div className="absolute bottom-8 left-8 right-8 p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-xl">
+                <div className="text-2xl font-serif font-bold text-white">Jeremy Black</div>
+                <div className="text-xs uppercase tracking-[0.3em] text-brand-orange font-black mt-1">Founder & Lead Strategist</div>
+              </div>
             </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {problems.map((p, i) => (
-              <ScrollReveal key={p.stat} delay={i * 120}>
-                <div className="relative p-6 rounded-xl bg-[oklch(0.15_0.02_260)] border border-border group hover:border-brand-orange/30 transition-all duration-300 h-full">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                      <p.icon className="w-5 h-5 text-red-400" />
-                    </div>
-                  </div>
-                  <div className="text-3xl font-bold text-white font-serif mb-1">
-                    {p.stat}
-                  </div>
-                  <div className="text-sm font-semibold text-foreground/80 mb-2">
-                    {p.label}
-                  </div>
-                  <p className="text-sm text-foreground/50 leading-relaxed">
-                    {p.detail}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
           </div>
-        </div>
 
-        {/* Solution / About section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: text */}
-          <ScrollReveal direction="left">
-            <div>
-              <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-                The Solution
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mt-3 mb-6">
-                We Build Systems That{" "}
-                <span className="text-gradient-orange">Never Sleep</span>
+          {/* Copy Column */}
+          <div className="flex flex-col gap-10 order-1 lg:order-2">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-brand-orange bg-brand-orange/10 px-4 py-2 rounded-full border border-brand-orange/20">
+                A Partner, Not Just an Agency
+              </div>
+              <h2 className="text-4xl md:text-6xl font-serif font-bold text-white leading-[1.1]">
+                Built for <span className="text-brand-orange">Local Results</span>, Not Generic Templates.
               </h2>
-              <div className="space-y-4 text-foreground/70 leading-relaxed">
-                <p>
-                  High Ridge Web Design isn't just another web agency. We
-                  specialize in building complete digital systems for local
-                  businesses — HVAC companies, law firms, landscapers, contractors
-                  — the businesses that are too busy doing great work to worry
-                  about their online presence.
-                </p>
-                <p>
-                  Whether you need a brand-new website built from the ground up or
-                  your existing site is outdated, slow, and failing to convert,
-                  we transform underperforming web presences into client-producing
-                  machines. We pair high-performance design with AI-powered
-                  chatbots and automated workflows so your business captures every
-                  lead, responds instantly, and books more appointments — all
-                  without you lifting a finger.
-                </p>
-                <p>
-                  Founded by Jeremy Black in Sylva, North Carolina, High Ridge
-                  was born from watching too many great local businesses lose out
-                  to competitors with a better digital presence. We proudly serve
-                  all of Western North Carolina and are available globally for
-                  remote projects. Our mission is simple: level the playing field
-                  so your work speaks for itself.
-                </p>
-              </div>
+              <p className="text-xl font-bold text-white/90 italic border-l-4 border-brand-orange pl-6 py-2">
+                “I started High Ridge to fix what most agencies ignore—websites that look fine, but don’t actually bring in business.”
+              </p>
+            </div>
 
-              <div className="mt-8 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-brand-orange/20 border border-brand-orange/30 flex items-center justify-center">
-                  <Flame className="w-6 h-6 text-brand-orange" />
-                </div>
-                <div>
-                  <div className="font-semibold text-white">
-                    Design. Automate. Grow.
-                  </div>
-                  <div className="text-sm text-foreground/50">
-                    That's not just a tagline — it's our process.
-                  </div>
-                </div>
+            <div className="space-y-6 text-foreground/70 leading-relaxed text-lg lg:text-xl">
+              <p>
+                I founded High Ridge Web Design in Sylva, North Carolina, after watching too many great local businesses lose out to competitors simply because they lacked a professional online presence.
+              </p>
+              <p>
+                We don't just build websites; we build complete digital systems. From HVAC companies to law firms, we level the playing field so your work can speak for itself.
+              </p>
+            </div>
+
+            <div className="pt-10 flex flex-wrap gap-12 items-center border-t border-white/10">
+              <div className="flex flex-col gap-1">
+                <span className="text-3xl font-black text-white">5.0</span>
+                <span className="text-[10px] uppercase font-bold text-gray-500 tracking-[0.2em]">Rating</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-3xl font-black text-white">WNC</span>
+                <span className="text-[10px] uppercase font-bold text-gray-500 tracking-[0.2em]">Local Rooted</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-3xl font-black text-white">100%</span>
+                <span className="text-[10px] uppercase font-bold text-gray-500 tracking-[0.2em]">Personal Accountability</span>
               </div>
             </div>
-          </ScrollReveal>
+          </div>
 
-          {/* Right: visual stats */}
-          <ScrollReveal direction="right" delay={200}>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-6 rounded-xl bg-[oklch(0.15_0.02_260)] border border-border text-center hover:border-brand-orange/30 transition-all duration-300">
-                <div className="text-3xl md:text-4xl font-bold font-serif text-brand-orange mb-2">
-                  24/7
-                </div>
-                <div className="text-xs text-foreground/50 uppercase tracking-wider leading-tight">
-                  AI-Powered Lead Capture
-                </div>
-              </div>
-              <div className="p-6 rounded-xl bg-[oklch(0.15_0.02_260)] border border-border text-center hover:border-brand-orange/30 transition-all duration-300">
-                <div className="text-3xl md:text-4xl font-bold font-serif text-brand-amber mb-2">
-                  &lt;5s
-                </div>
-                <div className="text-xs text-foreground/50 uppercase tracking-wider leading-tight">
-                  Average Response Time
-                </div>
-              </div>
-              <div className="p-6 rounded-xl bg-[oklch(0.15_0.02_260)] border border-border text-center hover:border-brand-orange/30 transition-all duration-300">
-                <div className="text-3xl md:text-4xl font-bold font-serif text-brand-gold mb-2">
-                  3x
-                </div>
-                <div className="text-xs text-foreground/50 uppercase tracking-wider leading-tight">
-                  More Leads Captured
-                </div>
-              </div>
-              <div className="p-6 rounded-xl bg-[oklch(0.15_0.02_260)] border border-border text-center hover:border-brand-orange/30 transition-all duration-300">
-                <div className="text-3xl md:text-4xl font-bold font-serif text-brand-orange-bright mb-2">
-                  100%
-                </div>
-                <div className="text-xs text-foreground/50 uppercase tracking-wider leading-tight">
-                  Custom-Built Solutions
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
         </div>
       </div>
     </section>

@@ -1,117 +1,120 @@
-/**
- * HeroSection — High Ridge Web Design
- * Full-viewport hero with user-provided mountain ridge sunset background.
- * Light text on dark image. Tagline: "Design. Automate. Grow."
- */
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
-import { useIsMobile } from "@/hooks/useMobile";
-import { Link } from "wouter";
-
-const HERO_BG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/hero-bg-6AP37PrEwkYVivEqXtb2BS.webp";
+import { ArrowRight, Star, ShieldCheck } from "lucide-react";
+import TransformationMockup from "./TransformationMockup";
 
 export default function HeroSection() {
-  const heroRef = useRef<HTMLImageElement>(null);
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    const handleScroll = () => {
-      if (!heroRef.current) return;
-      const y = window.scrollY;
-      heroRef.current.style.transform = `translateY(${y * 0.3}px)`;
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
-
   const scrollTo = (id: string) => {
-    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+    const el = document.querySelector(id);
+    if (el) {
+      const offset = 80;
+      const target = el.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: target, behavior: "smooth" });
+    }
   };
 
   return (
-    <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
-      {/* Background image with parallax */}
-      <img
-        ref={heroRef}
-        src={HERO_BG}
-        alt=""
-        aria-hidden="true"
-        fetchPriority="high"
-        decoding="async"
-        className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
-      />
+    <section className="relative pt-36 pb-24 md:pt-56 md:pb-40 overflow-hidden bg-[oklch(0.10_0.02_260)]">
+      {/* Subtle background treatments */}
+      <div className="absolute top-0 right-0 w-2/5 h-full bg-gradient-to-l from-brand-orange/[0.03] to-transparent pointer-events-none" />
+      <div className="absolute -top-32 -left-32 w-[30rem] h-[30rem] bg-brand-orange/[0.04] rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Dark overlay gradient — heavier at top for nav readability, lighter at center */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
+      <div className="container relative z-10 px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          
+          {/* LEFT SIDE: Sales Copy */}
+          <div className="flex flex-col gap-10 max-w-3xl">
+            <div className="flex flex-col gap-6">
+              {/* Trust Signal */}
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  {[1,2,3].map(i => (
+                    <div key={i} className="w-8 h-8 rounded-full border-2 border-[oklch(0.10_0.02_260)] bg-gray-800 flex items-center justify-center overflow-hidden">
+                      <div className="w-full h-full bg-brand-orange/20 flex items-center justify-center text-[10px] font-bold text-brand-orange">WNC</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-1">
+                    {[1,2,3,4,5].map(i => <Star key={i} size={10} className="fill-brand-amber text-brand-amber" />)}
+                  </div>
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-white/50">Trusted by Local Businesses</span>
+                </div>
+              </div>
 
-      {/* Seamless transition to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[oklch(0.10_0.02_260)] to-transparent" />
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-white leading-[1.05] tracking-tight">
+                Stop Losing Customers to a Website That <span className="text-brand-orange">Doesn't Convert.</span>
+              </h1>
 
-      {/* Content */}
-      <div className="relative z-10 container text-center px-4">
-        {/* Tagline badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
-          <span className="w-2 h-2 rounded-full bg-brand-orange md:animate-pulse" />
-          <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
-            Web Design &bull; SEO &bull; AI Bots &bull; Automation
-          </span>
+              <div className="space-y-4">
+                <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed font-medium">
+                  We help local service businesses turn underperforming websites into consistent, high-quality leads—without rebuilding everything from scratch.
+                </p>
+                <p className="text-sm font-semibold text-brand-amber uppercase tracking-widest flex items-center gap-2">
+                  <ShieldCheck size={16} />
+                  Built for contractors, home services, and local companies.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col sm:flex-row items-center gap-6">
+                <Button
+                  onClick={() => scrollTo("#contact")}
+                  className="w-full sm:w-auto bg-brand-orange hover:bg-brand-orange-bright text-white font-bold text-xl px-12 py-9 rounded-xl shadow-2xl shadow-brand-orange/30 transition-all hover:-translate-y-1 active:scale-95 glow-orange"
+                >
+                  Get My Free Website Audit
+                </Button>
+                
+                <a 
+                  href="/demos"
+                  className="group flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-white/70 hover:text-white transition-colors"
+                >
+                  See Demo Sites 
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform text-brand-orange" />
+                </a>
+              </div>
+              
+              {/* Friction Reducers */}
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+                <div className="flex items-center gap-2 text-xs font-semibold text-foreground/40">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+                  Free audit
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-foreground/40">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+                  No pressure
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-foreground/40">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+                  Clear next steps
+                </div>
+              </div>
+            </div>
+            
+            {/* Audit explanation */}
+            <div className="p-5 rounded-xl bg-white/5 border border-white/10 max-w-lg">
+               <p className="text-sm text-foreground/60 leading-relaxed italic">
+                 "We review your site and show you exactly what’s costing you leads. No fluff, just a clear plan to win back your customers."
+               </p>
+            </div>
+          </div>
+
+          {/* RIGHT SIDE: Proof Column */}
+          <div className="relative lg:pt-12">
+            <TransformationMockup />
+            
+            {/* Metric badge overlay */}
+            <div className="absolute -bottom-8 -right-4 md:right-0 md:translate-x-1/4 p-8 rounded-2xl bg-[oklch(0.15_0.02_260/0.98)] backdrop-blur-2xl border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.6)] z-30 flex flex-col items-center gap-1 group">
+              <span className="text-4xl font-black text-brand-orange group-hover:scale-110 transition-transform">3x</span>
+              <span className="text-[11px] uppercase font-bold tracking-[0.15em] text-gray-400 text-center leading-tight">
+                More Leads <br/>
+                <span className="text-white/40 font-medium text-[9px] tracking-normal">(Client Result)</span>
+              </span>
+            </div>
+          </div>
+
         </div>
-
-        {/* Main heading */}
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-  Your Website Should Be Bringing You Customers — Not Sitting There Doing Nothing
-</h1>
-
-        {/* Subheading */}
-        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl">
-  We build high-performance websites for service businesses that want more calls, more leads, and real growth — not just a pretty design.
-</p>
-
-        {/* CTA buttons */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button
-            onClick={() => scrollTo("#contact")}
-            size="lg"
-            className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
-          >
-            Get My Free Website Audit
-          </Button>
-          <Button
-            onClick={() => scrollTo("#services")}
-            variant="outline"
-            size="lg"
-            className="border-white/30 text-white hover:bg-white/10 font-medium text-base px-8 py-6 rounded-lg backdrop-blur-sm"
-                  >
-          See What We Can Do
-        </Button>
-      </div>
-
-      <div className="mt-4">
-        <Link
-          href="/demos"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange-bright transition-colors"
-        >
-          Preview Demo Sites
-        </Link>
-      </div>
-
-      <p className="mt-6 text-sm text-gray-400">
-        Most business websites lose potential customers within seconds. Let’s fix that.
-      </p>
-
-      {/* Scroll indicator */}
-      <button
-        onClick={() => scrollTo("#services")}
-          className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 md:animate-bounce"
-          aria-label="Scroll down"
-        >
-          <span className="text-xs uppercase tracking-widest">Explore</span>
-          <ArrowDown size={20} />
-        </button>
       </div>
     </section>
   );
