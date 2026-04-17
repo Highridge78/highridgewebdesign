@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
-const LOGO_PLACEHOLDER = "/logo-trimmed-512.webp";
+const LOGO_PLACEHOLDER = "/highridge-logo-refined.png";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -60,9 +60,10 @@ export default function Navbar() {
               setLocation("/");
             }
           }}
-          className="flex items-center gap-3 shrink-0"
+          className="flex shrink-0 items-center gap-3"
         >
-          <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-md border border-white/15 bg-white/5 sm:h-14 sm:w-14">
+          {/* Header-ready horizontal logo with transparent background */}
+          <span className="flex h-11 w-[10.5rem] items-center justify-start overflow-hidden sm:h-12 sm:w-[11.5rem]">
             <img
               src={LOGO_PLACEHOLDER}
               alt="High Ridge Web Design logo"
@@ -70,11 +71,11 @@ export default function Navbar() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              width={56}
-              height={56}
+              width={552}
+              height={299}
             />
           </span>
-          <span className="hidden text-sm font-semibold uppercase tracking-[0.18em] text-white/80 sm:inline">
+          <span className="hidden text-xs font-semibold uppercase tracking-[0.14em] text-white/80 xl:inline">
             High Ridge Web Design
           </span>
         </a>

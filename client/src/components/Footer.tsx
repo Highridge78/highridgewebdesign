@@ -45,19 +45,15 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {/* Brand */}
             <div>
-              <picture>
-                <source srcSet="/logo-trimmed-256.avif" type="image/avif" />
-                <source srcSet="/logo-trimmed-256.webp" type="image/webp" />
-                <img
-                  src="/logo-trimmed-512.webp"
-                  alt="High Ridge Web Design"
-                  className="mb-4 h-16 w-16 rounded-md border border-white/15 bg-white/5 object-contain"
-                  loading="lazy"
-                  decoding="async"
-                  width={64}
-                  height={64}
-                />
-              </picture>
+              <img
+                src="/highridge-logo-refined.png"
+                alt="High Ridge Web Design logo"
+                className="mb-4 h-auto w-44 object-contain"
+                loading="lazy"
+                decoding="async"
+                width={572}
+                height={293}
+              />
               <p className="max-w-xs text-sm leading-relaxed text-foreground/50">
                 High Ridge Web Design builds conversion-focused websites, local SEO systems, and lead automation for
                 service businesses.
