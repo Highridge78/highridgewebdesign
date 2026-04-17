@@ -7,10 +7,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
-
-const LOGO_FALLBACK = "/new-logo-640.webp";
-const LOGO_AVIF = "/new-logo-320.avif";
-const LOGO_WEBP = "/new-logo-320.webp";
+import BrandLogo from "./BrandLogo";
 
 const NAV_LINKS = [
   { label: "How It Works", href: "#services" },
@@ -56,7 +53,11 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-[7.5rem] md:h-[10.5rem]">
+      <div
+        className={`container flex items-center justify-between transition-all duration-300 ${
+          scrolled ? "h-20 md:h-24" : "h-24 md:h-28"
+        }`}
+      >
         {/* Logo */}
         <a
           href="#"
@@ -68,22 +69,15 @@ export default function Navbar() {
               setLocation("/");
             }
           }}
-          className="flex items-center shrink-0"
+          className="flex items-center shrink-0 py-2 pr-4 mr-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
+          aria-label="Highridge Web Design homepage"
         >
-          <picture>
-            <source srcSet={LOGO_AVIF} type="image/avif" />
-            <source srcSet={LOGO_WEBP} type="image/webp" />
-            <img
-              src={LOGO_FALLBACK}
-              alt="High Ridge Web Design"
-              className="h-[7.5rem] md:h-[10.5rem] w-auto"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              width={320}
-              height={320}
-            />
-          </picture>
+          <BrandLogo
+            priority
+            imgClassName={`transition-all duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] ${
+              scrolled ? "h-8 md:h-10" : "h-9 md:h-12"
+            }`}
+          />
         </a>
 
         {/* Desktop links */}

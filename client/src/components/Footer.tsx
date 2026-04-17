@@ -6,6 +6,7 @@
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 import { useLocation } from "wouter";
+import BrandLogo from "./BrandLogo";
 
 const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
@@ -46,19 +47,11 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {/* Logo & tagline */}
             <div>
-              <picture>
-                <source srcSet="/new-logo-320.avif" type="image/avif" />
-                <source srcSet="/new-logo-320.webp" type="image/webp" />
-                <img
-                  src="/new-logo-640.webp"
-                  alt="High Ridge Web Design"
-                  className="h-[8.5rem] w-auto mb-4"
-                  loading="lazy"
-                  decoding="async"
-                  width={320}
-                  height={320}
-                />
-              </picture>
+              <BrandLogo
+                variant="footer"
+                className="mb-4 py-1"
+                imgClassName="h-8 md:h-9 opacity-95 drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]"
+              />
               <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
                 We build conversion-focused websites and lead systems for
                 contractors and service businesses that need more qualified jobs.
