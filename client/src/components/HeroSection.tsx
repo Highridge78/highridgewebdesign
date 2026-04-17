@@ -33,15 +33,19 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
+    <section
+      id="hero"
+      aria-labelledby="hero-heading"
+      className="relative min-h-screen pt-28 md:pt-24 flex items-center justify-center overflow-hidden"
+    >
       {/* Background image with parallax */}
       <img
         ref={heroRef}
         src={HERO_BG}
-        alt=""
-        aria-hidden="true"
+        alt="Blue ridge mountain horizon at sunset"
         fetchPriority="high"
         decoding="async"
+        loading="eager"
         className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
       />
 
@@ -62,14 +66,17 @@ export default function HeroSection() {
         </div>
 
         {/* Main heading */}
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-  Your Website Should Be Bringing You Customers — Not Sitting There Doing Nothing
-</h1>
+        <h1 id="hero-heading" className="text-4xl md:text-6xl font-bold leading-tight">
+          Websites, SEO, and AI systems that bring local service businesses more
+          calls, leads, and booked jobs.
+        </h1>
 
         {/* Subheading */}
-        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl">
-  We build high-performance websites for service businesses that want more calls, more leads, and real growth — not just a pretty design.
-</p>
+        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+          High Ridge Web Design helps contractors, legal teams, and local service
+          businesses grow with conversion-first websites, SEO visibility, and 24/7
+          AI lead capture.
+        </p>
 
         {/* CTA buttons */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -85,27 +92,28 @@ export default function HeroSection() {
             variant="outline"
             size="lg"
             className="border-white/30 text-white hover:bg-white/10 font-medium text-base px-8 py-6 rounded-lg backdrop-blur-sm"
-                  >
-          See What We Can Do
-        </Button>
-      </div>
+          >
+            See What We Can Do
+          </Button>
+        </div>
 
-      <div className="mt-4">
-        <Link
-          href="/demos"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange-bright transition-colors"
-        >
-          Preview Demo Sites
-        </Link>
-      </div>
+        <div className="mt-4">
+          <Link
+            href="/demos"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange-bright transition-colors"
+          >
+            Preview Demo Sites
+          </Link>
+        </div>
 
-      <p className="mt-6 text-sm text-gray-400">
-        Most business websites lose potential customers within seconds. Let’s fix that.
-      </p>
+        <p className="mt-6 text-sm text-gray-400">
+          Most local business websites lose buyers in the first few seconds. We
+          fix that with clearer messaging, faster pages, and stronger follow-up.
+        </p>
 
-      {/* Scroll indicator */}
-      <button
-        onClick={() => scrollTo("#services")}
+        {/* Scroll indicator */}
+        <button
+          onClick={() => scrollTo("#services")}
           className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 md:animate-bounce"
           aria-label="Scroll down"
         >

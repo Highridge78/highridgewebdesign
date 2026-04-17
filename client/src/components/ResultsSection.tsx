@@ -49,6 +49,42 @@ const processSteps = [
   },
 ];
 
+const testimonialPlaceholders = [
+  {
+    quote:
+      "High Ridge rebuilt our site and tightened our follow-up flow. The whole process felt clear and strategic.",
+    name: "Client Name",
+    business: "HVAC & Plumbing Business",
+  },
+  {
+    quote:
+      "We finally have a website that explains what we do and guides people to contact us without confusion.",
+    name: "Client Name",
+    business: "Regional Service Company",
+  },
+  {
+    quote:
+      "The site is faster, cleaner, and much easier to use on phones. Calls started increasing right away.",
+    name: "Client Name",
+    business: "Home Services Team",
+  },
+];
+
+const workExamplePlaceholders = [
+  {
+    title: "HVAC Website Redesign",
+    impact: "Placeholder: improved quote request completion and mobile engagement.",
+  },
+  {
+    title: "Law Firm Lead Intake Upgrade",
+    impact: "Placeholder: clearer service messaging and better consultation intent.",
+  },
+  {
+    title: "Contractor SEO Landing Suite",
+    impact: "Placeholder: stronger local keyword visibility and call-through rate.",
+  },
+];
+
 export default function ResultsSection() {
   const scrollToContact = () => {
     document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
@@ -127,6 +163,60 @@ export default function ResultsSection() {
                     </div>
                   )}
                 </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-16 md:mb-20">
+          <ScrollReveal>
+            <div className="text-center mb-10">
+              <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
+                Proof
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
+                Recent Work <span className="text-gradient-orange">Examples</span>
+              </h2>
+              <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
+                Use these placeholders for portfolio cards until finalized case studies and screenshots are uploaded.
+              </p>
+            </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {workExamplePlaceholders.map((item, i) => (
+              <ScrollReveal key={item.title} delay={i * 100}>
+                <article className="rounded-xl border border-border bg-[oklch(0.15_0.02_260)] p-6 h-full">
+                  <h3 className="font-serif text-xl font-bold text-white">{item.title}</h3>
+                  <p className="text-sm text-foreground/60 mt-3 leading-relaxed">
+                    {item.impact}
+                  </p>
+                </article>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-16 md:mb-20">
+          <ScrollReveal>
+            <div className="text-center mb-10">
+              <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
+                Testimonials
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
+                Trust from <span className="text-gradient-orange">Local Teams</span>
+              </h2>
+            </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {testimonialPlaceholders.map((item, i) => (
+              <ScrollReveal key={`${item.name}-${i}`} delay={i * 100}>
+                <blockquote className="rounded-xl border border-border bg-[oklch(0.15_0.02_260)] p-6 h-full">
+                  <p className="text-sm text-foreground/75 leading-relaxed">"{item.quote}"</p>
+                  <footer className="mt-4 pt-4 border-t border-border">
+                    <p className="text-sm font-semibold text-white">{item.name}</p>
+                    <p className="text-xs text-foreground/45 uppercase tracking-wider">{item.business}</p>
+                  </footer>
+                </blockquote>
               </ScrollReveal>
             ))}
           </div>
