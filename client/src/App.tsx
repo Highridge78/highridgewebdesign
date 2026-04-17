@@ -1,12 +1,12 @@
 import { lazy, Suspense } from "react";
 import { Route, Switch } from "wouter";
+import NotFound from "./pages/NotFound";
 
 const Home = lazy(() => import("./pages/Home"));
 const DemosIndex = lazy(() => import("./pages/demos/index"));
 const DemoConversionPage = lazy(() => import("./pages/demos/demo-conversion"));
 const DemoPremiumPage = lazy(() => import("./pages/demos/demo-premium"));
 const DemoCreativePage = lazy(() => import("./pages/demos/demo-creative"));
-const NotFound = lazy(() => import("./pages/NotFound"));
 
 export default function App() {
   return (

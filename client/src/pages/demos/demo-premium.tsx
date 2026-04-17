@@ -70,9 +70,10 @@ const process = [
 
 export default function DemoPremium() {
   usePageMeta({
-    title: "Premium Agency Demo | High Ridge Web Design",
+    title: "Demo: Premium Agency Website Concept | Highridge",
     description:
       "A high-ticket premium agency concept for local brands that need stronger positioning, trust, and conversion quality.",
+    canonicalPath: "/demos/demo-premium",
   });
 
   return (

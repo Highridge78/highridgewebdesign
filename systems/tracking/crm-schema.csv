@@ -1,0 +1,32 @@
+field_name,type,required,example,description
+business_name,text,yes,Blue Mountain HVAC,Legal business name
+niche,text,yes,HVAC,Primary service category
+city,text,yes,Asheville,Primary service location
+website,url,yes,https://example.com,Main website URL
+contact_name,text,no,Jane Smith,Best known point of contact
+contact_role,text,no,Owner,Decision role if known
+email,text,no,jane@example.com,Outreach email
+phone,text,no,(555) 555-5555,Direct phone if available
+date_found,date,yes,2026-04-17,Date added to pipeline
+audit_priority,select,yes,A,Priority (A/B/C)
+niche_score,number,no,8,Niche attractiveness 1-10
+business_score,number,no,7,Business fit score 1-10
+fit_score,number,no,15,Combined fit score
+loom_recorded,boolean,yes,Yes,Whether Loom has been recorded
+loom_url,url,no,https://loom.com/share/...,Loom URL
+loom_sent_date,date,no,2026-04-18,Date Loom sent
+summary_sent_date,date,no,2026-04-18,Date written summary sent
+response_status,select,yes,No Response,No Response / Viewed / Replied / Positive / Closed
+call_booked,boolean,yes,No,Call scheduled state
+call_date,date,no,2026-04-21,Planned call date
+quote_sent,boolean,yes,No,Proposal sent state
+quote_date,date,no,2026-04-22,Proposal send date
+pipeline_stage,select,yes,Loom Sent,Current stage
+next_action,text,yes,Follow up #1,Immediate required action
+next_action_date,date,yes,2026-04-20,When to execute next action
+last_touch_date,date,no,2026-04-18,Last outreach touch date
+days_since_last_touch,number,no,2,Pipeline hygiene field
+owner_involved,boolean,no,Yes,Owner/decision-maker involved
+budget_signal,select,no,Medium,Low/Medium/High likelihood
+red_flags,text,no,Price-only language,Qualification risks
+notes,text,no,Weak CTA + no trust bar,Key observations and context

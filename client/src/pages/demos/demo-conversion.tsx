@@ -16,6 +16,7 @@ import {
   objectionFaq,
   trustBarItems,
 } from "./data";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const serviceCards = [
   {
@@ -42,6 +43,13 @@ const resultPoints = [
 ];
 
 export default function DemoConversionPage() {
+  usePageMeta({
+    title: "Demo: Conversion-Focused Local Service Website | Highridge",
+    description:
+      "Preview a conversion-first homepage concept built to help local service businesses generate more qualified leads and booked jobs.",
+    canonicalPath: "/demos/demo-conversion",
+  });
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/90 backdrop-blur">

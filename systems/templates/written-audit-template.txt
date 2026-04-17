@@ -1,0 +1,25 @@
+BUSINESS SNAPSHOT
+Business: [Name]
+Website: [URL]
+Niche/Location: [Niche, City]
+Audit Date: [Date]
+
+OVERALL VERDICT
+[Short verdict]
+
+TOP ISSUES
+1) [Issue] - [Why it matters] - [Fix direction]
+2) [Issue] - [Why it matters] - [Fix direction]
+3) [Issue] - [Why it matters] - [Fix direction]
+
+QUICK WINS
+- [Win 1]
+- [Win 2]
+- [Win 3]
+
+STRATEGIC DIRECTION
+- [Direction 1]
+- [Direction 2]
+
+NEXT STEP
+Book a strategy call if you want implementation priorities and scope.

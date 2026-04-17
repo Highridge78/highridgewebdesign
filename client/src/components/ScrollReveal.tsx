@@ -1,6 +1,4 @@
-import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useIsMobile } from "@/hooks/useMobile";
-import type { ReactNode, CSSProperties } from "react";
+import type { ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -14,48 +12,10 @@ interface ScrollRevealProps {
 export default function ScrollReveal({
   children,
   className = "",
-  delay = 0,
-  direction = "up",
-  distance = 30,
-  duration = 700,
+  delay: _delay = 0,
+  direction: _direction = "up",
+  distance: _distance = 30,
+  duration: _duration = 700,
 }: ScrollRevealProps) {
-  const isMobile = useIsMobile();
-  const shouldReduceMotion = isMobile;
-  const { ref, isVisible } = useScrollReveal<HTMLDivElement>({
-    disabled: shouldReduceMotion,
-  });
-
-  const effectiveDistance = shouldReduceMotion ? 0 : distance;
-  const effectiveDuration = shouldReduceMotion ? 0 : duration;
-  const effectiveDelay = shouldReduceMotion ? 0 : delay;
-
-  const directionMap: Record<string, CSSProperties> = {
-    up: { transform: `translateY(${effectiveDistance}px)` },
-    down: { transform: `translateY(-${effectiveDistance}px)` },
-    left: { transform: `translateX(${effectiveDistance}px)` },
-    right: { transform: `translateX(-${effectiveDistance}px)` },
-    none: { transform: "none" },
-  };
-
-  const hiddenStyle: CSSProperties = {
-    opacity: 0,
-    ...directionMap[direction],
-    transition: `opacity ${effectiveDuration}ms ease-out ${effectiveDelay}ms, transform ${effectiveDuration}ms ease-out ${effectiveDelay}ms`,
-  };
-
-  const visibleStyle: CSSProperties = {
-    opacity: 1,
-    transform: "translateY(0) translateX(0)",
-    transition: `opacity ${effectiveDuration}ms ease-out ${effectiveDelay}ms, transform ${effectiveDuration}ms ease-out ${effectiveDelay}ms`,
-  };
-
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={isVisible ? visibleStyle : hiddenStyle}
-    >
-      {children}
-    </div>
-  );
+  return <div className={className}>{children}</div>;
 }

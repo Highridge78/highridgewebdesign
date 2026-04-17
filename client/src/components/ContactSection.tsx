@@ -1,7 +1,6 @@
 /**
  * ContactSection — High Ridge Web Design
- * Lead capture form + contact info. Form submits to internal /api/leads endpoint.
- * Jeremy Black — Sylva, NC | Western NC | Globally Available
+ * Conversion-focused contact section for strategy calls.
  */
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -97,15 +96,15 @@ export default function ContactSection() {
         <ScrollReveal>
           <div className="text-center mb-10">
             <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-              Get Started
+              Book a Strategy Call
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-              Claim Your{" "}
-              <span className="text-gradient-orange">Free Audit</span>
+              Build a Website That{" "}
+              <span className="text-gradient-orange">Produces Better Leads</span>
             </h2>
             <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-              Tell us about your business and we'll show you exactly where
-              you're losing leads — and how to fix it. No cost, no obligation.
+              Tell us about your business goals and current pipeline challenges.
+              We will map your highest-impact website and conversion opportunities.
             </p>
           </div>
         </ScrollReveal>
@@ -114,13 +113,22 @@ export default function ContactSection() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 max-w-5xl mx-auto">
             {/* Form */}
             <div className="lg:col-span-3">
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4"
+                noValidate
+                aria-describedby="contact-response-status"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                    <label
+                      htmlFor="contact-name"
+                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                    >
                       Your Name *
                     </label>
                     <Input
+                      id="contact-name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
@@ -130,10 +138,14 @@ export default function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                    <label
+                      htmlFor="contact-email"
+                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                    >
                       Email Address *
                     </label>
                     <Input
+                      id="contact-email"
                       name="email"
                       type="email"
                       value={formData.email}
@@ -147,10 +159,14 @@ export default function ContactSection() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                    <label
+                      htmlFor="contact-phone"
+                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                    >
                       Phone Number
                     </label>
                     <Input
+                      id="contact-phone"
                       name="phone"
                       type="tel"
                       value={formData.phone}
@@ -160,10 +176,14 @@ export default function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                    <label
+                      htmlFor="contact-business"
+                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                    >
                       Business Name
                     </label>
                     <Input
+                      id="contact-business"
                       name="business"
                       value={formData.business}
                       onChange={handleChange}
@@ -174,14 +194,18 @@ export default function ContactSection() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-foreground/70 mb-1.5 block">
+                  <label
+                    htmlFor="contact-message"
+                    className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                  >
                     Tell Us About Your Business *
                   </label>
                   <Textarea
+                    id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="What does your business do? What's your biggest challenge with getting new customers online?"
+                    placeholder="What services do you offer, where do you serve, and where are leads dropping off today?"
                     required
                     rows={4}
                     className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange resize-none"
@@ -190,6 +214,7 @@ export default function ContactSection() {
 
                 <input
                   type="text"
+                  aria-hidden="true"
                   name="botcheck"
                   value={formData.botcheck}
                   onChange={handleChange}
@@ -217,18 +242,27 @@ export default function ContactSection() {
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      Get My Free Audit
+                      Book My Strategy Call
                     </>
                   )}
                 </Button>
 
                 {formState === "sent" && (
-                  <p className="text-center text-sm text-green-400">
-                    Thanks! We'll be in touch within 24 hours.
+                  <p
+                    id="contact-response-status"
+                    role="status"
+                    aria-live="polite"
+                    className="text-center text-sm text-green-400"
+                  >
+                    Thanks. We will reach out with next steps shortly.
                   </p>
                 )}
                 {formState === "error" && (
-                  <p className="text-center text-sm text-red-400">
+                  <p
+                    id="contact-response-status"
+                    role="alert"
+                    className="text-center text-sm text-red-400"
+                  >
                     {errorMessage || "Something went wrong while sending your message."}
                   </p>
                 )}
@@ -239,7 +273,7 @@ export default function ContactSection() {
             <div className="lg:col-span-2 space-y-6">
               <div className="p-6 rounded-xl bg-[oklch(0.15_0.02_260)] border border-border">
                 <h3 className="font-serif text-lg font-bold text-white mb-4">
-                  Get In Touch
+                  Contact Details
                 </h3>
                 <div className="space-y-4">
                   <a
@@ -309,15 +343,15 @@ export default function ContactSection() {
               {/* Quick promise */}
               <div className="p-6 rounded-xl bg-gradient-to-br from-brand-orange/10 to-transparent border border-brand-orange/20">
                 <h4 className="font-serif font-bold text-white mb-2">
-                  What You'll Get
+                  What Happens on the Call
                 </h4>
                 <ul className="space-y-2">
                   {[
-                    "Complete digital presence audit",
-                    "SEO & AI search visibility report",
-                    "Competitor analysis breakdown",
-                    "Custom automation roadmap",
-                    "No-obligation strategy call",
+                    "Review of your current site and conversion flow",
+                    "Breakdown of lead leaks hurting booked jobs",
+                    "Prioritized roadmap for pages, SEO, and follow-up",
+                    "Clear recommendation on fit and next steps",
+                    "Zero pressure if it is not the right match",
                   ].map((item) => (
                     <li
                       key={item}
