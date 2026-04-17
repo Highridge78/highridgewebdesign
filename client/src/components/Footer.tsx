@@ -62,11 +62,11 @@ export default function Footer() {
                   imgClassName="h-8 md:h-9 opacity-95 drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]"
                 />
               </a>
-              <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
+              <p className="text-sm text-foreground/70 leading-relaxed max-w-xs">
                 We build conversion-focused websites and lead systems for
                 contractors and service businesses that need more qualified jobs.
               </p>
-              <p className="text-xs text-foreground/40 mt-3">
+              <p className="text-xs text-foreground/60 mt-3">
                 Founded by Jeremy Black in Sylva, NC
               </p>
             </div>
@@ -85,7 +85,7 @@ export default function Footer() {
                       e.preventDefault();
                       handleNavClick(link.href);
                     }}
-                    className="text-sm text-foreground/50 hover:text-brand-orange transition-colors"
+                    className="text-sm text-foreground/75 hover:text-brand-orange transition-colors"
                   >
                     {link.label}
                   </a>
@@ -101,24 +101,24 @@ export default function Footer() {
               <div className="flex flex-col gap-3">
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-brand-orange transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-foreground/75 hover:text-brand-orange transition-colors"
                 >
                   <Mail className="w-4 h-4 shrink-0" />
                   {CONTACT_EMAIL}
                 </a>
                 <a
                   href="tel:+18285989262"
-                  className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-brand-orange transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-foreground/75 hover:text-brand-orange transition-colors"
                 >
                   <Phone className="w-4 h-4 shrink-0" />
                   {CONTACT_PHONE}
                 </a>
-                <div className="inline-flex items-start gap-2 text-sm text-foreground/40">
+                <div className="inline-flex items-start gap-2 text-sm text-foreground/65">
                   <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
                   <span>
                     Sylva, NC — Proudly serving Western North Carolina
                     <br />
-                    <span className="text-foreground/30">Also available globally for remote projects</span>
+                    <span className="text-foreground/50">Also available globally for remote projects</span>
                   </span>
                 </div>
               </div>
@@ -127,13 +127,13 @@ export default function Footer() {
 
           {/* Bottom bar */}
           <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-foreground/40">
+            <p className="text-xs text-foreground/60">
               &copy; {new Date().getFullYear()} High Ridge Web Design. All rights
               reserved.
             </p>
             <button
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1.5 text-xs text-foreground/40 hover:text-brand-orange transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
+              className="inline-flex items-center gap-1.5 text-xs text-foreground/60 hover:text-brand-orange transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
               aria-label="Back to top"
             >
               Back to top

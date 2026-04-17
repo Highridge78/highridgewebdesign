@@ -12,7 +12,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen pt-24 md:pt-0 flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <picture>
         <source
@@ -45,11 +45,11 @@ export default function HeroSection() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[oklch(0.10_0.02_260)] to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 container text-center px-4">
+      <div className="relative z-10 container text-center px-4 py-16 md:py-20">
         {/* Tagline badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
           <span className="w-2 h-2 rounded-full bg-brand-orange motion-safe:md:animate-pulse" />
-          <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
+          <span className="text-sm font-semibold text-brand-amber tracking-widest uppercase">
             Built for Contractors & Local Service Businesses
           </span>
         </div>
@@ -60,7 +60,7 @@ export default function HeroSection() {
         </h1>
 
         {/* Subheading */}
-        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl">
+        <p className="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl">
           Highridge builds conversion-focused websites and lead systems for home
           service companies that need more calls, stronger opportunities, and
           measurable revenue growth.
@@ -93,7 +93,7 @@ export default function HeroSection() {
           ].map((item) => (
             <div
               key={item}
-              className="rounded-lg border border-white/15 bg-black/20 px-4 py-3 text-sm text-gray-200 flex items-start gap-2"
+              className="rounded-lg border border-white/20 bg-black/25 px-4 py-3 text-sm text-gray-100 flex items-start gap-2"
             >
               <CheckCircle2 className="w-4 h-4 mt-0.5 text-brand-orange shrink-0" />
               <span>{item}</span>
@@ -110,7 +110,7 @@ export default function HeroSection() {
           </Link>
         </div>
 
-        <p className="mt-6 text-sm text-gray-400">
+        <p className="mt-6 text-sm text-gray-300">
           No brochure websites. No template churn. Built to drive pipeline.
         </p>
 
@@ -121,7 +121,7 @@ export default function HeroSection() {
             event.preventDefault();
             scrollTo("#services");
           }}
-          className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 motion-safe:md:animate-bounce"
+          className="mt-14 inline-flex flex-col items-center gap-2 text-white/70 hover:text-brand-orange transition-colors duration-300 motion-safe:md:animate-bounce"
           aria-label="Scroll down to services section"
         >
           <span className="text-xs uppercase tracking-widest">Explore</span>

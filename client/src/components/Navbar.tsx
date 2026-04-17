@@ -3,7 +3,7 @@
  * Design: Dark sticky nav with logo, smooth-scroll links, and CTA button.
  * Brand: Deep black bg, fiery orange accent, IBM Plex Serif headings, Inter body.
  */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
@@ -18,15 +18,8 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [location, setLocation] = useLocation();
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
@@ -47,16 +40,10 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30"
-          : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30"
     >
       <div
-        className={`container flex items-center justify-between transition-all duration-300 ${
-          scrolled ? "h-20 md:h-24" : "h-24 md:h-28"
-        }`}
+        className="container flex items-center justify-between h-20 md:h-24"
       >
         {/* Logo */}
         <a
@@ -74,9 +61,7 @@ export default function Navbar() {
         >
           <BrandLogo
             priority
-            imgClassName={`transition-all duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] ${
-              scrolled ? "h-8 md:h-10" : "h-9 md:h-12"
-            }`}
+            imgClassName="h-8 md:h-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
           />
         </a>
 
@@ -96,7 +81,7 @@ export default function Navbar() {
               className={`text-sm font-medium transition-colors duration-200 tracking-wide uppercase ${
                 !link.href.startsWith("#") && location.startsWith(link.href)
                   ? "text-brand-orange"
-                  : "text-foreground/70 hover:text-brand-orange-bright"
+                  : "text-foreground/85 hover:text-brand-orange-bright"
               }`}
             >
               {link.label}
@@ -138,7 +123,7 @@ export default function Navbar() {
                 className={`text-base font-medium py-2 transition-colors uppercase tracking-wide ${
                   !link.href.startsWith("#") && location.startsWith(link.href)
                     ? "text-brand-orange"
-                    : "text-foreground/80 hover:text-brand-orange-bright"
+                    : "text-foreground/90 hover:text-brand-orange-bright"
                 }`}
               >
                 {link.label}

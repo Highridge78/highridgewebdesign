@@ -12,6 +12,24 @@ async function startServer() {
   const server = createServer(app);
   const isProduction = process.env.NODE_ENV === "production";
 
+  app.disable("x-powered-by");
+  app.use((req, res, next) => {
+    res.setHeader("X-Frame-Options", "DENY");
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+    res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.setHeader("Cross-Origin-Resource-Policy", "same-site");
+    if (isProduction) {
+      res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+      res.setHeader(
+        "Content-Security-Policy",
+        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+      );
+    }
+    next();
+  });
+
   app.use(express.json({ limit: "1mb" }));
 
   app.post("/api/leads", async (req, res) => {
@@ -56,6 +74,14 @@ async function startServer() {
 
   if (isProduction) {
     const staticPath = path.resolve(__dirname, "public");
+    app.get("/robots.txt", (_req, res) => {
+      res.type("text/plain");
+      res.sendFile(path.join(staticPath, "robots.txt"));
+    });
+    app.get("/sitemap.xml", (_req, res) => {
+      res.type("application/xml");
+      res.sendFile(path.join(staticPath, "sitemap.xml"));
+    });
     app.use(express.static(staticPath));
 
     app.get("*", (_req, res) => {
