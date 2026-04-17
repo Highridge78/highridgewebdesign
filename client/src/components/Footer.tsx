@@ -1,35 +1,27 @@
-/**
- * Footer — High Ridge Web Design
- * Dark footer with logo, links, contact info, and copyright.
- * Jeremy Black, Founder — Sylva, NC | Western NC | Globally Available
- */
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
-import ScrollReveal from "./ScrollReveal";
 import { useLocation } from "wouter";
 
+const LOGO_PATH = "/new-logo.png";
 const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
 
 const footerLinks = [
-  { label: "Demo Sites", href: "/demos" },
   { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
   { label: "Results", href: "#results" },
+  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
+  { label: "Demo Sites", href: "/demos" },
 ];
 
 export default function Footer() {
   const [location, setLocation] = useLocation();
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const handleNavClick = (href: string) => {
     if (href.startsWith("/")) {
       setLocation(href);
       return;
     }
-
     if (href.startsWith("#")) {
       if (location === "/") {
         document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
@@ -40,105 +32,83 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-border bg-[oklch(0.08_0.02_260)]">
-      <ScrollReveal>
-        <div className="container py-10 md:py-14">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-            {/* Logo & tagline */}
-            <div>
-              <picture>
-                <source srcSet="/new-logo-320.avif" type="image/avif" />
-                <source srcSet="/new-logo-320.webp" type="image/webp" />
-                <img
-                  src="/new-logo-640.webp"
-                  alt="High Ridge Web Design"
-                  className="h-[8.5rem] w-auto mb-4"
-                  loading="lazy"
-                  decoding="async"
-                  width={320}
-                  height={320}
-                />
-              </picture>
-              <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
-                Design. Automate. Grow. — We build websites, AI bots, and
-                automations that help local businesses thrive.
-              </p>
-              <p className="text-xs text-foreground/40 mt-3">
-                Founded by Jeremy Black in Sylva, NC
-              </p>
+    <footer className="relative border-t border-white/5 bg-[oklch(0.08_0.02_260)] py-20">
+      <div className="container px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+          
+          {/* Brand Column */}
+          <div className="lg:col-span-2 space-y-6">
+            <a href="/" onClick={(e) => { e.preventDefault(); scrollToTop(); }} className="block w-fit">
+              <img
+                src={LOGO_PATH}
+                alt="High Ridge Web Design"
+                className="h-20 w-auto object-contain brightness-110"
+                loading="lazy"
+              />
+            </a>
+            <p className="text-base text-foreground/50 leading-relaxed max-w-sm">
+              We help local service businesses turn underperforming websites into lead-generating machines. Design. Automate. Grow.
+            </p>
+            <div className="pt-4 space-y-2">
+              <p className="text-sm font-bold text-white uppercase tracking-widest">Jeremy Black</p>
+              <p className="text-xs text-foreground/40 uppercase tracking-widest">Founder — Sylva, North Carolina</p>
             </div>
+          </div>
 
-            {/* Quick links */}
-            <div>
-              <h4 className="font-serif font-bold text-white mb-4 text-sm uppercase tracking-wider">
-                Quick Links
-              </h4>
-              <nav className="flex flex-col gap-2">
-                {footerLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(link.href);
-                    }}
-                    className="text-sm text-foreground/50 hover:text-brand-orange transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
+          {/* Nav Column */}
+          <div className="space-y-6">
+            <h4 className="text-xs font-black uppercase tracking-[0.3em] text-white/90">Navigation</h4>
+            <nav className="flex flex-col gap-4">
+              {footerLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.href);
+                  }}
+                  className="text-sm font-medium text-foreground/50 hover:text-brand-orange transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </div>
 
-            {/* Contact */}
-            <div>
-              <h4 className="font-serif font-bold text-white mb-4 text-sm uppercase tracking-wider">
-                Contact
-              </h4>
-              <div className="flex flex-col gap-3">
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-brand-orange transition-colors"
-                >
-                  <Mail className="w-4 h-4 shrink-0" />
-                  {CONTACT_EMAIL}
-                </a>
-                <a
-                  href="tel:+18285989262"
-                  className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-brand-orange transition-colors"
-                >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  {CONTACT_PHONE}
-                </a>
-                <div className="inline-flex items-start gap-2 text-sm text-foreground/40">
-                  <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
-                  <span>
-                    Sylva, NC — Proudly serving Western North Carolina
-                    <br />
-                    <span className="text-foreground/30">Also available globally for remote projects</span>
-                  </span>
-                </div>
+          {/* Contact Column */}
+          <div className="space-y-6">
+            <h4 className="text-xs font-black uppercase tracking-[0.3em] text-white/90">Contact</h4>
+            <div className="flex flex-col gap-4">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-3 text-sm text-foreground/50 hover:text-brand-orange transition-colors">
+                <Mail size={16} className="text-brand-orange" />
+                {CONTACT_EMAIL}
+              </a>
+              <a href={`tel:+18285989262`} className="flex items-center gap-3 text-sm text-foreground/50 hover:text-brand-orange transition-colors">
+                <Phone size={16} className="text-brand-orange" />
+                {CONTACT_PHONE}
+              </a>
+              <div className="flex items-start gap-3 text-sm text-foreground/50">
+                <MapPin size={16} className="text-brand-orange mt-1 shrink-0" />
+                <span>Serving all of Western North Carolina & Globally available.</span>
               </div>
             </div>
           </div>
-
-          {/* Bottom bar */}
-          <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-foreground/40">
-              &copy; {new Date().getFullYear()} High Ridge Web Design. All rights
-              reserved.
-            </p>
-            <button
-              onClick={scrollToTop}
-              className="inline-flex items-center gap-1.5 text-xs text-foreground/40 hover:text-brand-orange transition-colors"
-              aria-label="Back to top"
-            >
-              Back to top
-              <ArrowUp className="w-3 h-3" />
-            </button>
-          </div>
         </div>
-      </ScrollReveal>
+
+        {/* Legal/Bottom Bar */}
+        <div className="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-xs font-medium text-foreground/30">
+            &copy; {new Date().getFullYear()} High Ridge Web Design. Built for Conversion.
+          </p>
+          <button
+            onClick={scrollToTop}
+            className="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-foreground/40 hover:text-white transition-all"
+          >
+            Back to Top
+            <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform text-brand-orange" />
+          </button>
+        </div>
+      </div>
     </footer>
   );
 }
