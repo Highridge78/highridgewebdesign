@@ -1,7 +1,6 @@
 /**
  * Footer — High Ridge Web Design
- * Dark footer with logo, links, contact info, and copyright.
- * Jeremy Black, Founder — Sylva, NC | Western NC | Globally Available
+ * Compact footer with contact details and utility nav.
  */
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
@@ -13,8 +12,8 @@ const CONTACT_PHONE = "(828) 598-9262";
 const footerLinks = [
   { label: "Demo Sites", href: "/demos" },
   { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Results", href: "#results" },
+  { label: "How It Works", href: "#proof" },
+  { label: "Portfolio", href: "#portfolio" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -44,24 +43,24 @@ export default function Footer() {
       <ScrollReveal>
         <div className="container py-10 md:py-14">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-            {/* Logo & tagline */}
+            {/* Brand */}
             <div>
               <picture>
-                <source srcSet="/new-logo-320.avif" type="image/avif" />
-                <source srcSet="/new-logo-320.webp" type="image/webp" />
+                <source srcSet="/logo-trimmed-256.avif" type="image/avif" />
+                <source srcSet="/logo-trimmed-256.webp" type="image/webp" />
                 <img
-                  src="/new-logo-640.webp"
+                  src="/logo-trimmed-512.webp"
                   alt="High Ridge Web Design"
-                  className="h-[8.5rem] w-auto mb-4"
+                  className="mb-4 h-16 w-16 rounded-md border border-white/15 bg-white/5 object-contain"
                   loading="lazy"
                   decoding="async"
-                  width={320}
-                  height={320}
+                  width={64}
+                  height={64}
                 />
               </picture>
-              <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
-                Design. Automate. Grow. — We build websites, AI bots, and
-                automations that help local businesses thrive.
+              <p className="max-w-xs text-sm leading-relaxed text-foreground/50">
+                High Ridge Web Design builds conversion-focused websites, local SEO systems, and lead automation for
+                service businesses.
               </p>
               <p className="text-xs text-foreground/40 mt-3">
                 Founded by Jeremy Black in Sylva, NC
@@ -70,7 +69,7 @@ export default function Footer() {
 
             {/* Quick links */}
             <div>
-              <h4 className="font-serif font-bold text-white mb-4 text-sm uppercase tracking-wider">
+              <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-white font-serif">
                 Quick Links
               </h4>
               <nav className="flex flex-col gap-2">
@@ -82,7 +81,7 @@ export default function Footer() {
                       e.preventDefault();
                       handleNavClick(link.href);
                     }}
-                    className="text-sm text-foreground/50 hover:text-brand-orange transition-colors"
+                    className="text-sm text-foreground/55 transition-colors hover:text-brand-orange"
                   >
                     {link.label}
                   </a>
@@ -92,20 +91,20 @@ export default function Footer() {
 
             {/* Contact */}
             <div>
-              <h4 className="font-serif font-bold text-white mb-4 text-sm uppercase tracking-wider">
+              <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-white font-serif">
                 Contact
               </h4>
               <div className="flex flex-col gap-3">
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-brand-orange transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-foreground/55 transition-colors hover:text-brand-orange"
                 >
                   <Mail className="w-4 h-4 shrink-0" />
                   {CONTACT_EMAIL}
                 </a>
                 <a
                   href="tel:+18285989262"
-                  className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-brand-orange transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-foreground/55 transition-colors hover:text-brand-orange"
                 >
                   <Phone className="w-4 h-4 shrink-0" />
                   {CONTACT_PHONE}

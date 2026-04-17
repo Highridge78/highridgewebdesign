@@ -95,7 +95,7 @@ export default function ContactSection() {
 
       <div className="relative z-10 container">
         <ScrollReveal>
-          <div className="text-center mb-10">
+          <header className="text-center mb-10">
             <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
               Get Started
             </span>
@@ -107,7 +107,7 @@ export default function ContactSection() {
               Tell us about your business and we'll show you exactly where
               you're losing leads — and how to fix it. No cost, no obligation.
             </p>
-          </div>
+          </header>
         </ScrollReveal>
 
         <ScrollReveal delay={150}>
@@ -202,7 +202,7 @@ export default function ContactSection() {
                 <Button
                   type="submit"
                   disabled={formState === "sending"}
-                  className="w-full bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold py-6 text-base glow-orange transition-all duration-300 rounded-lg"
+                  className="w-full min-h-12 bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold py-6 text-base glow-orange transition-all duration-300 rounded-lg"
                 >
                   {formState === "sending" ? (
                     <>

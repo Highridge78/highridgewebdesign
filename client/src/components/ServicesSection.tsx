@@ -1,76 +1,69 @@
 /**
  * ServicesSection — High Ridge Web Design
- * Service cards focused on outcomes, conversions, visibility, and automation.
+ * Conversion-centered services with optimized responsive media.
  */
-import { Globe, Bot, Zap, Search, ArrowRight } from "lucide-react";
+import { ArrowRight, Bot, Globe, Search, Zap } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
-
-const SERVICES_WEB =
-  "/services-web-960.webp";
-const SERVICES_AI =
-  "/services-ai-960.webp";
-const SERVICES_AUTO =
-  "/services-auto-960.webp";
 
 const services = [
   {
     icon: Globe,
-    title: "Websites That Turn Visitors Into Customers",
-    subtitle: "Conversion First",
-    image: SERVICES_WEB,
+    title: "Conversion-Focused Website Design",
+    subtitle: "Sales-First UX",
+    image: "/services-web-960.webp",
     imageAvif: "/services-web-960.avif",
     description:
-      "Your website should be your #1 sales tool. We build high-performance sites designed to turn traffic into real calls, leads, and paying customers.",
+      "We design fast websites that guide visitors to one clear action: call, book, or request a quote.",
     features: [
-      "Conversion-focused layouts",
-      "Mobile-first, high-trust design",
-      "Fast load speeds that keep visitors engaged",
-      "Landing pages built to generate leads",
+      "Clear offer positioning above the fold",
+      "Trust-building design and social proof placement",
+      "Mobile-first layouts with fast load performance",
+      "Landing page structure built to convert",
     ],
   },
   {
     icon: Search,
-    title: "Get Found Where Customers Are Searching",
-    subtitle: "Visibility Engine",
+    title: "Local SEO and Search Visibility",
+    subtitle: "Findability System",
     image: "/seo-search-banner.webp",
     imageAvif: "/seo-search-banner.avif",
     description:
-      "If customers can’t find you, they can’t hire you. We position your business to show up on Google and AI-powered search platforms.",
+      "We help your business rank where customers search, from Google maps to AI-assisted answer engines.",
     features: [
-      "Local SEO & Google Business optimization",
-      "Visibility in AI search (ChatGPT, Perplexity)",
-      "Structured data for better rankings",
-      "Content strategy that drives traffic",
+      "Google Business Profile optimization",
+      "Location and service page SEO strategy",
+      "Schema markup and crawl-ready structure",
+      "Content planning for long-term visibility",
     ],
   },
   {
     icon: Bot,
-    title: "AI That Captures Leads 24/7",
-    subtitle: "Always Working",
-    image: SERVICES_AI,
+    title: "AI Lead Capture and Qualification",
+    subtitle: "24/7 Response Engine",
+    image: "/services-ai-960.webp",
     imageAvif: "/services-ai-960.avif",
     description:
-      "Never miss another lead. Our AI systems respond instantly, qualify prospects, and help convert visitors into booked customers — even while you sleep.",
+      "Capture leads instantly with AI chat and response flows that qualify prospects while your team is busy.",
     features: [
-      "24/7 AI receptionist",
-      "Instant response to inquiries",
-      "Lead qualification automation",
-      "Appointment booking systems",
+      "Instant response for high-intent visitors",
+      "Lead qualification and handoff workflows",
+      "Automated follow-up sequencing",
+      "Calendar and CRM-ready integrations",
     ],
   },
   {
     icon: Zap,
-    title: "Automation That Saves You Time",
-    subtitle: "Efficiency System",
-    image: SERVICES_AUTO,
+    title: "Operations and Follow-Up Automation",
+    subtitle: "Efficiency Layer",
+    image: "/services-auto-960.webp",
     imageAvif: "/services-auto-960.avif",
     description:
-      "Stop wasting time on repetitive tasks. We build systems that streamline your business so you can focus on growth.",
+      "We automate repetitive tasks so your team spends less time chasing leads and more time closing jobs.",
     features: [
-      "Automated scheduling systems",
-      "Review generation automation",
-      "Missed-call text-back",
-      "CRM & follow-up automation",
+      "Missed-call text-back automations",
+      "Review request and nurture sequences",
+      "Pipeline stage and status automation",
+      "Owner-friendly dashboards and alerts",
     ],
   },
 ];
@@ -86,106 +79,69 @@ export default function ServicesSection() {
 
       <div className="relative z-10 container">
         <ScrollReveal>
-          <div className="text-center mb-14 md:mb-16">
-            <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-              What We Do
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-              Websites & Systems Built to{" "}
-              <span className="text-gradient-orange">Grow Your Business</span>
+          <header className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
+            <p className="text-sm font-semibold uppercase tracking-widest text-brand-orange">Services</p>
+            <h2 className="mt-3 text-balance font-serif text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+              Growth Systems Built for Service Businesses
             </h2>
-            <p className="mt-4 text-foreground/60 max-w-2xl mx-auto text-lg">
-              We don’t just build websites — we build systems that bring in leads,
-              increase visibility, and help your business grow consistently.
+            <p className="mt-4 text-lg text-foreground/70">
+              Every service is designed to improve one thing: more qualified leads from your website.
             </p>
-          </div>
+          </header>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {services.map((service, i) => (
             <ScrollReveal key={service.title} delay={i * 120}>
-              <div className="group relative rounded-xl overflow-hidden border border-border bg-card hover:border-brand-orange/40 transition-all duration-500 h-full">
-                {service.image ? (
-                  <div className="relative h-48 overflow-hidden">
-                    <picture>
-                      {"imageAvif" in service && service.imageAvif ? (
-                        <source srcSet={service.imageAvif} type="image/avif" />
-                      ) : null}
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                        decoding="async"
-                        fetchPriority="low"
-                        width={960}
-                        height={640}
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    </picture>
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
-                    <div className="absolute bottom-4 left-6 flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-brand-orange/20 border border-brand-orange/30 flex items-center justify-center">
-                        <service.icon className="w-5 h-5 text-brand-orange" />
-                      </div>
-                      <span className="text-xs font-medium text-brand-amber uppercase tracking-wider">
-                        {service.subtitle}
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="relative h-32 overflow-hidden bg-gradient-to-br from-brand-orange/10 via-brand-orange/5 to-transparent">
-                    <div className="absolute inset-0 bg-[oklch(0.12_0.02_260)]" />
-                    <div
-                      className="absolute inset-0 opacity-[0.04]"
-                      style={{
-                        backgroundImage:
-                          "radial-gradient(circle, oklch(0.75 0.18 55) 1px, transparent 1px)",
-                        backgroundSize: "24px 24px",
-                      }}
+              <article className="group relative h-full overflow-hidden rounded-xl border border-border bg-card transition-all duration-500 hover:border-brand-orange/40">
+                <div className="relative h-48 overflow-hidden">
+                  <picture>
+                    <source srcSet={service.imageAvif} type="image/avif" />
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
+                      width={960}
+                      height={640}
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
-                    <div className="absolute bottom-4 left-6 flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-brand-orange/20 border border-brand-orange/30 flex items-center justify-center">
-                        <service.icon className="w-5 h-5 text-brand-orange" />
-                      </div>
-                      <span className="text-xs font-medium text-brand-amber uppercase tracking-wider">
-                        {service.subtitle}
-                      </span>
-                    </div>
+                  </picture>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                  <div className="absolute bottom-4 left-6 flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-brand-orange/30 bg-brand-orange/20">
+                      <service.icon className="h-5 w-5 text-brand-orange" />
+                    </span>
+                    <span className="text-xs font-medium uppercase tracking-wider text-brand-amber">{service.subtitle}</span>
                   </div>
-                )}
+                </div>
 
                 <div className="p-6 pt-4">
-                  <h3 className="font-serif text-xl font-bold text-white mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-foreground/60 text-sm leading-relaxed mb-5">
-                    {service.description}
-                  </p>
+                  <h3 className="mb-3 font-serif text-2xl font-bold text-white">{service.title}</h3>
+                  <p className="mb-5 text-sm leading-relaxed text-foreground/70">{service.description}</p>
 
-                  <ul className="space-y-2 mb-6">
-                    {service.features.map((feat) => (
-                      <li
-                        key={feat}
-                        className="flex items-start gap-2 text-sm text-foreground/70"
-                      >
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0" />
-                        {feat}
+                  <ul className="mb-6 space-y-2">
+                    {service.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2 text-sm text-foreground/80">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
+                        {feature}
                       </li>
                     ))}
                   </ul>
 
                   <button
                     onClick={scrollToContact}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-brand-orange hover:text-white hover:bg-brand-orange px-4 py-2 rounded-md transition-all duration-300"
+                    className="inline-flex min-h-10 items-center gap-2 rounded-md px-4 py-2 text-sm font-semibold text-brand-orange transition-all duration-300 hover:bg-brand-orange hover:text-white"
                   >
-                    Get Started
-                    <ArrowRight className="w-4 h-4" />
+                    Book a Strategy Call
+                    <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
 
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-brand-orange to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
+                <div className="absolute left-0 right-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-brand-orange to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              </article>
             </ScrollReveal>
           ))}
         </div>

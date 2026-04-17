@@ -1,21 +1,14 @@
-/**
- * Navbar — High Ridge Web Design
- * Design: Dark sticky nav with logo, smooth-scroll links, and CTA button.
- * Brand: Deep black bg, fiery orange accent, IBM Plex Serif headings, Inter body.
- */
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
-const LOGO_FALLBACK = "/new-logo-640.webp";
-const LOGO_AVIF = "/new-logo-320.avif";
-const LOGO_WEBP = "/new-logo-320.webp";
+const LOGO_PLACEHOLDER = "/logo-trimmed-512.webp";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Results", href: "#results" },
+  { label: "How It Works", href: "#proof" },
+  { label: "Portfolio", href: "#portfolio" },
   { label: "Demo Sites", href: "/demos" },
   { label: "Contact", href: "#contact" },
 ];
@@ -49,15 +42,14 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header
+      className={`sticky top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         scrolled
-          ? "bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30"
-          : "bg-transparent"
+          ? "border-white/10 bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30"
+          : "border-transparent bg-[oklch(0.08_0.02_260/0.82)] backdrop-blur-sm"
       }`}
     >
-      <div className="container flex items-center justify-between h-[7.5rem] md:h-[10.5rem]">
-        {/* Logo */}
+      <div className="container flex min-h-20 items-center justify-between gap-4 py-3">
         <a
           href="#"
           onClick={(e) => {
@@ -68,26 +60,26 @@ export default function Navbar() {
               setLocation("/");
             }
           }}
-          className="flex items-center shrink-0"
+          className="flex items-center gap-3 shrink-0"
         >
-          <picture>
-            <source srcSet={LOGO_AVIF} type="image/avif" />
-            <source srcSet={LOGO_WEBP} type="image/webp" />
+          <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-md border border-white/15 bg-white/5 sm:h-14 sm:w-14">
             <img
-              src={LOGO_FALLBACK}
-              alt="High Ridge Web Design"
-              className="h-[7.5rem] md:h-[10.5rem] w-auto"
+              src={LOGO_PLACEHOLDER}
+              alt="High Ridge Web Design logo"
+              className="h-full w-full object-contain"
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              width={320}
-              height={320}
+              width={56}
+              height={56}
             />
-          </picture>
+          </span>
+          <span className="hidden text-sm font-semibold uppercase tracking-[0.18em] text-white/80 sm:inline">
+            High Ridge Web Design
+          </span>
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -99,10 +91,10 @@ export default function Navbar() {
               aria-current={
                 !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
               }
-              className={`text-sm font-medium transition-colors duration-200 tracking-wide uppercase ${
+              className={`text-sm font-medium transition-colors duration-200 tracking-wide uppercase py-2 ${
                 !link.href.startsWith("#") && location.startsWith(link.href)
                   ? "text-brand-orange"
-                  : "text-foreground/70 hover:text-brand-orange-bright"
+                  : "text-foreground/75 hover:text-brand-orange-bright"
               }`}
             >
               {link.label}
@@ -110,26 +102,30 @@ export default function Navbar() {
           ))}
           <Button
             onClick={() => handleNavClick("#contact")}
-            className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 glow-orange transition-all duration-300"
+            className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 min-h-11 glow-orange transition-all duration-300"
           >
-            Free Audit
+            Get Free Audit
           </Button>
-        </div>
+        </nav>
 
-        {/* Mobile hamburger */}
         <button
-          className="md:hidden text-foreground p-2"
+          className="md:hidden text-foreground p-2 rounded-md border border-white/15 bg-white/5"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-[oklch(0.10_0.02_260/0.98)] backdrop-blur-md border-t border-border">
-          <div className="container py-4 flex flex-col gap-3">
+        <nav
+          id="mobile-nav"
+          className="md:hidden border-t border-white/10 bg-[oklch(0.10_0.02_260/0.98)] backdrop-blur-md"
+          aria-label="Mobile navigation"
+        >
+          <div className="container py-4 flex flex-col gap-2">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -141,10 +137,10 @@ export default function Navbar() {
                 aria-current={
                   !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
                 }
-                className={`text-base font-medium py-2 transition-colors uppercase tracking-wide ${
+                className={`text-base font-medium py-3 transition-colors uppercase tracking-wide ${
                   !link.href.startsWith("#") && location.startsWith(link.href)
                     ? "text-brand-orange"
-                    : "text-foreground/80 hover:text-brand-orange-bright"
+                    : "text-foreground/85 hover:text-brand-orange-bright"
                 }`}
               >
                 {link.label}
@@ -152,13 +148,13 @@ export default function Navbar() {
             ))}
             <Button
               onClick={() => handleNavClick("#contact")}
-              className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold mt-2 glow-orange"
+              className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold mt-2 min-h-11 glow-orange"
             >
-              Free Audit
+              Get Free Audit
             </Button>
           </div>
-        </div>
+        </nav>
       )}
-    </nav>
+    </header>
   );
 }

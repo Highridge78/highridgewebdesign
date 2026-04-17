@@ -1,59 +1,46 @@
 /**
  * HeroSection — High Ridge Web Design
- * Full-viewport hero with user-provided mountain ridge sunset background.
- * Light text on dark image. Tagline: "Design. Automate. Grow."
+ * Above-the-fold offer clarity + primary conversion CTA.
  */
-import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
-import { useIsMobile } from "@/hooks/useMobile";
+import { ArrowDown, CheckCircle2 } from "lucide-react";
 import { Link } from "wouter";
 
 const HERO_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/hero-bg-6AP37PrEwkYVivEqXtb2BS.webp";
 
+const trustHighlights = [
+  "Built for contractors, law firms, and home service businesses",
+  "Fast mobile-first build focused on calls, forms, and bookings",
+  "SEO + automation stack that keeps leads moving 24/7",
+];
+
 export default function HeroSection() {
-  const heroRef = useRef<HTMLImageElement>(null);
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    const handleScroll = () => {
-      if (!heroRef.current) return;
-      const y = window.scrollY;
-      heroRef.current.style.transform = `translateY(${y * 0.3}px)`;
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
-
   const scrollTo = (id: string) => {
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="relative min-h-screen pt-32 md:pt-0 flex items-center justify-center overflow-hidden">
-      {/* Background image with parallax */}
+    <section className="relative flex min-h-[calc(100svh-5rem)] items-center justify-center overflow-hidden py-20 md:py-24">
+      {/* Hero background */}
       <img
-        ref={heroRef}
         src={HERO_BG}
         alt=""
         aria-hidden="true"
+        width={1920}
+        height={1200}
         fetchPriority="high"
         decoding="async"
-        className="absolute inset-0 -top-20 -bottom-20 h-[calc(100%+10rem)] w-full object-cover will-change-transform"
+        className="absolute inset-0 h-full w-full object-cover"
       />
 
-      {/* Dark overlay gradient — heavier at top for nav readability, lighter at center */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
+      {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/80" />
 
-      {/* Seamless transition to next section */}
+      {/* Seamless transition */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[oklch(0.10_0.02_260)] to-transparent" />
 
-      {/* Content */}
-      <div className="relative z-10 container text-center px-4">
-        {/* Tagline badge */}
+      <div className="relative z-10 container px-4 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 backdrop-blur-sm">
           <span className="w-2 h-2 rounded-full bg-brand-orange md:animate-pulse" />
           <span className="text-sm font-medium text-brand-amber tracking-widest uppercase">
@@ -61,52 +48,62 @@ export default function HeroSection() {
           </span>
         </div>
 
-        {/* Main heading */}
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-  Your Website Should Be Bringing You Customers — Not Sitting There Doing Nothing
-</h1>
+        <h1 className="mx-auto max-w-5xl text-balance text-4xl font-bold leading-tight text-white md:text-6xl">
+          Websites for Local Service Businesses That Generate More Calls, Leads, and Booked Jobs
+        </h1>
 
-        {/* Subheading */}
-        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl">
-  We build high-performance websites for service businesses that want more calls, more leads, and real growth — not just a pretty design.
-</p>
+        <p className="mx-auto mt-6 max-w-3xl text-lg text-gray-200 md:text-xl">
+          High Ridge Web Design combines conversion-first design, local SEO, and smart automation so your site works
+          as a sales system instead of a digital brochure.
+        </p>
 
-        {/* CTA buttons */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <p className="mx-auto mt-4 max-w-3xl text-sm text-white/80 md:text-base">
+          Best for busy owners who want measurable growth without adding more manual follow-up.
+        </p>
+
+        <div className="mx-auto mt-8 grid max-w-3xl gap-2 text-left sm:grid-cols-3">
+          {trustHighlights.map((item) => (
+            <p key={item} className="flex items-start gap-2 rounded-lg border border-white/15 bg-black/35 p-3 text-sm text-white/90">
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
+              <span>{item}</span>
+            </p>
+          ))}
+        </div>
+
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button
             onClick={() => scrollTo("#contact")}
             size="lg"
-            className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
+            className="min-h-12 bg-brand-orange px-8 py-6 text-base font-semibold text-white glow-orange transition-all duration-300 hover:bg-brand-orange-bright"
           >
-            Get My Free Website Audit
+            Get a Free Website Audit
           </Button>
           <Button
             onClick={() => scrollTo("#services")}
             variant="outline"
             size="lg"
-            className="border-white/30 text-white hover:bg-white/10 font-medium text-base px-8 py-6 rounded-lg backdrop-blur-sm"
-                  >
-          See What We Can Do
-        </Button>
-      </div>
+            className="min-h-12 border-white/35 bg-black/20 px-8 py-6 text-base font-medium text-white backdrop-blur-sm hover:bg-white/10"
+          >
+            See Services
+          </Button>
+        </div>
 
-      <div className="mt-4">
-        <Link
-          href="/demos"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange-bright transition-colors"
-        >
-          Preview Demo Sites
-        </Link>
-      </div>
+        <div className="mt-4">
+          <Link
+            href="/demos"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber transition-colors hover:text-brand-orange-bright"
+          >
+            Preview Demo Sites
+          </Link>
+        </div>
 
-      <p className="mt-6 text-sm text-gray-400">
-        Most business websites lose potential customers within seconds. Let’s fix that.
-      </p>
+        <p className="mt-5 text-sm text-gray-300">
+          Most local business websites lose qualified visitors in the first few seconds. We fix that.
+        </p>
 
-      {/* Scroll indicator */}
-      <button
-        onClick={() => scrollTo("#services")}
-          className="mt-14 inline-flex flex-col items-center gap-2 text-white/50 hover:text-brand-orange transition-colors duration-300 md:animate-bounce"
+        <button
+          onClick={() => scrollTo("#services")}
+          className="mt-12 inline-flex flex-col items-center gap-2 text-white/55 transition-colors duration-300 hover:text-brand-orange md:animate-bounce"
           aria-label="Scroll down"
         >
           <span className="text-xs uppercase tracking-widest">Explore</span>
