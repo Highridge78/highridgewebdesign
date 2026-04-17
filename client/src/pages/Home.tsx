@@ -19,6 +19,7 @@ export default function Home() {
       "Highridge Web Design | Contractor Websites That Generate Leads and Booked Jobs",
     description:
       "Highridge Web Design builds conversion-focused websites for contractors and service businesses that need more qualified leads, booked calls, and revenue growth.",
+    canonicalPath: "/",
   });
   useEffect(() => {
     const scriptId = "home-local-business-schema";

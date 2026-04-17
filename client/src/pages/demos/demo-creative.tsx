@@ -78,9 +78,10 @@ const outcomeMetrics = [
 
 export default function DemoCreativePage() {
   usePageMeta({
-    title: "Demo: AI-Powered Future Agency | High Ridge Web Design",
+    title: "Demo: AI-Powered Future Agency | Highridge Web Design",
     description:
       "See an AI-first agency homepage concept that combines website strategy, chatbots, and automation into a 24/7 sales system.",
+    canonicalPath: "/demos/demo-creative",
   });
 
   return (

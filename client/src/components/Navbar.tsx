@@ -112,7 +112,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-foreground p-2"
+          className="md:hidden text-foreground p-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >

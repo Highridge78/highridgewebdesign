@@ -43,13 +43,31 @@ const demoOptions = [
 
 export default function DemosIndexPage() {
   usePageMeta({
-    title: "Website Demo Concepts | High Ridge Web Design",
+    title: "Website Demo Concepts | Highridge Web Design",
     description:
       "Compare three strategic homepage concepts built to improve conversion, positioning, and differentiation for local business websites.",
+    canonicalPath: "/demos",
   });
+  const canonicalHref =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/demos`
+      : "https://www.highridgewebdesign.com/demos";
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Highridge Website Demo Concepts",
+    url: canonicalHref,
+    description:
+      "Three homepage concept directions for service businesses focused on conversion, positioning, and lead quality.",
+  };
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <section className="relative py-16 md:py-20">
         <div className="absolute inset-0 bg-[oklch(0.10_0.02_260)]" />
         <div className="relative z-10 container">

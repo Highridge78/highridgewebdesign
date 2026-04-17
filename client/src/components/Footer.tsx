@@ -47,11 +47,21 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {/* Logo & tagline */}
             <div>
-              <BrandLogo
-                variant="footer"
-                className="mb-4 py-1"
-                imgClassName="h-8 md:h-9 opacity-95 drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]"
-              />
+              <a
+                href="/"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setLocation("/");
+                }}
+                className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
+                aria-label="Highridge Web Design homepage"
+              >
+                <BrandLogo
+                  variant="footer"
+                  className="mb-4 py-1"
+                  imgClassName="h-8 md:h-9 opacity-95 drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]"
+                />
+              </a>
               <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">
                 We build conversion-focused websites and lead systems for
                 contractors and service businesses that need more qualified jobs.
@@ -123,7 +133,7 @@ export default function Footer() {
             </p>
             <button
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1.5 text-xs text-foreground/40 hover:text-brand-orange transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs text-foreground/40 hover:text-brand-orange transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
               aria-label="Back to top"
             >
               Back to top
