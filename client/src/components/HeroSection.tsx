@@ -4,9 +4,12 @@
  */
 import { Button } from "@/components/ui/button";
 import { ArrowDown, CheckCircle2 } from "lucide-react";
+import { useIsMobile } from "@/hooks/useMobile";
 import { Link } from "wouter";
 
 export default function HeroSection() {
+  const isMobile = useIsMobile();
+
   const scrollTo = (id: string) => {
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -17,16 +20,16 @@ export default function HeroSection() {
       <picture>
         <source
           type="image/avif"
-          srcSet="/hero-bg-960.avif 960w, /hero-bg-1600.avif 1600w"
+          srcSet="/hero-bg-640.avif 640w, /hero-bg-960.avif 960w, /hero-bg-1280.avif 1280w, /hero-bg-1600.avif 1600w"
           sizes="100vw"
         />
         <source
           type="image/webp"
-          srcSet="/hero-bg-960.webp 960w, /hero-bg-1600.webp 1600w"
+          srcSet="/hero-bg-640.webp 640w, /hero-bg-960.webp 960w, /hero-bg-1280.webp 1280w, /hero-bg-1600.webp 1600w"
           sizes="100vw"
         />
         <img
-          src="/hero-bg-1600.webp"
+          src="/hero-bg-960.webp"
           alt=""
           aria-hidden="true"
           fetchPriority="high"
@@ -85,23 +88,25 @@ export default function HeroSection() {
           </Button>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-left">
-          {[
-            "Conversion-driven page structure",
-            "Local SEO foundation built in",
-            "Lead capture and follow-up workflows",
-          ].map((item) => (
-            <div
-              key={item}
-              className="rounded-lg border border-white/20 bg-black/25 px-4 py-3 text-sm text-gray-100 flex items-start gap-2"
-            >
-              <CheckCircle2 className="w-4 h-4 mt-0.5 text-brand-orange shrink-0" />
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
+        {!isMobile && (
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-left">
+            {[
+              "Conversion-driven page structure",
+              "Local SEO foundation built in",
+              "Lead capture and follow-up workflows",
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-lg border border-white/20 bg-black/25 px-4 py-3 text-sm text-gray-100 flex items-start gap-2"
+              >
+                <CheckCircle2 className="w-4 h-4 mt-0.5 text-brand-orange shrink-0" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        )}
 
-        <div className="mt-5">
+        <div className={isMobile ? "mt-6" : "mt-5"}>
           <Link
             href="/demos"
             className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange-bright transition-colors"
@@ -114,19 +119,20 @@ export default function HeroSection() {
           No brochure websites. No template churn. Built to drive pipeline.
         </p>
 
-        {/* Scroll indicator */}
-        <a
-          href="#services"
-          onClick={(event) => {
-            event.preventDefault();
-            scrollTo("#services");
-          }}
-          className="mt-14 inline-flex flex-col items-center gap-2 text-white/70 hover:text-brand-orange transition-colors duration-300 motion-safe:md:animate-bounce"
-          aria-label="Scroll down to services section"
-        >
-          <span className="text-xs uppercase tracking-widest">Explore</span>
-          <ArrowDown size={20} />
-        </a>
+        {!isMobile && (
+          <a
+            href="#services"
+            onClick={(event) => {
+              event.preventDefault();
+              scrollTo("#services");
+            }}
+            className="mt-14 inline-flex flex-col items-center gap-2 text-white/70 hover:text-brand-orange transition-colors duration-300 motion-safe:md:animate-bounce"
+            aria-label="Scroll down to services section"
+          >
+            <span className="text-xs uppercase tracking-widest">Explore</span>
+            <ArrowDown size={20} />
+          </a>
+        )}
       </div>
     </section>
   );
