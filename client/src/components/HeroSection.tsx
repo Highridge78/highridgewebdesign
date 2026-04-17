@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, ShieldCheck } from "lucide-react";
-import PerformanceVisual from "./PerformanceVisual";
+import ComparisonVisual from "./ComparisonVisual";
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {
@@ -21,7 +21,7 @@ export default function HeroSection() {
       <div className="container relative z-10 px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
           
-          {/* LEFT: Massive Headline & Clarity */}
+          {/* LEFT: Headline & CTA */}
           <div className="flex flex-col gap-12 max-w-4xl">
             <div className="flex flex-col gap-8">
               <div className="flex items-center gap-4">
@@ -83,8 +83,8 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* RIGHT: The Visual Powerhouse */}
-          <PerformanceVisual />
+          {/* RIGHT: Static Comparison Visual */}
+          <ComparisonVisual />
 
         </div>
       </div>
