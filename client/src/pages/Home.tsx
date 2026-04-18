@@ -25,7 +25,7 @@ export default function Home() {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       name: "Frady's Flooring",
-      image: "/images/fradys-logo.png",
+      image: "/files/fradys-logo.png",
       areaServed: [
         "Sylva, NC",
         "Waynesville, NC",
