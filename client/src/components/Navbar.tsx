@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 import BrandLogo from "./BrandLogo";
+import { useIsMobile } from "@/hooks/useMobile";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -14,6 +15,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [location, setLocation] = useLocation();
+  const isMobile = useIsMobile();
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
@@ -60,47 +62,51 @@ export default function Navbar() {
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href.startsWith("#") ? link.href : link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(link.href);
-              }}
-              aria-current={
-                !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
-              }
-              className={`text-sm font-medium transition-colors duration-200 tracking-wide uppercase ${
-                !link.href.startsWith("#") && location.startsWith(link.href)
-                  ? "text-brand-orange"
-                  : "text-foreground/90 hover:text-brand-orange-bright"
-              }`}
+        {!isMobile && (
+          <div className="hidden md:flex items-center gap-8">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href.startsWith("#") ? link.href : link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(link.href);
+                }}
+                aria-current={
+                  !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
+                }
+                className={`text-sm font-medium transition-colors duration-200 tracking-wide uppercase ${
+                  !link.href.startsWith("#") && location.startsWith(link.href)
+                    ? "text-brand-orange"
+                    : "text-foreground/90 hover:text-brand-orange-bright"
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+            <Button
+              onClick={() => handleNavClick("#contact")}
+              className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 glow-orange transition-all duration-300"
             >
-              {link.label}
-            </a>
-          ))}
-          <Button
-            onClick={() => handleNavClick("#contact")}
-            className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 glow-orange transition-all duration-300"
-          >
-            Request Free Estimate
-          </Button>
-        </div>
+              Request Free Estimate
+            </Button>
+          </div>
+        )}
 
         {/* Mobile hamburger */}
-        <button
-          className="md:hidden text-foreground p-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {isMobile && (
+          <button
+            className="md:hidden text-foreground p-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        )}
       </div>
 
       {/* Mobile menu */}
-      {mobileOpen && (
+      {isMobile && mobileOpen && (
         <div className="md:hidden bg-[oklch(0.13_0.03_250/0.98)] backdrop-blur-md border-t border-border">
           <div className="container py-4 flex flex-col gap-3">
             {NAV_LINKS.map((link) => (
