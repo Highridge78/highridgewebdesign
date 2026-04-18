@@ -93,7 +93,7 @@ export default function ServicesSection() {
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={step.image}
-                    alt={`${step.title} service placeholder image`}
+                    alt={`${step.title} project photo`}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"

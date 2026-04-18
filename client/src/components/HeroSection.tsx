@@ -13,7 +13,7 @@ export default function HeroSection() {
     <section className="relative min-h-screen pt-24 md:pt-0 flex items-center justify-center overflow-hidden">
       <img
         src="/images/hero-placeholder.webp"
-        alt="Frady's Flooring hero placeholder showing premium hardwood installation work"
+        alt="Finished hardwood flooring installation in a clean home interior"
         fetchPriority="high"
         loading="eager"
         decoding="async"

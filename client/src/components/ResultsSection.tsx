@@ -56,8 +56,8 @@ export default function ResultsSection() {
                 <span className="text-gradient-orange">See Before You Hire</span>
               </h2>
               <p className="mt-4 text-foreground/70 max-w-2xl mx-auto">
-                These placeholders map exactly where finished project photos
-                should go so your gallery instantly builds trust with new leads.
+                Recent flooring visuals show installation quality, finish detail,
+                and the level of craftsmanship homeowners can expect.
               </p>
             </div>
           </ScrollReveal>
@@ -67,7 +67,7 @@ export default function ResultsSection() {
               <ScrollReveal key={imagePath} delay={i * 60}>
                 <img
                   src={imagePath}
-                  alt={`Frady's Flooring gallery placeholder ${i + 1}`}
+                  alt={`Frady's Flooring project gallery image ${i + 1}`}
                   loading="lazy"
                   decoding="async"
                   className="w-full rounded-xl border border-border bg-card object-cover aspect-[4/3] hover:border-brand-orange/40 transition-colors duration-300"

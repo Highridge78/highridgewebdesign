@@ -67,7 +67,7 @@ export default function AboutSection() {
             <div className="rounded-2xl border border-border bg-[oklch(0.18_0.03_249)] p-7">
               <img
                 src="/images/trust-placeholder.webp"
-                alt="Crew working on hardwood flooring project placeholder"
+                alt="Frady's Flooring crew at work on a hardwood flooring project"
                 loading="lazy"
                 decoding="async"
                 width={1000}
