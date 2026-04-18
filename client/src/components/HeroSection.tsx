@@ -59,14 +59,12 @@ export default function HeroSection() {
 
         {/* Main heading */}
         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-          We turn local service websites into{" "}
-          <span className="md:whitespace-nowrap">customer-generating machines.</span>
+          We turn local service websites into customer-generating machines.
         </h1>
 
         {/* Subheading */}
         <p className="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-          We design and rebuild contractor websites to drive more calls, better
-          leads, and consistent work.
+          We design and rebuild contractor websites to drive more calls, better leads, and consistent work.
         </p>
 
         {/* CTA buttons */}
