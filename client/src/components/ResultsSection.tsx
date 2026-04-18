@@ -1,95 +1,93 @@
-/**
- * ResultsSection — High Ridge Web Design
- * Service-market focus, process clarity, and proof-style CTA.
- */
-import { Wrench, Hammer, PaintRoller, Droplets, Wind, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
-const industries = [
-  { icon: Hammer, name: "General Contractors", pain: "Need more qualified project inquiries" },
-  { icon: Wind, name: "HVAC Companies", pain: "Losing urgent leads after hours" },
-  { icon: Droplets, name: "Plumbing Services", pain: "Inconsistent booking flow from web traffic" },
-  { icon: Wrench, name: "Electrical Services", pain: "Weak local visibility and trust cues" },
-  { icon: PaintRoller, name: "Remodeling & Trades", pain: "Getting low-intent quote requests" },
-  { icon: Hammer, name: "Roofing & Exterior", pain: "High ad spend with low site conversion" },
+const galleryImages = [
+  "/images/gallery-1.webp",
+  "/images/gallery-2.webp",
+  "/images/gallery-3.webp",
+  "/images/gallery-4.webp",
+  "/images/gallery-5.webp",
+  "/images/gallery-6.webp",
+  "/images/gallery-7.webp",
+  "/images/gallery-8.webp",
 ];
 
 const processSteps = [
   {
     step: "01",
-    title: "Revenue-Focused Website Audit",
+    title: "Request Your Free Estimate",
     description:
-      "We review your current site, lead paths, and local search structure to pinpoint where revenue opportunities are leaking.",
+      "Tell us about your space, timeline, and flooring goals so we can scope the project correctly.",
   },
   {
     step: "02",
-    title: "Growth Plan and Offer Architecture",
+    title: "Get a Clear Project Plan",
     description:
-      "We map your page strategy, messaging hierarchy, and conversion paths around your highest-value services.",
+      "We provide straightforward recommendations, material options, and scheduling details before work starts.",
   },
   {
     step: "03",
-    title: "Build, Integrate, and Launch",
+    title: "Professional Installation or Refinish",
     description:
-      "We execute the website and lead system with speed, then connect forms, follow-up, and tracking for operational use.",
+      "Our crew completes the flooring work with careful prep, clean execution, and consistent quality.",
   },
   {
     step: "04",
-    title: "Optimize for Lead Quality",
+    title: "Final Walkthrough and Sign-Off",
     description:
-      "We refine messaging and conversion points based on performance so lead quality and close rates improve over time.",
+      "We inspect the finished work with you and confirm every detail is complete before project close-out.",
   },
 ];
 
 export default function ResultsSection() {
   return (
     <section id="results" className="relative py-20 md:py-24">
-      <div className="absolute inset-0 bg-[oklch(0.10_0.02_260)]" />
+      <div className="absolute inset-0 bg-[oklch(0.15_0.03_250)]" />
 
       <div className="relative z-10 container">
         <div className="mb-16 md:mb-20">
           <ScrollReveal>
             <div className="text-center mb-10">
               <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-                Who We Serve
+                Project Gallery
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-                Built for{" "}
-                <span className="text-gradient-orange">Contractors and Home Services</span>
+                Proof of Work You Can{" "}
+                <span className="text-gradient-orange">See Before You Hire</span>
               </h2>
-              <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-                We focus on service businesses where inbound demand, response
-                speed, and trust directly impact booked jobs.
+              <p className="mt-4 text-foreground/70 max-w-2xl mx-auto">
+                These placeholders map exactly where finished project photos
+                should go so your gallery instantly builds trust with new leads.
               </p>
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {industries.map((ind, i) => (
-              <ScrollReveal key={ind.name} delay={i * 80}>
-                <div className="group p-4 rounded-xl bg-[oklch(0.15_0.02_260)] border border-border hover:border-brand-orange/30 transition-all duration-300 text-center h-full">
-                  <div className="w-10 h-10 mx-auto mb-3 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center group-hover:bg-brand-orange/20 transition-colors">
-                    <ind.icon className="w-5 h-5 text-brand-orange" />
-                  </div>
-                  <div className="text-sm font-semibold text-white mb-1">
-                    {ind.name}
-                  </div>
-                  <div className="text-xs text-foreground/40">{ind.pain}</div>
-                </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+            {galleryImages.map((imagePath, i) => (
+              <ScrollReveal key={imagePath} delay={i * 60}>
+                <img
+                  src={imagePath}
+                  alt={`Frady's Flooring gallery placeholder ${i + 1}`}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-xl border border-border bg-card object-cover aspect-[4/3] hover:border-brand-orange/40 transition-colors duration-300"
+                  width={1000}
+                  height={750}
+                />
               </ScrollReveal>
             ))}
           </div>
         </div>
 
-        <div className="mb-16 md:mb-20">
+        <div className="mb-14 md:mb-16">
           <ScrollReveal>
             <div className="text-center mb-10">
               <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
                 Our Process
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-                From Website Redesign to{" "}
-                <span className="text-gradient-orange">Lead Performance Engine</span>
+                Simple, Professional,{" "}
+                <span className="text-gradient-orange">and Built Around Your Home</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -98,22 +96,17 @@ export default function ResultsSection() {
             {processSteps.map((step, i) => (
               <ScrollReveal key={step.step} delay={i * 120}>
                 <div className="relative h-full">
-                  <div className="p-6 rounded-xl bg-[oklch(0.15_0.02_260)] border border-border h-full hover:border-brand-orange/30 transition-all duration-300">
-                    <div className="text-4xl font-bold font-serif text-brand-orange/20 mb-3">
+                  <div className="p-6 rounded-xl bg-[oklch(0.18_0.03_249)] border border-border h-full hover:border-brand-orange/30 transition-all duration-300">
+                    <div className="text-4xl font-bold font-serif text-brand-orange/25 mb-3">
                       {step.step}
                     </div>
                     <h3 className="font-serif text-lg font-bold text-white mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-foreground/60 leading-relaxed">
+                    <p className="text-sm text-foreground/70 leading-relaxed">
                       {step.description}
                     </p>
                   </div>
-                  {i < processSteps.length - 1 && (
-                    <div className="hidden lg:flex absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
-                      <ArrowRight className="w-6 h-6 text-brand-orange/30" />
-                    </div>
-                  )}
                 </div>
               </ScrollReveal>
             ))}
@@ -121,45 +114,21 @@ export default function ResultsSection() {
         </div>
 
         <ScrollReveal>
-          <div className="rounded-2xl bg-gradient-to-br from-[oklch(0.15_0.03_50)] to-[oklch(0.12_0.02_260)] border border-brand-orange/20 p-8 md:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div>
-                <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-4">
-                  What You Get in a Strategy Call
-                </h3>
-                <p className="text-foreground/60 mb-6 leading-relaxed">
-                  We walk through your current website, identify conversion
-                  blockers, and show exactly what to change to increase qualified
-                  leads and booked jobs.
-                </p>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 py-3 rounded-lg shadow-[0_0_25px_rgba(255,106,0,0.35)] transition-all duration-300"
-                >
-                  Book My Strategy Call
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-                <p className="mt-4 text-sm text-white/70">
-                  Clear recommendations. No generic pitch deck.
-                </p>
-              </div>
-              <div className="grid grid-cols-3 gap-4 text-center">
-                {[
-                  { value: "45m", label: "Strategy Session" },
-                  { value: "3-5", label: "Top Fixes Prioritized" },
-                  { value: "1", label: "Clear Execution Plan" },
-                ].map((s) => (
-                  <div key={s.label} className="p-4">
-                    <div className="text-2xl md:text-3xl font-bold font-serif text-brand-orange">
-                      {s.value}
-                    </div>
-                    <div className="text-xs text-foreground/50 mt-1 uppercase tracking-wider">
-                      {s.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="rounded-2xl bg-gradient-to-br from-[oklch(0.62_0.10_72/0.2)] to-[oklch(0.51_0.13_257/0.2)] border border-brand-orange/25 p-8 md:p-10 text-center">
+            <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-3">
+              Ready to Upgrade Your Floors?
+            </h3>
+            <p className="text-foreground/75 mb-6 max-w-2xl mx-auto">
+              Get a no-pressure estimate and honest recommendations for the best
+              path forward in your home.
+            </p>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 py-3 rounded-lg glow-orange transition-all duration-300"
+            >
+              Request a Free Estimate
+              <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </ScrollReveal>
       </div>
