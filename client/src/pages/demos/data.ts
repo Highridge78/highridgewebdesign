@@ -39,7 +39,8 @@ export const demoTestimonials: DemoTestimonial[] = [
 
 export const objectionFaq: DemoFaq[] = [
   {
-    question: "Can you redesign my existing website instead of starting from scratch?",
+    question:
+      "Can you redesign my existing website instead of starting from scratch?",
     answer:
       "Yes. Most projects are redesigns of outdated sites. We keep what works, remove what hurts conversions, and rebuild around your business goals.",
   },

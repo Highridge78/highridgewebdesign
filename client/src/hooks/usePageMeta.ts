@@ -6,7 +6,11 @@ interface PageMetaOptions {
   canonicalPath?: string;
 }
 
-export function usePageMeta({ title, description, canonicalPath }: PageMetaOptions) {
+export function usePageMeta({
+  title,
+  description,
+  canonicalPath,
+}: PageMetaOptions) {
   useEffect(() => {
     const previousTitle = document.title;
     document.title = title;
@@ -15,7 +19,9 @@ export function usePageMeta({ title, description, canonicalPath }: PageMetaOptio
       'meta[name="description"]'
     ) as HTMLMetaElement | null;
     const previousDescription = metaDescription?.content;
-    const canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    const canonicalLink = document.querySelector(
+      'link[rel="canonical"]'
+    ) as HTMLLinkElement | null;
     const previousCanonical = canonicalLink?.href;
 
     if (metaDescription && description) {

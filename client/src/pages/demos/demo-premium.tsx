@@ -8,15 +8,18 @@ import { localBusinessAudience, objectionFaq, trustBarItems } from "./data";
 const featuredWork = [
   {
     title: "Regional HVAC Group",
-    summary: "Modernized brand presentation and lead capture flow for premium residential installs.",
+    summary:
+      "Modernized brand presentation and lead capture flow for premium residential installs.",
   },
   {
     title: "Boutique Family Law Firm",
-    summary: "Refined digital positioning to attract higher-intent consultation requests.",
+    summary:
+      "Refined digital positioning to attract higher-intent consultation requests.",
   },
   {
     title: "Luxury Outdoor Builder",
-    summary: "Elevated trust and project value perception with visual-first storytelling.",
+    summary:
+      "Elevated trust and project value perception with visual-first storytelling.",
   },
 ];
 
@@ -106,10 +109,13 @@ export default function DemoPremium() {
               We Design High-Performance Digital Experiences for Growing Brands
             </h1>
             <p className="mt-8 max-w-3xl text-lg md:text-xl text-foreground/70 leading-relaxed">
-              For local businesses ready to be perceived as market leaders, we combine elegant
-              design with AI-enabled systems that improve lead quality and client experience.
+              For local businesses ready to be perceived as market leaders, we
+              combine elegant design with AI-enabled systems that improve lead
+              quality and client experience.
             </p>
-            <p className="mt-3 text-sm text-foreground/60">{localBusinessAudience}</p>
+            <p className="mt-3 text-sm text-foreground/60">
+              {localBusinessAudience}
+            </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Button
                 asChild
@@ -132,7 +138,7 @@ export default function DemoPremium() {
 
         <section className="py-8 border-y border-white/10">
           <div className="container max-w-5xl grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {trustBarItems.map((item) => (
+            {trustBarItems.map(item => (
               <div
                 key={item}
                 className="rounded-xl border border-white/10 bg-[oklch(0.13_0.02_260)] px-4 py-3 text-sm text-foreground/75"
@@ -156,13 +162,15 @@ export default function DemoPremium() {
               </div>
               <div className="space-y-4 text-foreground/70 leading-relaxed">
                 <p>
-                  Most agency websites either look beautiful or convert well. Our philosophy is to
-                  deliver both. Every page, headline, and interaction is aligned to your business
-                  goals, not template trends.
+                  Most agency websites either look beautiful or convert well.
+                  Our philosophy is to deliver both. Every page, headline, and
+                  interaction is aligned to your business goals, not template
+                  trends.
                 </p>
                 <p>
-                  We build websites that communicate expertise in seconds, then guide visitors into
-                  high-intent actions with AI support and automation behind the scenes.
+                  We build websites that communicate expertise in seconds, then
+                  guide visitors into high-intent actions with AI support and
+                  automation behind the scenes.
                 </p>
               </div>
             </div>
@@ -180,8 +188,12 @@ export default function DemoPremium() {
                     idx < services.length - 1 ? "border-b border-white/10" : ""
                   )}
                 >
-                  <h3 className="font-serif text-2xl text-white">{service.name}</h3>
-                  <p className="text-foreground/70 leading-relaxed">{service.detail}</p>
+                  <h3 className="font-serif text-2xl text-white">
+                    {service.name}
+                  </h3>
+                  <p className="text-foreground/70 leading-relaxed">
+                    {service.detail}
+                  </p>
                 </article>
               ))}
             </div>
@@ -194,12 +206,14 @@ export default function DemoPremium() {
               Featured Work Direction
             </p>
             <div className="space-y-5">
-              {featuredWork.map((item) => (
+              {featuredWork.map(item => (
                 <article
                   key={item.title}
                   className="rounded-2xl border border-white/10 bg-[oklch(0.13_0.02_260)] p-7 md:p-8"
                 >
-                  <h3 className="font-serif text-2xl text-white">{item.title}</h3>
+                  <h3 className="font-serif text-2xl text-white">
+                    {item.title}
+                  </h3>
                   <p className="mt-2 text-foreground/70">{item.summary}</p>
                 </article>
               ))}
@@ -209,15 +223,21 @@ export default function DemoPremium() {
 
         <section className="py-16 md:py-20 border-y border-white/10">
           <div className="container max-w-5xl">
-            <p className="text-xs uppercase tracking-[0.2em] text-brand-orange/80 mb-4">Process</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-brand-orange/80 mb-4">
+              Process
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {process.map((step) => (
+              {process.map(step => (
                 <article
                   key={step.title}
                   className="rounded-xl border border-white/10 bg-[oklch(0.13_0.02_260)] p-6"
                 >
-                  <h3 className="font-serif text-xl text-white">{step.title}</h3>
-                  <p className="mt-2 text-foreground/70 text-sm leading-relaxed">{step.body}</p>
+                  <h3 className="font-serif text-xl text-white">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-foreground/70 text-sm leading-relaxed">
+                    {step.body}
+                  </p>
                 </article>
               ))}
             </div>
@@ -227,14 +247,18 @@ export default function DemoPremium() {
         <section className="py-20 md:py-24">
           <div className="container max-w-5xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {testimonials.map((testimonial) => (
+              {testimonials.map(testimonial => (
                 <blockquote
                   key={testimonial.name}
                   className="rounded-2xl border border-white/10 bg-[oklch(0.13_0.02_260)] p-7 md:p-8"
                 >
-                  <p className="text-foreground/80 leading-relaxed">“{testimonial.quote}”</p>
+                  <p className="text-foreground/80 leading-relaxed">
+                    “{testimonial.quote}”
+                  </p>
                   <footer className="mt-5 border-t border-white/10 pt-4">
-                    <p className="text-white font-semibold">{testimonial.name}</p>
+                    <p className="text-white font-semibold">
+                      {testimonial.name}
+                    </p>
                     <p className="text-xs uppercase tracking-wider text-foreground/50">
                       {testimonial.role}
                     </p>
@@ -247,17 +271,24 @@ export default function DemoPremium() {
 
         <section className="py-16 md:py-20 border-y border-white/10">
           <div className="container max-w-5xl">
-            <h2 className="font-serif text-3xl font-bold text-white">Strategic outcomes for premium brands</h2>
+            <h2 className="font-serif text-3xl font-bold text-white">
+              Strategic outcomes for premium brands
+            </h2>
             <div className="mt-7 grid gap-4 md:grid-cols-3">
               {[
                 "Sharper positioning that filters out low-fit inquiries.",
                 "Higher perceived value through intentional brand storytelling.",
                 "AI-supported response systems that protect lead quality.",
-              ].map((point) => (
-                <article key={point} className="rounded-xl border border-white/10 bg-[oklch(0.13_0.02_260)] p-5">
+              ].map(point => (
+                <article
+                  key={point}
+                  className="rounded-xl border border-white/10 bg-[oklch(0.13_0.02_260)] p-5"
+                >
                   <div className="flex items-start gap-2">
                     <ShieldCheck className="mt-0.5 h-4 w-4 text-brand-orange shrink-0" />
-                    <p className="text-sm leading-relaxed text-foreground/75">{point}</p>
+                    <p className="text-sm leading-relaxed text-foreground/75">
+                      {point}
+                    </p>
                   </div>
                 </article>
               ))}
@@ -267,12 +298,21 @@ export default function DemoPremium() {
 
         <section className="py-16 md:py-20">
           <div className="container max-w-4xl">
-            <h2 className="font-serif text-3xl md:text-4xl text-white">Frequently asked questions</h2>
+            <h2 className="font-serif text-3xl md:text-4xl text-white">
+              Frequently asked questions
+            </h2>
             <div className="mt-6 space-y-4">
-              {objectionFaq.map((faq) => (
-                <article key={faq.question} className="rounded-xl border border-white/10 bg-[oklch(0.13_0.02_260)] p-5">
-                  <h3 className="text-base font-semibold text-white">{faq.question}</h3>
-                  <p className="mt-2 text-sm text-foreground/70">{faq.answer}</p>
+              {objectionFaq.map(faq => (
+                <article
+                  key={faq.question}
+                  className="rounded-xl border border-white/10 bg-[oklch(0.13_0.02_260)] p-5"
+                >
+                  <h3 className="text-base font-semibold text-white">
+                    {faq.question}
+                  </h3>
+                  <p className="mt-2 text-sm text-foreground/70">
+                    {faq.answer}
+                  </p>
                 </article>
               ))}
             </div>
@@ -290,8 +330,8 @@ export default function DemoPremium() {
                 Ready for a website that reflects the quality of your business?
               </h2>
               <p className="mt-4 text-foreground/70 leading-relaxed">
-                We’ll design a premium digital experience that increases trust, captures better
-                leads, and scales with your growth goals.
+                We’ll design a premium digital experience that increases trust,
+                captures better leads, and scales with your growth goals.
               </p>
               <Button
                 asChild

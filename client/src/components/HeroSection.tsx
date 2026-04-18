@@ -94,7 +94,7 @@ export default function HeroSection() {
               "Conversion-driven page structure",
               "Local SEO foundation built in",
               "Lead capture and follow-up workflows",
-            ].map((item) => (
+            ].map(item => (
               <div
                 key={item}
                 className="rounded-lg border border-white/20 bg-black/25 px-4 py-3 text-sm text-gray-100 flex items-start gap-2"
@@ -122,7 +122,7 @@ export default function HeroSection() {
         {!isMobile && (
           <a
             href="#services"
-            onClick={(event) => {
+            onClick={event => {
               event.preventDefault();
               scrollTo("#services");
             }}

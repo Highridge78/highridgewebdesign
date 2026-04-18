@@ -39,16 +39,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30"
-    >
-      <div
-        className="container flex items-center justify-between h-20 md:h-24"
-      >
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[oklch(0.08_0.02_260/0.95)] backdrop-blur-md shadow-lg shadow-black/30">
+      <div className="container flex items-center justify-between h-20 md:h-24">
         {/* Logo */}
         <a
           href="#"
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             if (location === "/") {
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -67,16 +63,18 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.map(link => (
             <a
               key={link.href}
               href={link.href.startsWith("#") ? link.href : link.href}
-              onClick={(e) => {
+              onClick={e => {
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
               aria-current={
-                !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
+                !link.href.startsWith("#") && location.startsWith(link.href)
+                  ? "page"
+                  : undefined
               }
               className={`text-sm font-medium transition-colors duration-200 tracking-wide uppercase ${
                 !link.href.startsWith("#") && location.startsWith(link.href)
@@ -109,16 +107,18 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden bg-[oklch(0.10_0.02_260/0.98)] backdrop-blur-md border-t border-border">
           <div className="container py-4 flex flex-col gap-3">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map(link => (
               <a
                 key={link.href}
                 href={link.href.startsWith("#") ? link.href : link.href}
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   handleNavClick(link.href);
                 }}
                 aria-current={
-                  !link.href.startsWith("#") && location.startsWith(link.href) ? "page" : undefined
+                  !link.href.startsWith("#") && location.startsWith(link.href)
+                    ? "page"
+                    : undefined
                 }
                 className={`text-base font-medium py-2 transition-colors uppercase tracking-wide ${
                   !link.href.startsWith("#") && location.startsWith(link.href)

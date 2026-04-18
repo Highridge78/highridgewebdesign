@@ -21,7 +21,9 @@ const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
 
 export default function ContactSection() {
-  const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [formState, setFormState] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -35,7 +37,7 @@ export default function ContactSection() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,7 +68,14 @@ export default function ContactSection() {
 
       if (res.ok) {
         setFormState("sent");
-        setFormData({ name: "", email: "", phone: "", business: "", message: "", botcheck: "" });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          business: "",
+          message: "",
+          botcheck: "",
+        });
         return;
       }
 
@@ -79,12 +88,21 @@ export default function ContactSection() {
       setErrorMessage(message);
     } catch {
       setFormState("error");
-      setErrorMessage("Network issue detected. Opening your email app as a fallback.");
+      setErrorMessage(
+        "Network issue detected. Opening your email app as a fallback."
+      );
     }
 
     // Last-resort fallback to mailto to avoid losing lead details.
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    setFormData({ name: "", email: "", phone: "", business: "", message: "", botcheck: "" });
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      business: "",
+      message: "",
+      botcheck: "",
+    });
   };
 
   return (
@@ -100,11 +118,14 @@ export default function ContactSection() {
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
               Build a Website That{" "}
-              <span className="text-gradient-orange">Produces Better Leads</span>
+              <span className="text-gradient-orange">
+                Produces Better Leads
+              </span>
             </h2>
             <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
               Tell us about your business goals and current pipeline challenges.
-              We will map your highest-impact website and conversion opportunities.
+              We will map your highest-impact website and conversion
+              opportunities.
             </p>
           </div>
         </ScrollReveal>
@@ -263,7 +284,8 @@ export default function ContactSection() {
                     role="alert"
                     className="text-center text-sm text-red-400"
                   >
-                    {errorMessage || "Something went wrong while sending your message."}
+                    {errorMessage ||
+                      "Something went wrong while sending your message."}
                   </p>
                 )}
               </form>
@@ -352,7 +374,7 @@ export default function ContactSection() {
                     "Prioritized roadmap for pages, SEO, and follow-up",
                     "Clear recommendation on fit and next steps",
                     "Zero pressure if it is not the right match",
-                  ].map((item) => (
+                  ].map(item => (
                     <li
                       key={item}
                       className="flex items-center gap-2 text-sm text-foreground/70"

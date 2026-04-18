@@ -12,4 +12,5 @@
 10. Track outcome + recycle learnings into scripts
 
 ## Core System Rule
+
 Every stage must answer: "What is the next action and when?"

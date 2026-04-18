@@ -1,6 +1,7 @@
 # KPI Dashboard (Simple)
 
 Track weekly:
+
 - Prospects added
 - Rapid screens completed
 - Looms recorded
@@ -12,6 +13,7 @@ Track weekly:
 - Win rate (when applicable)
 
 ## Minimum Viable Targets (Solo)
+
 - 25 prospects screened / week
 - 10 Looms recorded / week
 - 10 Looms sent / week

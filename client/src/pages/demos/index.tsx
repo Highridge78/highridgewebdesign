@@ -79,14 +79,15 @@ export default function DemosIndexPage() {
               Website Demo Concepts
             </h1>
             <p className="mt-5 text-foreground/70 text-lg max-w-3xl">
-              Explore three fully built homepage strategies designed for different
-              business goals. Each concept improves clarity, trust, and conversion
-              while showcasing your core services in a stronger sales flow.
+              Explore three fully built homepage strategies designed for
+              different business goals. Each concept improves clarity, trust,
+              and conversion while showcasing your core services in a stronger
+              sales flow.
             </p>
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {demoOptions.map((demo) => {
+            {demoOptions.map(demo => {
               const Icon = demo.icon;
               return (
                 <article
@@ -105,7 +106,7 @@ export default function DemosIndexPage() {
                   </p>
 
                   <ul className="mt-5 space-y-2">
-                    {demo.highlights.map((highlight) => (
+                    {demo.highlights.map(highlight => (
                       <li
                         key={highlight}
                         className="text-sm text-foreground/75 flex items-start gap-2"

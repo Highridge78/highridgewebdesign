@@ -7,6 +7,7 @@
 5. Every lead row must have next action/date.
 
 ## Loom Quality Bar
+
 - Clear audio
 - Under 9 minutes unless requested
 - 4-6 issues max

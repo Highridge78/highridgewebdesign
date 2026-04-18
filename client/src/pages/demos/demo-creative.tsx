@@ -103,7 +103,11 @@ export default function DemoCreativePage() {
             >
               <Link href="/">Main Site</Link>
             </Button>
-            <Button asChild size="sm" className="bg-brand-orange text-white hover:bg-brand-orange-bright">
+            <Button
+              asChild
+              size="sm"
+              className="bg-brand-orange text-white hover:bg-brand-orange-bright"
+            >
               <Link href="/demos">All Demos</Link>
             </Button>
           </div>
@@ -145,15 +149,20 @@ export default function DemoCreativePage() {
                 <a href="#system-flow">See The System</a>
               </Button>
             </div>
-            <p className="mt-6 text-sm text-foreground/60">{localBusinessAudience}</p>
+            <p className="mt-6 text-sm text-foreground/60">
+              {localBusinessAudience}
+            </p>
           </div>
         </div>
       </section>
 
       <section className="border-y border-border/70 bg-[oklch(0.11_0.02_260)] py-8">
         <div className="container grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {trustBarItems.map((item) => (
-            <div key={item} className="rounded-xl border border-border/70 bg-card/55 px-4 py-3 text-sm text-foreground/75">
+          {trustBarItems.map(item => (
+            <div
+              key={item}
+              className="rounded-xl border border-border/70 bg-card/55 px-4 py-3 text-sm text-foreground/75"
+            >
               {item}
             </div>
           ))}
@@ -166,7 +175,7 @@ export default function DemoCreativePage() {
             "Most websites only look good. They don't run follow-up.",
             "Slow response times kill local deals before your team replies.",
             "Manual admin work drains time that should go into growth.",
-          ].map((item) => (
+          ].map(item => (
             <article
               key={item}
               className="rounded-xl border border-border/70 bg-card/55 p-5"
@@ -174,7 +183,9 @@ export default function DemoCreativePage() {
               <h2 className="font-serif text-xl font-semibold text-white">
                 Why Most Websites Fail
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-foreground/70">{item}</p>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/70">
+                {item}
+              </p>
             </article>
           ))}
         </div>
@@ -187,12 +198,12 @@ export default function DemoCreativePage() {
               The High Ridge System
             </h2>
             <p className="mt-3 text-foreground/70">
-              Three synchronized layers transform your site into a lead-converting,
-              self-operating digital sales system.
+              Three synchronized layers transform your site into a
+              lead-converting, self-operating digital sales system.
             </p>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {systemBlocks.map((item) => (
+            {systemBlocks.map(item => (
               <article
                 key={item.title}
                 className="relative overflow-hidden rounded-2xl border border-border bg-card/60 p-6"
@@ -212,7 +223,10 @@ export default function DemoCreativePage() {
         </div>
       </section>
 
-      <section id="system-flow" className="bg-[oklch(0.11_0.02_260)] py-16 md:py-20">
+      <section
+        id="system-flow"
+        className="bg-[oklch(0.11_0.02_260)] py-16 md:py-20"
+      >
         <div className="container">
           <h2 className="font-serif text-3xl font-bold text-white md:text-4xl">
             System Flow: Lead → Chatbot → Conversion
@@ -236,14 +250,19 @@ export default function DemoCreativePage() {
                   text: "Workflow sends follow-up, books appointments, and alerts your team.",
                 },
               ].map((flow, idx) => (
-                <div key={flow.step} className="relative rounded-xl border border-border/70 bg-card/60 p-5">
+                <div
+                  key={flow.step}
+                  className="relative rounded-xl border border-border/70 bg-card/60 p-5"
+                >
                   <span className="text-xs font-semibold uppercase tracking-widest text-brand-amber">
                     Step {flow.step}
                   </span>
                   <h3 className="mt-2 font-serif text-xl font-semibold text-white">
                     {flow.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-foreground/70">{flow.text}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/70">
+                    {flow.text}
+                  </p>
                   {idx < 2 && (
                     <ChevronRight className="absolute -right-3 top-1/2 hidden h-6 w-6 -translate-y-1/2 text-brand-orange/60 md:block" />
                   )}
@@ -256,13 +275,17 @@ export default function DemoCreativePage() {
 
       <section className="py-16 md:py-20">
         <div className="container grid gap-6 md:grid-cols-3">
-          {aiServices.map((item) => (
+          {aiServices.map(item => (
             <article
               key={item.title}
               className="rounded-xl border border-border bg-card/55 p-6"
             >
-              <h2 className="font-serif text-2xl font-semibold text-white">{item.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-foreground/70">{item.body}</p>
+              <h2 className="font-serif text-2xl font-semibold text-white">
+                {item.title}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/70">
+                {item.body}
+              </p>
             </article>
           ))}
         </div>
@@ -274,7 +297,7 @@ export default function DemoCreativePage() {
             Case-Style Outcomes
           </h2>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {caseExamples.map((item) => (
+            {caseExamples.map(item => (
               <article
                 key={item.industry}
                 className="rounded-xl border border-border/70 bg-card/60 p-5"
@@ -282,7 +305,9 @@ export default function DemoCreativePage() {
                 <p className="text-xs font-semibold uppercase tracking-widest text-brand-amber">
                   {item.industry}
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/75">{item.result}</p>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+                  {item.result}
+                </p>
               </article>
             ))}
           </div>
@@ -291,7 +316,7 @@ export default function DemoCreativePage() {
 
       <section className="py-16 md:py-20">
         <div className="container grid gap-5 md:grid-cols-3">
-          {outcomeMetrics.map((metric) => (
+          {outcomeMetrics.map(metric => (
             <article
               key={metric.label}
               className="rounded-xl border border-brand-orange/25 bg-brand-orange/8 p-6 text-center"
@@ -307,15 +332,19 @@ export default function DemoCreativePage() {
 
       <section className="bg-[oklch(0.11_0.02_260)] py-16 md:py-20">
         <div className="container grid gap-5 md:grid-cols-3">
-          {demoTestimonials.map((item) => (
+          {demoTestimonials.map(item => (
             <blockquote
               key={item.name}
               className="rounded-xl border border-border/70 bg-card/60 p-6"
             >
-              <p className="text-sm leading-relaxed text-foreground/75">"{item.quote}"</p>
+              <p className="text-sm leading-relaxed text-foreground/75">
+                "{item.quote}"
+              </p>
               <footer className="mt-4">
                 <p className="text-sm font-semibold text-white">{item.name}</p>
-                <p className="text-xs uppercase tracking-wider text-brand-amber">{item.business}</p>
+                <p className="text-xs uppercase tracking-wider text-brand-amber">
+                  {item.business}
+                </p>
               </footer>
             </blockquote>
           ))}
@@ -328,7 +357,7 @@ export default function DemoCreativePage() {
             FAQ
           </h2>
           <div className="mt-6 space-y-4">
-            {objectionFaq.map((item) => (
+            {objectionFaq.map(item => (
               <article
                 key={item.question}
                 className="rounded-xl border border-border bg-card/60 p-5"
@@ -352,12 +381,15 @@ export default function DemoCreativePage() {
                   Ready for a Website That Sells and Automates?
                 </h2>
                 <p className="mt-3 text-foreground/75">
-                  Let&apos;s map your business workflow and build an AI-powered lead
-                  engine tailored to your local market.
+                  Let&apos;s map your business workflow and build an AI-powered
+                  lead engine tailored to your local market.
                 </p>
               </div>
               <Button className="bg-brand-orange px-8 py-6 text-base font-semibold text-white hover:bg-brand-orange-bright">
-                <Link href="/#contact" className="inline-flex items-center gap-2">
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center gap-2"
+                >
                   Book a Strategy Call
                   <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -370,11 +402,19 @@ export default function DemoCreativePage() {
       <section className="py-10">
         <div className="container text-center">
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/demos" className="text-sm font-semibold text-brand-orange hover:text-brand-orange-bright">
+            <Link
+              href="/demos"
+              className="text-sm font-semibold text-brand-orange hover:text-brand-orange-bright"
+            >
               Back to all demo concepts
             </Link>
-            <span aria-hidden className="text-foreground/30">•</span>
-            <Link href="/" className="text-sm font-semibold text-foreground/70 hover:text-white">
+            <span aria-hidden className="text-foreground/30">
+              •
+            </span>
+            <Link
+              href="/"
+              className="text-sm font-semibold text-foreground/70 hover:text-white"
+            >
               Return to main site
             </Link>
           </div>

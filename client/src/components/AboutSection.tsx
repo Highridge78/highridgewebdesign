@@ -52,18 +52,19 @@ export default function AboutSection() {
               <div className="space-y-4 text-foreground/70 leading-relaxed">
                 <p>
                   Highridge Web Design helps contractors and local service
-                  companies turn their website into a working sales asset. The goal
-                  is simple: more qualified opportunities and more booked work.
+                  companies turn their website into a working sales asset. The
+                  goal is simple: more qualified opportunities and more booked
+                  work.
                 </p>
                 <p>
                   We do not build brochure sites that look good but fail to
-                  produce. We build structured, conversion-focused websites backed
-                  by local search strategy and lead handling systems.
+                  produce. We build structured, conversion-focused websites
+                  backed by local search strategy and lead handling systems.
                 </p>
                 <p>
                   If you need stronger lead flow and a site that supports real
-                  business goals, we are likely a fit. If you are shopping for the
-                  cheapest build possible, we are not.
+                  business goals, we are likely a fit. If you are shopping for
+                  the cheapest build possible, we are not.
                 </p>
               </div>
             </div>
@@ -99,7 +100,7 @@ export default function AboutSection() {
                   "Businesses doing solid work but underperforming online",
                   "Owners who want better-qualified leads, not just more traffic",
                   "Teams ready to invest in long-term conversion performance",
-                ].map((item) => (
+                ].map(item => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0" />
                     {item}

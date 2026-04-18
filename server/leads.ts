@@ -4,11 +4,34 @@ import { DatabaseSync } from "node:sqlite";
 import { z } from "zod";
 
 export const leadPayloadSchema = z.object({
-  name: z.string().trim().min(2, "Name is required").max(120, "Name is too long"),
-  email: z.string().trim().email("Email must be valid").max(255, "Email is too long"),
-  phone: z.string().trim().max(40, "Phone is too long").optional().or(z.literal("")),
-  business: z.string().trim().max(120, "Business is too long").optional().or(z.literal("")),
-  botcheck: z.string().trim().max(255, "Botcheck value is too long").optional().or(z.literal("")),
+  name: z
+    .string()
+    .trim()
+    .min(2, "Name is required")
+    .max(120, "Name is too long"),
+  email: z
+    .string()
+    .trim()
+    .email("Email must be valid")
+    .max(255, "Email is too long"),
+  phone: z
+    .string()
+    .trim()
+    .max(40, "Phone is too long")
+    .optional()
+    .or(z.literal("")),
+  business: z
+    .string()
+    .trim()
+    .max(120, "Business is too long")
+    .optional()
+    .or(z.literal("")),
+  botcheck: z
+    .string()
+    .trim()
+    .max(255, "Botcheck value is too long")
+    .optional()
+    .or(z.literal("")),
   message: z
     .string()
     .trim()

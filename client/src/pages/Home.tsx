@@ -33,10 +33,7 @@ export default function Home() {
       url: "https://www.highridgewebdesign.com/",
       telephone: "+1-828-598-9262",
       email: "Jeremy@highridgewebdesign.com",
-      areaServed: [
-        "Western North Carolina",
-        "Sylva, NC",
-      ],
+      areaServed: ["Western North Carolina", "Sylva, NC"],
       description:
         "Highridge Web Design builds conversion-focused websites and lead generation systems for contractors and local service businesses.",
       sameAs: [],

@@ -43,32 +43,34 @@
   /* Custom brand colors */
   --color-brand-orange: oklch(0.72 0.19 50);
   --color-brand-orange-bright: oklch(0.78 0.21 52);
-  --color-brand-amber: oklch(0.80 0.16 70);
+  --color-brand-amber: oklch(0.8 0.16 70);
   --color-brand-gold: oklch(0.82 0.14 80);
   --color-brand-dark: oklch(0.15 0.02 260);
-  --color-brand-darker: oklch(0.10 0.02 260);
+  --color-brand-darker: oklch(0.1 0.02 260);
   --color-brand-slate: oklch(0.55 0.02 260);
 
   --font-serif: Georgia, "Times New Roman", serif;
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans:
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
 }
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.10 0.02 260);
+  --background: oklch(0.1 0.02 260);
   --foreground: oklch(0.92 0.01 80);
   --card: oklch(0.15 0.02 260);
   --card-foreground: oklch(0.92 0.01 80);
   --popover: oklch(0.15 0.02 260);
   --popover-foreground: oklch(0.92 0.01 80);
   --primary: oklch(0.72 0.19 50);
-  --primary-foreground: oklch(0.10 0.02 260);
-  --secondary: oklch(0.20 0.02 260);
+  --primary-foreground: oklch(0.1 0.02 260);
+  --secondary: oklch(0.2 0.02 260);
   --secondary-foreground: oklch(0.85 0.01 80);
-  --muted: oklch(0.20 0.02 260);
-  --muted-foreground: oklch(0.60 0.02 260);
+  --muted: oklch(0.2 0.02 260);
+  --muted-foreground: oklch(0.6 0.02 260);
   --accent: oklch(0.78 0.21 52);
-  --accent-foreground: oklch(0.10 0.02 260);
+  --accent-foreground: oklch(0.1 0.02 260);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.25 0.02 260);
@@ -76,14 +78,14 @@
   --ring: oklch(0.72 0.19 50);
   --chart-1: oklch(0.72 0.19 50);
   --chart-2: oklch(0.78 0.21 52);
-  --chart-3: oklch(0.80 0.16 70);
+  --chart-3: oklch(0.8 0.16 70);
   --chart-4: oklch(0.82 0.14 80);
-  --chart-5: oklch(0.60 0.15 40);
+  --chart-5: oklch(0.6 0.15 40);
   --sidebar: oklch(0.12 0.02 260);
   --sidebar-foreground: oklch(0.92 0.01 80);
   --sidebar-primary: oklch(0.72 0.19 50);
-  --sidebar-primary-foreground: oklch(0.10 0.02 260);
-  --sidebar-accent: oklch(0.20 0.02 260);
+  --sidebar-primary-foreground: oklch(0.1 0.02 260);
+  --sidebar-accent: oklch(0.2 0.02 260);
   --sidebar-accent-foreground: oklch(0.92 0.01 80);
   --sidebar-border: oklch(0.25 0.02 260);
   --sidebar-ring: oklch(0.72 0.19 50);
@@ -107,7 +109,12 @@
   input[type="radio"]:not(:disabled) {
     @apply cursor-pointer;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-serif);
   }
 }
@@ -143,16 +150,24 @@
 
   /* Orange glow effect for buttons */
   .glow-orange {
-    box-shadow: 0 0 20px oklch(0.72 0.19 50 / 0.4), 0 0 40px oklch(0.72 0.19 50 / 0.15);
+    box-shadow:
+      0 0 20px oklch(0.72 0.19 50 / 0.4),
+      0 0 40px oklch(0.72 0.19 50 / 0.15);
   }
 
   .glow-orange:hover {
-    box-shadow: 0 0 25px oklch(0.78 0.21 52 / 0.5), 0 0 50px oklch(0.78 0.21 52 / 0.2);
+    box-shadow:
+      0 0 25px oklch(0.78 0.21 52 / 0.5),
+      0 0 50px oklch(0.78 0.21 52 / 0.2);
   }
 
   /* Text gradient for headings */
   .text-gradient-orange {
-    background: linear-gradient(135deg, oklch(0.78 0.21 52), oklch(0.82 0.14 80));
+    background: linear-gradient(
+      135deg,
+      oklch(0.78 0.21 52),
+      oklch(0.82 0.14 80)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

@@ -49,7 +49,7 @@ export default function Footer() {
             <div>
               <a
                 href="/"
-                onClick={(event) => {
+                onClick={event => {
                   event.preventDefault();
                   setLocation("/");
                 }}
@@ -64,7 +64,8 @@ export default function Footer() {
               </a>
               <p className="text-sm text-foreground/70 leading-relaxed max-w-xs">
                 We build conversion-focused websites and lead systems for
-                contractors and service businesses that need more qualified jobs.
+                contractors and service businesses that need more qualified
+                jobs.
               </p>
               <p className="text-xs text-foreground/60 mt-3">
                 Founded by Jeremy Black in Sylva, NC
@@ -77,11 +78,11 @@ export default function Footer() {
                 Quick Links
               </h4>
               <nav className="flex flex-col gap-2">
-                {footerLinks.map((link) => (
+                {footerLinks.map(link => (
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={(e) => {
+                    onClick={e => {
                       e.preventDefault();
                       handleNavClick(link.href);
                     }}
@@ -118,7 +119,9 @@ export default function Footer() {
                   <span>
                     Sylva, NC — Proudly serving Western North Carolina
                     <br />
-                    <span className="text-foreground/50">Also available globally for remote projects</span>
+                    <span className="text-foreground/50">
+                      Also available globally for remote projects
+                    </span>
                   </span>
                 </div>
               </div>
@@ -128,8 +131,8 @@ export default function Footer() {
           {/* Bottom bar */}
           <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-foreground/60">
-              &copy; {new Date().getFullYear()} High Ridge Web Design. All rights
-              reserved.
+              &copy; {new Date().getFullYear()} High Ridge Web Design. All
+              rights reserved.
             </p>
             <button
               onClick={scrollToTop}

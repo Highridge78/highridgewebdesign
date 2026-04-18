@@ -5,7 +5,8 @@ export default function DemoPage() {
         Blue Ridge Peak Outdoor Living
       </h1>
       <p className="text-lg max-w-xl">
-        Premium outdoor spaces built for homeowners who want their property to stand out.
+        Premium outdoor spaces built for homeowners who want their property to
+        stand out.
       </p>
     </div>
   );

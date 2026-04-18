@@ -85,11 +85,14 @@ export default function ServicesSection() {
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
               One System. Four Layers.{" "}
-              <span className="text-gradient-orange">Built to Generate Revenue.</span>
+              <span className="text-gradient-orange">
+                Built to Generate Revenue.
+              </span>
             </h2>
             <p className="mt-4 text-foreground/60 max-w-3xl mx-auto text-lg">
-              This is not "just a website package." We build the full front-end lead
-              engine: conversion design, local visibility, lead capture, and follow-up.
+              This is not "just a website package." We build the full front-end
+              lead engine: conversion design, local visibility, lead capture,
+              and follow-up.
             </p>
           </div>
         </ScrollReveal>
@@ -133,7 +136,7 @@ export default function ServicesSection() {
                   </p>
 
                   <ul className="space-y-2 mb-6">
-                    {step.features.map((item) => (
+                    {step.features.map(item => (
                       <li
                         key={item}
                         className="flex items-start gap-2 text-sm text-foreground/70"

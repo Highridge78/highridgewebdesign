@@ -11,4 +11,4 @@ Thanks again. Here is your audit summary based on the Loom review.
 If useful, I can walk you through a practical implementation order based on your lead priorities.
 
 - [Your Name]
-Highridge Web Design
+  Highridge Web Design

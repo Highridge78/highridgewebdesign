@@ -2,16 +2,47 @@
  * ResultsSection — High Ridge Web Design
  * Service-market focus, process clarity, and proof-style CTA.
  */
-import { Wrench, Hammer, PaintRoller, Droplets, Wind, ArrowRight } from "lucide-react";
+import {
+  Wrench,
+  Hammer,
+  PaintRoller,
+  Droplets,
+  Wind,
+  ArrowRight,
+} from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 const industries = [
-  { icon: Hammer, name: "General Contractors", pain: "Need more qualified project inquiries" },
-  { icon: Wind, name: "HVAC Companies", pain: "Losing urgent leads after hours" },
-  { icon: Droplets, name: "Plumbing Services", pain: "Inconsistent booking flow from web traffic" },
-  { icon: Wrench, name: "Electrical Services", pain: "Weak local visibility and trust cues" },
-  { icon: PaintRoller, name: "Remodeling & Trades", pain: "Getting low-intent quote requests" },
-  { icon: Hammer, name: "Roofing & Exterior", pain: "High ad spend with low site conversion" },
+  {
+    icon: Hammer,
+    name: "General Contractors",
+    pain: "Need more qualified project inquiries",
+  },
+  {
+    icon: Wind,
+    name: "HVAC Companies",
+    pain: "Losing urgent leads after hours",
+  },
+  {
+    icon: Droplets,
+    name: "Plumbing Services",
+    pain: "Inconsistent booking flow from web traffic",
+  },
+  {
+    icon: Wrench,
+    name: "Electrical Services",
+    pain: "Weak local visibility and trust cues",
+  },
+  {
+    icon: PaintRoller,
+    name: "Remodeling & Trades",
+    pain: "Getting low-intent quote requests",
+  },
+  {
+    icon: Hammer,
+    name: "Roofing & Exterior",
+    pain: "High ad spend with low site conversion",
+  },
 ];
 
 const processSteps = [
@@ -55,7 +86,9 @@ export default function ResultsSection() {
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
                 Built for{" "}
-                <span className="text-gradient-orange">Contractors and Home Services</span>
+                <span className="text-gradient-orange">
+                  Contractors and Home Services
+                </span>
               </h2>
               <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
                 We focus on service businesses where inbound demand, response
@@ -89,7 +122,9 @@ export default function ResultsSection() {
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
                 From Website Redesign to{" "}
-                <span className="text-gradient-orange">Lead Performance Engine</span>
+                <span className="text-gradient-orange">
+                  Lead Performance Engine
+                </span>
               </h2>
             </div>
           </ScrollReveal>
@@ -129,8 +164,8 @@ export default function ResultsSection() {
                 </h3>
                 <p className="text-foreground/60 mb-6 leading-relaxed">
                   We walk through your current website, identify conversion
-                  blockers, and show exactly what to change to increase qualified
-                  leads and booked jobs.
+                  blockers, and show exactly what to change to increase
+                  qualified leads and booked jobs.
                 </p>
                 <a
                   href="#contact"
@@ -148,7 +183,7 @@ export default function ResultsSection() {
                   { value: "45m", label: "Strategy Session" },
                   { value: "3-5", label: "Top Fixes Prioritized" },
                   { value: "1", label: "Clear Execution Plan" },
-                ].map((s) => (
+                ].map(s => (
                   <div key={s.label} className="p-4">
                     <div className="text-2xl md:text-3xl font-bold font-serif text-brand-orange">
                       {s.value}

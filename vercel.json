@@ -43,6 +43,9 @@
     }
   ],
   "rewrites": [
-    { "source": "/((?!robots\\.txt|sitemap\\.xml|favicon\\.ico|apple-touch-icon-180x180\\.png|favicon-32x32\\.png).*)", "destination": "/index.html" }
+    {
+      "source": "/((?!robots\\.txt|sitemap\\.xml|favicon\\.ico|apple-touch-icon-180x180\\.png|favicon-32x32\\.png).*)",
+      "destination": "/index.html"
+    }
   ]
 }
