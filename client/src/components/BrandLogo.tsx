@@ -1,8 +1,6 @@
 import { cn } from "@/lib/utils";
 
 type BrandLogoVariant = "header" | "footer";
-const LOGO_PRIMARY_SRC = "/files/fradys-logo.png";
-const LOGO_FALLBACK_SRC = "/images/fradys-logo.png";
 
 interface BrandLogoProps {
   variant?: BrandLogoVariant;
@@ -20,27 +18,37 @@ export default function BrandLogo({
   const isFooter = variant === "footer";
 
   return (
-    <span className={cn("inline-flex items-center", className)}>
+    <picture className={cn("inline-flex items-center", className)}>
+      <source
+        srcSet={
+          isFooter
+            ? "/logo-main-footer-40.avif 1x, /logo-main-footer-80.avif 2x"
+            : "/logo-main-56.avif 1x, /logo-main-112.avif 2x"
+        }
+        type="image/avif"
+      />
+      <source
+        srcSet={
+          isFooter
+            ? "/logo-main-footer-40.webp 1x, /logo-main-footer-80.webp 2x"
+            : "/logo-main-56.webp 1x, /logo-main-112.webp 2x"
+        }
+        type="image/webp"
+      />
       <img
-        src={LOGO_PRIMARY_SRC}
-        alt="Frady's Flooring logo featuring Ott Frady caricature"
+        src={isFooter ? "/logo-main-footer-40.webp" : "/logo-main-56.webp"}
+        alt="Highridge Web Design Logo"
         className={cn(
-          "w-auto max-w-full object-contain",
-          isFooter ? "h-12 md:h-14" : "h-14 md:h-16",
+          "w-auto object-contain",
+          isFooter ? "h-8 md:h-9 opacity-95" : "h-9 md:h-12",
           imgClassName
         )}
-        onError={(event) => {
-          const image = event.currentTarget;
-          if (image.dataset.fallbackApplied === "true") return;
-          image.dataset.fallbackApplied = "true";
-          image.src = LOGO_FALLBACK_SRC;
-        }}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         fetchPriority={priority ? "high" : "low"}
-        width={320}
-        height={320}
+        width={isFooter ? 71 : 99}
+        height={isFooter ? 40 : 56}
       />
-    </span>
+    </picture>
   );
 }

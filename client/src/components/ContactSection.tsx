@@ -1,3 +1,7 @@
+/**
+ * ContactSection — High Ridge Web Design
+ * Conversion-focused contact section for strategy calls.
+ */
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,15 +10,15 @@ import {
   Mail,
   Phone,
   MapPin,
+  Globe,
   Send,
   CheckCircle2,
   Loader2,
-  ArrowRight,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
-const CONTACT_EMAIL = "estimates@fradysflooring.com";
-const CONTACT_PHONE = "(828) 555-0147";
+const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
+const CONTACT_PHONE = "(828) 598-9262";
 
 export default function ContactSection() {
   const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -85,22 +89,22 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="relative py-20 md:py-24">
-      <div className="absolute inset-0 bg-[oklch(0.13_0.03_250)]" />
+      <div className="absolute inset-0 bg-[oklch(0.12_0.02_260)]" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-orange/[0.04] rounded-full blur-3xl" />
 
       <div className="relative z-10 container">
         <ScrollReveal>
           <div className="text-center mb-10">
             <span className="text-brand-orange font-semibold text-sm uppercase tracking-widest">
-              Request an Estimate
+              Book a Strategy Call
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
-              Let&apos;s Talk About{" "}
-              <span className="text-gradient-orange">Your Flooring Project</span>
+              Build a Website That{" "}
+              <span className="text-gradient-orange">Produces Better Leads</span>
             </h2>
             <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-              Share a few details about your space and we will follow up with next
-              steps for a clear, no-pressure estimate.
+              Tell us about your business goals and current pipeline challenges.
+              We will map your highest-impact website and conversion opportunities.
             </p>
           </div>
         </ScrollReveal>
@@ -115,7 +119,7 @@ export default function ContactSection() {
                 noValidate
                 aria-describedby="contact-response-status"
               >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label
                       htmlFor="contact-name"
@@ -130,7 +134,7 @@ export default function ContactSection() {
                       onChange={handleChange}
                       placeholder="John Smith"
                       required
-                      className="bg-[oklch(0.18_0.03_249)] border-border focus:border-brand-orange"
+                      className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
                     />
                   </div>
                   <div>
@@ -146,9 +150,9 @@ export default function ContactSection() {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="john@email.com"
+                      placeholder="john@business.com"
                       required
-                      className="bg-[oklch(0.18_0.03_249)] border-border focus:border-brand-orange"
+                      className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
                     />
                   </div>
                 </div>
@@ -168,7 +172,7 @@ export default function ContactSection() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="(555) 123-4567"
-                      className="bg-[oklch(0.18_0.03_249)] border-border focus:border-brand-orange"
+                      className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
                     />
                   </div>
                   <div>
@@ -176,15 +180,15 @@ export default function ContactSection() {
                       htmlFor="contact-business"
                       className="text-sm font-medium text-foreground/70 mb-1.5 block"
                     >
-                      Home / Project Name
+                      Business Name
                     </label>
                     <Input
                       id="contact-business"
                       name="business"
                       value={formData.business}
                       onChange={handleChange}
-                      placeholder="Smith Home Remodel"
-                      className="bg-[oklch(0.18_0.03_249)] border-border focus:border-brand-orange"
+                      placeholder="Smith's HVAC"
+                      className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
                     />
                   </div>
                 </div>
@@ -194,17 +198,17 @@ export default function ContactSection() {
                     htmlFor="contact-message"
                     className="text-sm font-medium text-foreground/70 mb-1.5 block"
                   >
-                    Tell Us About Your Project *
+                    Tell Us About Your Business *
                   </label>
                   <Textarea
                     id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us the rooms involved, current floor condition, and your project timeline."
+                    placeholder="What services do you offer, where do you serve, and where are leads dropping off today?"
                     required
                     rows={4}
-                    className="bg-[oklch(0.18_0.03_249)] border-border focus:border-brand-orange resize-none"
+                    className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange resize-none"
                   />
                 </div>
 
@@ -238,7 +242,7 @@ export default function ContactSection() {
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      Request My Free Estimate
+                      Book My Strategy Call
                     </>
                   )}
                 </Button>
@@ -250,7 +254,7 @@ export default function ContactSection() {
                     aria-live="polite"
                     className="text-center text-sm text-green-400"
                   >
-                    Thanks. We will reach out shortly with estimate details.
+                    Thanks. We will reach out with next steps shortly.
                   </p>
                 )}
                 {formState === "error" && (
@@ -290,7 +294,7 @@ export default function ContactSection() {
                   </a>
 
                   <a
-                    href="tel:+18285550147"
+                    href="tel:+18285989262"
                     className="flex items-start gap-3 group"
                   >
                     <div className="w-9 h-9 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0 group-hover:bg-brand-orange/20 transition-colors">
@@ -315,24 +319,39 @@ export default function ContactSection() {
                         Based in Sylva, NC
                       </div>
                       <div className="text-xs text-foreground/50">
-                        Serving Western North Carolina communities
+                        Serving all of Western North Carolina
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0">
+                      <Globe className="w-4 h-4 text-brand-orange" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-foreground/80">
+                        Available Globally
+                      </div>
+                      <div className="text-xs text-foreground/50">
+                        Remote projects welcome worldwide
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
+              {/* Quick promise */}
               <div className="p-6 rounded-xl bg-gradient-to-br from-brand-orange/10 to-transparent border border-brand-orange/20">
                 <h4 className="font-serif font-bold text-white mb-2">
-                  What Happens Next
+                  What Happens on the Call
                 </h4>
                 <ul className="space-y-2">
                   {[
-                    "Quick review of your project scope",
-                    "Recommended service approach",
-                    "Expected timeline and scheduling window",
-                    "Transparent pricing conversation",
-                    "Clear next steps to get started",
+                    "Review of your current site and conversion flow",
+                    "Breakdown of lead leaks hurting booked jobs",
+                    "Prioritized roadmap for pages, SEO, and follow-up",
+                    "Clear recommendation on fit and next steps",
+                    "Zero pressure if it is not the right match",
                   ].map((item) => (
                     <li
                       key={item}
@@ -344,13 +363,6 @@ export default function ContactSection() {
                   ))}
                 </ul>
               </div>
-              <a
-                href="#services"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-amber hover:text-brand-orange transition-colors"
-              >
-                Review services again
-                <ArrowRight className="w-4 h-4" />
-              </a>
             </div>
           </div>
         </ScrollReveal>
