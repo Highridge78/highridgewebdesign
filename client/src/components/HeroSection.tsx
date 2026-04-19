@@ -59,13 +59,14 @@ export default function HeroSection() {
 
         {/* Main heading */}
         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-          We turn local service websites into customer-generating machines.
+          Turn More Website Traffic Into Qualified Leads and Booked Jobs
         </h1>
 
         {/* Subheading */}
         <p className="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl">
-          We design and rebuild contractor websites to drive more calls, better
-          leads, and consistent work.
+          Highridge builds conversion-focused websites and lead systems for home
+          service companies that need more calls, stronger opportunities, and
+          measurable revenue growth.
         </p>
 
         {/* CTA buttons */}
