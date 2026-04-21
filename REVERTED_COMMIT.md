@@ -1,1 +1,0 @@
-Revert changes from commit 2c574578cd841e2e3e07ba4c359df2a9bc73396a: This commit removes all Frady's Flooring changes and returns to the state before the Frady's Flooring redesign work began.
