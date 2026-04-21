@@ -57,7 +57,7 @@ export default function Navbar() {
             }
           }}
           className="flex items-center shrink-0 py-2 pr-4 mr-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
-          aria-label="Fradys Flooring homepage"
+          aria-label="Highridge Web Design homepage"
         >
           <BrandLogo
             priority

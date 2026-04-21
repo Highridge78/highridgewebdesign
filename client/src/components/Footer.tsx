@@ -54,7 +54,7 @@ export default function Footer() {
                   setLocation("/");
                 }}
                 className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange/70"
-                aria-label="Fradys Flooring homepage"
+                aria-label="Highridge Web Design homepage"
               >
                 <BrandLogo
                   variant="footer"
