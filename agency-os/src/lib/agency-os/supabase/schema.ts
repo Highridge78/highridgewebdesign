@@ -39,3 +39,16 @@ export const phase4Tables = [
   "derived_metrics",
   "audit_logs",
 ] as const;
+
+export const phase5Tables = [
+  "templates",
+  "template_versions",
+  "productized_modules",
+  "proposal_presets",
+  "pricing_structures",
+  "deliverables",
+  "shared_views",
+  "public_links",
+  "performance_metrics",
+  "conversion_metrics",
+] as const;

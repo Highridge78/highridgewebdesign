@@ -18,6 +18,11 @@ const navItems = [
   ["/agency-os/clients", "Clients"],
   ["/agency-os/communications", "Comms"],
   ["/agency-os/insights", "Insights"],
+  ["/agency-os/templates", "Templates"],
+  ["/agency-os/proposals/presets", "Presets"],
+  ["/agency-os/products", "Products"],
+  ["/agency-os/performance", "Performance"],
+  ["/agency-os/growth", "Growth"],
 ] as const;
 
 export function InternalShell({
