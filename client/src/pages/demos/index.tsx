@@ -43,7 +43,7 @@ const demoOptions = [
 
 export default function DemosIndexPage() {
   usePageMeta({
-    title: "Website Demo Concepts | Highridge Web Design",
+    title: "Website Demo Concepts | High Ridge Web Design",
     description:
       "Compare three strategic homepage concepts built to improve conversion, positioning, and differentiation for local business websites.",
     canonicalPath: "/demos",
@@ -56,7 +56,7 @@ export default function DemosIndexPage() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Highridge Website Demo Concepts",
+    name: "High Ridge Website Demo Concepts",
     url: canonicalHref,
     description:
       "Three homepage concept directions for service businesses focused on conversion, positioning, and lead quality.",

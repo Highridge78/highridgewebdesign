@@ -1,9 +1,9 @@
 export default function ComparisonVisual() {
   return (
-    <div className="flex flex-col gap-10 w-full max-w-4xl mx-auto py-16">
+    <div className="flex flex-col gap-10 w-full max-w-4xl mx-auto py-12 md:py-16 overflow-hidden">
       {/* Supporting Label Above */}
       <div className="text-center">
-        <span className="text-sm font-black uppercase tracking-[0.5em] text-brand-orange/60">Real Website Transformation</span>
+        <span className="text-xs sm:text-sm font-black uppercase tracking-[0.28em] sm:tracking-[0.5em] text-brand-orange/60">Real Website Transformation</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
@@ -75,10 +75,10 @@ export default function ComparisonVisual() {
 
       {/* Proof Layer Below */}
       <div className="text-center space-y-4 mt-8">
-        <div className="text-5xl md:text-7xl font-black text-white tracking-tighter">
+        <div className="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight">
            +3x <span className="text-brand-orange drop-shadow-[0_0_20px_rgba(255,106,0,0.3)]">More Leads</span>
         </div>
-        <p className="text-lg md:text-xl font-bold text-white/50 uppercase tracking-[0.4em]">
+        <p className="text-sm md:text-xl font-bold text-white/50 uppercase tracking-[0.2em] md:tracking-[0.4em] leading-relaxed">
           Clear messaging • Faster load times • Higher conversion
         </p>
       </div>

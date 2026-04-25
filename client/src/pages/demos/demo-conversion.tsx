@@ -44,7 +44,7 @@ const resultPoints = [
 
 export default function DemoConversionPage() {
   usePageMeta({
-    title: "Demo: Conversion-Focused Local Service Website | Highridge",
+    title: "Demo: Conversion-Focused Local Service Website | High Ridge",
     description:
       "Preview a conversion-first homepage concept built to help local service businesses generate more qualified leads and booked jobs.",
     canonicalPath: "/demos/demo-conversion",
@@ -55,7 +55,7 @@ export default function DemoConversionPage() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/90 backdrop-blur">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link href="/demos" className="text-sm font-semibold tracking-wide text-brand-amber">
-            Highridge Redesign Concepts
+            High Ridge Redesign Concepts
           </Link>
           <Button asChild size="sm" className="bg-brand-orange hover:bg-brand-orange-bright text-white">
             <a href="#cta">Get a Free Demo Site</a>
@@ -134,7 +134,7 @@ export default function DemoConversionPage() {
                 </p>
               </article>
               <article className="rounded-2xl border border-brand-orange/30 bg-brand-orange/10 p-6">
-                <h3 className="text-lg font-semibold text-white">The Highridge solution</h3>
+                <h3 className="text-lg font-semibold text-white">The High Ridge solution</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-100">
                   We combine conversion-centered design, AI chatbots, and automation workflows so every visitor gets a
                   clear next step, instant response, and consistent follow-up.

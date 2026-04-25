@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
-
-const LOGO_PATH = "/new-logo.png";
+import BrandLogo from "./BrandLogo";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -49,8 +48,7 @@ export default function Navbar() {
           : "bg-transparent py-10"
       }`}
     >
-      <div className="container flex items-center justify-between px-8 gap-10">
-        {/* Logo — Extreme scale for authority, flex-shrink-0 to prevent compression */}
+      <div className="container flex items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
         <a
           href="/"
           onClick={(e) => {
@@ -62,15 +60,13 @@ export default function Navbar() {
             }
           }}
           className="flex items-center flex-shrink-0"
+          aria-label="High Ridge Web Design home"
         >
-          <img
-            src={LOGO_PATH}
-            alt="High Ridge Web Design"
-            className={`w-auto transition-all duration-500 object-contain block ${
-              scrolled ? "h-20 md:h-28" : "h-28 md:h-56"
+          <BrandLogo
+            priority
+            imgClassName={`transition-all duration-300 ${
+              scrolled ? "max-h-12 md:max-h-14" : "max-h-14 md:max-h-16"
             }`}
-            loading="eager"
-            fetchPriority="high"
           />
         </a>
 
@@ -94,7 +90,7 @@ export default function Navbar() {
           
           <Button
             onClick={() => handleNavClick("#contact")}
-            className="bg-brand-orange hover:bg-brand-orange-bright text-white font-black px-14 py-10 text-xl rounded-2xl shadow-2xl shadow-brand-orange/40 transition-all hover:scale-[1.05] active:scale-95 glow-orange"
+            className="bg-brand-orange hover:bg-brand-orange-bright text-white font-bold px-6 py-5 text-sm rounded-lg shadow-brand-orange/30 transition-all hover:scale-[1.03] active:scale-95 glow-orange"
           >
             Get My Free Audit
           </Button>
@@ -102,17 +98,17 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <button
-          className="lg:hidden text-white p-3 focus:outline-none"
+          className="lg:hidden text-white p-2 focus:outline-none"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
-          {mobileOpen ? <X size={48} /> : <Menu size={48} />}
+          {mobileOpen ? <X size={32} /> : <Menu size={32} />}
         </button>
       </div>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-[oklch(0.08_0.02_260/1)] backdrop-blur-3xl border-t border-white/10 p-12 space-y-12 shadow-2xl min-h-screen">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[oklch(0.08_0.02_260/1)] backdrop-blur-3xl border-t border-white/10 p-6 space-y-6 shadow-2xl">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -121,14 +117,14 @@ export default function Navbar() {
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              className="block text-4xl font-black uppercase tracking-widest text-foreground/90 border-b border-white/10 pb-10"
+              className="block text-xl font-black uppercase tracking-widest text-foreground/90 border-b border-white/10 pb-5"
             >
               {link.label}
             </a>
           ))}
           <Button
             onClick={() => handleNavClick("#contact")}
-            className="w-full bg-brand-orange hover:bg-brand-orange-bright text-white font-black py-12 text-3xl rounded-3xl shadow-2xl shadow-brand-orange/40"
+            className="w-full bg-brand-orange hover:bg-brand-orange-bright text-white font-bold py-6 text-base rounded-lg shadow-brand-orange/40"
           >
             Get My Free Audit
           </Button>

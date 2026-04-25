@@ -2,7 +2,6 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
-import { createLead, leadPayloadSchema } from "./leads";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,6 +32,7 @@ async function startServer() {
   app.use(express.json({ limit: "1mb" }));
 
   app.post("/api/leads", async (req, res) => {
+    const { createLead, leadPayloadSchema } = await import("./leads");
     const parsed = leadPayloadSchema.safeParse(req.body);
 
     if (!parsed.success) {
