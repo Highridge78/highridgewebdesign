@@ -19,10 +19,10 @@ export default function HeroSection() {
       <div className="absolute -top-40 -left-40 w-[40rem] h-[40rem] bg-brand-orange/[0.05] rounded-full blur-[150px] pointer-events-none" />
 
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24 items-center">
+        <div className="grid min-w-0 grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-24 items-center">
           
           {/* LEFT: Headline & CTA */}
-          <div className="flex flex-col gap-10 max-w-4xl">
+          <div className="flex min-w-0 max-w-4xl flex-col gap-10">
             <div className="flex flex-col gap-7">
               <div className="flex flex-wrap items-center gap-4">
                 <div className="flex items-center gap-1.5 bg-brand-orange/10 px-4 py-2.5 rounded-full border border-brand-orange/20">
@@ -84,7 +84,9 @@ export default function HeroSection() {
           </div>
 
           {/* RIGHT: Static Comparison Visual */}
-          <ComparisonVisual />
+          <div className="min-w-0">
+            <ComparisonVisual />
+          </div>
 
         </div>
       </div>
