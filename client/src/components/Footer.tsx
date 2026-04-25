@@ -1,8 +1,8 @@
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 import { useLocation } from "wouter";
+import BrandLogo from "./BrandLogo";
 
-const LOGO_PATH = "/new-logo.png";
-const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
+const CONTACT_EMAIL = "jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
 
 const footerLinks = [
@@ -36,22 +36,16 @@ export default function Footer() {
       <div className="container px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-12">
           
-          {/* Brand Column — Branded Logo in Footer */}
           <div className="lg:col-span-2 space-y-8">
             <a href="/" onClick={(e) => { e.preventDefault(); scrollToTop(); }} className="block w-fit">
-              <img
-                src={LOGO_PATH}
-                alt="High Ridge Web Design"
-                className="h-28 w-auto object-contain brightness-110"
-                loading="lazy"
-              />
+              <BrandLogo variant="footer" imgClassName="max-h-16 md:max-h-20 brightness-110" />
             </a>
             <p className="text-lg text-foreground/60 leading-relaxed max-w-sm">
               We help local service businesses turn underperforming websites into lead-generating machines. Design. Automate. Grow.
             </p>
             <div className="pt-4 space-y-2 border-t border-white/5 w-fit pr-10">
               <p className="text-base font-bold text-white uppercase tracking-widest">Jeremy Black</p>
-              <p className="text-sm text-foreground/40 uppercase tracking-widest">Founder — Sylva, North Carolina</p>
+              <p className="text-sm text-foreground/40 uppercase tracking-widest">Founder - Sylva, North Carolina</p>
             </div>
           </div>
 
@@ -98,7 +92,7 @@ export default function Footer() {
         {/* Legal/Bottom Bar */}
         <div className="mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
           <p className="text-sm font-medium text-foreground/30">
-            &copy; {new Date().getFullYear()} High Ridge Web Design. All Results Driven.
+            &copy; {new Date().getFullYear()} High Ridge Web Design. Results driven.
           </p>
           <button
             onClick={scrollToTop}

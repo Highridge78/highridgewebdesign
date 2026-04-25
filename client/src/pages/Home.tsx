@@ -16,9 +16,9 @@ import { useEffect } from "react";
 export default function Home() {
   usePageMeta({
     title:
-      "Highridge Web Design | Contractor Websites That Generate Leads and Booked Jobs",
+      "High Ridge Web Design | Contractor Websites That Generate Leads and Booked Jobs",
     description:
-      "Highridge Web Design builds conversion-focused websites for contractors and service businesses that need more qualified leads, booked calls, and revenue growth.",
+      "High Ridge Web Design builds conversion-focused websites for contractors and service businesses that need more qualified leads, booked calls, and revenue growth.",
     canonicalPath: "/",
   });
   useEffect(() => {
@@ -29,16 +29,16 @@ export default function Home() {
     const schema = {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      name: "Highridge Web Design",
+      name: "High Ridge Web Design",
       url: "https://www.highridgewebdesign.com/",
       telephone: "+1-828-598-9262",
-      email: "Jeremy@highridgewebdesign.com",
+      email: "jeremy@highridgewebdesign.com",
       areaServed: [
         "Western North Carolina",
         "Sylva, NC",
       ],
       description:
-        "Highridge Web Design builds conversion-focused websites and lead generation systems for contractors and local service businesses.",
+        "High Ridge Web Design builds conversion-focused websites and lead generation systems for contractors and local service businesses.",
       sameAs: [],
     };
 
@@ -54,7 +54,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen overflow-hidden bg-background text-foreground">
       <header>
         <Navbar />
       </header>

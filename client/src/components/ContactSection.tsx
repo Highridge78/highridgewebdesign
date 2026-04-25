@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
-const CONTACT_EMAIL = "Jeremy@highridgewebdesign.com";
+const CONTACT_EMAIL = "jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
 
 export default function ContactSection() {
@@ -210,8 +210,6 @@ export default function ContactSection() {
                   type="text"
                   aria-hidden="true"
                   name="botcheck"
-                  value={formData.botcheck}
-                  onChange={handleChange}
                   autoComplete="off"
                   tabIndex={-1}
                   className="hidden"
