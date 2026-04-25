@@ -5,6 +5,7 @@
  */
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import ProofBar from "@/components/ProofBar";
 import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import ResultsSection from "@/components/ResultsSection";
@@ -60,6 +61,7 @@ export default function Home() {
       </header>
       <main id="main-content">
         <HeroSection />
+        <ProofBar />
         <ServicesSection />
         <AboutSection />
         <ResultsSection />

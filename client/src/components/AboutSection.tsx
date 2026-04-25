@@ -27,12 +27,6 @@ export default function AboutSection() {
                 {/* Visual depth — strictly at bottom, away from head */}
                 <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[oklch(0.12_0.02_260)] to-transparent z-20 opacity-80" />
               </div>
-              
-              {/* Floating Name Badge */}
-              <div className="absolute -bottom-6 -right-3 lg:-right-8 p-4 rounded-2xl bg-black/90 backdrop-blur-3xl border border-white/10 shadow-2xl transition-all group-hover:translate-y-[-10px] z-30">
-                <div className="text-lg font-serif font-bold text-white mb-1">Jeremy Black</div>
-                <div className="text-[10px] uppercase tracking-[0.25em] text-brand-orange font-black">Founder & Lead Strategist</div>
-              </div>
             </div>
           </div>
 
