@@ -42,17 +42,14 @@ export default function AboutSection() {
               <div className="relative">
                 <div className="hidden sm:block absolute -left-6 top-0 bottom-0 w-2 bg-brand-orange rounded-full shadow-[0_0_30px_rgba(255,106,0,0.5)]" />
                 <p className="text-xl sm:text-2xl font-black text-white/95 italic sm:pl-8 py-6 px-5 sm:px-0 bg-white/[0.03] rounded-2xl sm:rounded-r-[2rem] border border-white/5 shadow-2xl">
-                  “I started High Ridge to fix what most agencies ignore—websites that look fine, but don’t actually bring in business.”
+                  High Ridge Web Design builds fast, conversion-focused websites for local businesses that need more calls, stronger trust, and a sharper online presence.
                 </p>
               </div>
             </div>
 
             <div className="space-y-6 text-foreground/70 leading-relaxed text-lg md:text-xl">
               <p>
-                I founded High Ridge Web Design in Sylva, North Carolina, after watching too many great local businesses lose out to competitors simply because they lacked a professional online presence.
-              </p>
-              <p>
-                We don't just build websites; we build complete digital systems. From HVAC companies to law firms, we level the playing field so your work can speak for itself.
+                Every section is designed with one job: help a real visitor understand what you do, trust you faster, and take action.
               </p>
             </div>
 
