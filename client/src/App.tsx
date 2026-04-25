@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { Route, Switch } from "wouter";
 import NotFound from "./pages/NotFound";
 
@@ -25,6 +26,8 @@ export default function App() {
           <Route component={NotFound} />
         </Switch>
       </Suspense>
+
+      <Analytics />
     </div>
   );
 }
