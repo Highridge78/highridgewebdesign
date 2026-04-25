@@ -4,6 +4,7 @@
  */
 import { Globe, Bot, Zap, Search, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { AUDIT_URL, isExternalAudit } from "@/lib/config";
 
 const SERVICES_WEB =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/services-web-L7PL3M9GEdLC28yTUAy6uP.webp";
@@ -72,8 +73,12 @@ const services = [
 ];
 
 export default function ServicesSection() {
-  const scrollToContact = () => {
-    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+  const handleCTAClick = () => {
+    if (isExternalAudit()) {
+      window.open(AUDIT_URL, "_blank");
+    } else {
+      document.querySelector(AUDIT_URL)?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -162,7 +167,7 @@ export default function ServicesSection() {
                   </ul>
 
                   <button
-                    onClick={scrollToContact}
+                    onClick={handleCTAClick}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-brand-orange hover:text-white hover:bg-brand-orange px-4 py-2 rounded-md transition-all duration-300"
                   >
                     Get Started

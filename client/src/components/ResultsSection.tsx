@@ -12,6 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { AUDIT_URL, isExternalAudit } from "@/lib/config";
 
 const industries = [
   { icon: Wrench, name: "HVAC & Plumbing", pain: "Missing calls on the job" },
@@ -50,8 +51,12 @@ const processSteps = [
 ];
 
 export default function ResultsSection() {
-  const scrollToContact = () => {
-    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+  const handleCTAClick = () => {
+    if (isExternalAudit()) {
+      window.open(AUDIT_URL, "_blank");
+    } else {
+      document.querySelector(AUDIT_URL)?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -143,7 +148,7 @@ export default function ResultsSection() {
                   If your website isn’t generating consistent leads, it’s actively costing you money. Every missed call, slow response, or weak design is sending potential customers straight to your competitors.
                 </p>
                 <button
-                  onClick={scrollToContact}
+                  onClick={handleCTAClick}
                   className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 py-3 rounded-lg shadow-[0_0_25px_rgba(255,106,0,0.35)] transition-all duration-300"
                 >
                   Get My Free Website Audit

@@ -6,6 +6,7 @@
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
+import { AUDIT_URL, isExternalAudit } from "@/lib/config";
 
 const HERO_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/hero-bg-user_e8b373ac.png";
@@ -65,7 +66,7 @@ export default function HeroSection() {
         {/* CTA buttons */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
-            onClick={() => scrollTo("#contact")}
+            onClick={() => isExternalAudit() ? window.open(AUDIT_URL, "_blank") : scrollTo(AUDIT_URL)}
             size="lg"
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold text-base px-8 py-6 glow-orange transition-all duration-300 rounded-lg"
           >

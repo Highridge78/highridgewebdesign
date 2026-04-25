@@ -6,6 +6,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { AUDIT_URL, isExternalAudit } from "@/lib/config";
 
 const LOGO_URL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663455642890/NdrKoxrvNzAjAncKbyczK5/logo-trimmed_4ca12aee.png";
@@ -76,7 +77,7 @@ export default function Navbar() {
             </a>
           ))}
           <Button
-            onClick={() => handleNavClick("#contact")}
+            onClick={() => isExternalAudit() ? window.open(AUDIT_URL, "_blank") : handleNavClick(AUDIT_URL)}
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold px-6 glow-orange transition-all duration-300"
           >
             Free Audit
@@ -111,7 +112,7 @@ export default function Navbar() {
               </a>
             ))}
             <Button
-              onClick={() => handleNavClick("#contact")}
+              onClick={() => isExternalAudit() ? window.open(AUDIT_URL, "_blank") : handleNavClick(AUDIT_URL)}
               className="bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold mt-2 glow-orange"
             >
               Free Audit
