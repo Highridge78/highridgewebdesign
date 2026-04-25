@@ -19,59 +19,118 @@ import ScrollReveal from "./ScrollReveal";
 
 const CONTACT_EMAIL = "jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
+const CONTACT_TEL = "+18285989262";
+
+type FormDataState = {
+  name: string;
+  email: string;
+  phone: string;
+  business: string;
+  website: string;
+  message: string;
+  botcheck: string;
+};
+
+type FieldErrors = Partial<Record<keyof FormDataState, string>>;
+
+const initialFormData: FormDataState = {
+  name: "",
+  email: "",
+  phone: "",
+  business: "",
+  website: "",
+  message: "",
+  botcheck: "",
+};
 
 export default function ContactSection() {
   const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    business: "",
-    message: "",
-  });
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [formData, setFormData] = useState<FormDataState>(initialFormData);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
+    if (formState !== "sending") {
+      setFormState("idle");
+      setErrorMessage("");
+    }
+  };
+
+  const validateForm = () => {
+    const nextErrors: FieldErrors = {};
+    const email = formData.email.trim();
+    const phone = formData.phone.trim();
+
+    if (formData.name.trim().length < 2) {
+      nextErrors.name = "Please enter your name.";
+    }
+    if (!email && !phone) {
+      nextErrors.email = "Add an email or phone number.";
+      nextErrors.phone = "Add an email or phone number.";
+    }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      nextErrors.email = "Please enter a valid email address.";
+    }
+    if (formData.message.trim().length < 10) {
+      nextErrors.message = "Share a few details about the project or audit.";
+    }
+
+    setFieldErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (formState === "sending") return;
+    if (!validateForm()) {
+      setFormState("error");
+      setErrorMessage("Please check the highlighted fields and try again.");
+      return;
+    }
+
     setFormState("sending");
     setErrorMessage("");
+    setFieldErrors({});
 
-    const form = e.currentTarget;
-    const formPayload = new FormData(form);
-
-    if (String(formPayload.get("bot-field") || "").trim()) {
+    if (formData.botcheck.trim()) {
       setFormState("idle");
       return;
     }
 
-    const encoded = new URLSearchParams();
-    formPayload.forEach((value, key) => {
-      encoded.append(key, String(value));
-    });
-
     try {
-      const res = await fetch("/", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encoded.toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
+      const data = await res.json().catch(() => null);
 
       if (!res.ok) {
-        throw new Error(`Netlify form submit failed with status ${res.status}`);
+        if (data?.issues) {
+          const nextErrors: FieldErrors = {};
+          for (const issue of data.issues as Array<{ field: keyof FormDataState; message: string }>) {
+            nextErrors[issue.field] = issue.message;
+          }
+          setFieldErrors(nextErrors);
+        }
+        throw new Error(data?.message || "The form could not submit.");
       }
 
       setFormState("sent");
-      setFormData({ name: "", email: "", phone: "", business: "", message: "" });
-      form.reset();
-    } catch {
+      setFormData(initialFormData);
+    } catch (error) {
       setFormState("error");
-      setErrorMessage("Something went wrong. Please call or email me directly.");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "The form could not submit. Please email or call me directly."
+      );
     }
   };
 
@@ -102,22 +161,16 @@ export default function ContactSection() {
             {/* Form */}
             <div className="lg:col-span-3">
               <form
-                name="contact"
-                method="POST"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
-                className="space-y-4"
+                className="space-y-5 rounded-2xl border border-white/10 bg-black/20 p-5 shadow-[0_30px_80px_-50px_rgba(255,106,0,0.55)] sm:p-6"
                 noValidate
                 aria-describedby="contact-response-status"
               >
-                <input type="hidden" name="form-name" value="contact" />
-                <input type="hidden" name="bot-field" tabIndex={-1} autoComplete="off" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label
                       htmlFor="contact-name"
-                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                      className="text-sm font-semibold text-foreground/80 mb-2 block"
                     >
                       Your Name *
                     </label>
@@ -126,17 +179,22 @@ export default function ContactSection() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      autoComplete="name"
                       placeholder="John Smith"
                       required
-                      className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
+                      aria-invalid={Boolean(fieldErrors.name)}
+                      className="h-12 bg-[oklch(0.15_0.02_260)] border-border px-4 text-base focus:border-brand-orange"
                     />
+                    {fieldErrors.name && (
+                      <p className="mt-2 text-xs text-red-300">{fieldErrors.name}</p>
+                    )}
                   </div>
                   <div>
                     <label
                       htmlFor="contact-email"
-                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                      className="text-sm font-semibold text-foreground/80 mb-2 block"
                     >
-                      Email Address *
+                      Email Address
                     </label>
                     <Input
                       id="contact-email"
@@ -144,10 +202,15 @@ export default function ContactSection() {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
+                      autoComplete="email"
+                      inputMode="email"
                       placeholder="john@business.com"
-                      required
-                      className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
+                      aria-invalid={Boolean(fieldErrors.email)}
+                      className="h-12 bg-[oklch(0.15_0.02_260)] border-border px-4 text-base focus:border-brand-orange"
                     />
+                    {fieldErrors.email && (
+                      <p className="mt-2 text-xs text-red-300">{fieldErrors.email}</p>
+                    )}
                   </div>
                 </div>
 
@@ -155,7 +218,7 @@ export default function ContactSection() {
                   <div>
                     <label
                       htmlFor="contact-phone"
-                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                      className="text-sm font-semibold text-foreground/80 mb-2 block"
                     >
                       Phone Number
                     </label>
@@ -165,14 +228,20 @@ export default function ContactSection() {
                       type="tel"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="(555) 123-4567"
-                      className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
+                      autoComplete="tel"
+                      inputMode="tel"
+                      placeholder="828-598-9262"
+                      aria-invalid={Boolean(fieldErrors.phone)}
+                      className="h-12 bg-[oklch(0.15_0.02_260)] border-border px-4 text-base focus:border-brand-orange"
                     />
+                    {fieldErrors.phone && (
+                      <p className="mt-2 text-xs text-red-300">{fieldErrors.phone}</p>
+                    )}
                   </div>
                   <div>
                     <label
                       htmlFor="contact-business"
-                      className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                      className="text-sm font-semibold text-foreground/80 mb-2 block"
                     >
                       Business Name
                     </label>
@@ -181,18 +250,43 @@ export default function ContactSection() {
                       name="business"
                       value={formData.business}
                       onChange={handleChange}
+                      autoComplete="organization"
                       placeholder="Smith's HVAC"
-                      className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange"
+                      className="h-12 bg-[oklch(0.15_0.02_260)] border-border px-4 text-base focus:border-brand-orange"
                     />
                   </div>
                 </div>
 
                 <div>
                   <label
-                    htmlFor="contact-message"
-                    className="text-sm font-medium text-foreground/70 mb-1.5 block"
+                    htmlFor="contact-website"
+                    className="text-sm font-semibold text-foreground/80 mb-2 block"
                   >
-                    Tell Us About Your Business *
+                    Current Website
+                  </label>
+                  <Input
+                    id="contact-website"
+                    name="website"
+                    type="url"
+                    value={formData.website}
+                    onChange={handleChange}
+                    autoComplete="url"
+                    inputMode="url"
+                    placeholder="https://yourbusiness.com"
+                    aria-invalid={Boolean(fieldErrors.website)}
+                    className="h-12 bg-[oklch(0.15_0.02_260)] border-border px-4 text-base focus:border-brand-orange"
+                  />
+                  {fieldErrors.website && (
+                    <p className="mt-2 text-xs text-red-300">{fieldErrors.website}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="contact-message"
+                    className="text-sm font-semibold text-foreground/80 mb-2 block"
+                  >
+                    Project Details *
                   </label>
                   <Textarea
                     id="contact-message"
@@ -201,15 +295,21 @@ export default function ContactSection() {
                     onChange={handleChange}
                     placeholder="What services do you offer, where do you serve, and where are leads dropping off today?"
                     required
-                    rows={4}
-                    className="bg-[oklch(0.15_0.02_260)] border-border focus:border-brand-orange resize-none"
+                    rows={5}
+                    aria-invalid={Boolean(fieldErrors.message)}
+                    className="min-h-32 bg-[oklch(0.15_0.02_260)] border-border px-4 py-3 text-base leading-relaxed focus:border-brand-orange resize-none"
                   />
+                  {fieldErrors.message && (
+                    <p className="mt-2 text-xs text-red-300">{fieldErrors.message}</p>
+                  )}
                 </div>
 
                 <input
                   type="text"
                   aria-hidden="true"
                   name="botcheck"
+                  value={formData.botcheck}
+                  onChange={handleChange}
                   autoComplete="off"
                   tabIndex={-1}
                   className="hidden"
@@ -219,7 +319,7 @@ export default function ContactSection() {
                 <Button
                   type="submit"
                   disabled={formState === "sending"}
-                  className="w-full bg-brand-orange hover:bg-brand-orange-bright text-white font-semibold py-6 text-base glow-orange transition-all duration-300 rounded-lg"
+                  className="w-full min-h-14 bg-brand-orange hover:bg-brand-orange-bright text-white font-black py-6 text-base glow-orange transition-all duration-300 rounded-xl disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {formState === "sending" ? (
                     <>
@@ -229,7 +329,7 @@ export default function ContactSection() {
                   ) : formState === "sent" ? (
                     <>
                       <CheckCircle2 className="w-4 h-4" />
-                      Message Sent!
+                      Request Sent
                     </>
                   ) : (
                     <>
@@ -244,19 +344,32 @@ export default function ContactSection() {
                     id="contact-response-status"
                     role="status"
                     aria-live="polite"
-                    className="text-center text-sm text-green-400"
+                    className="rounded-xl border border-green-400/20 bg-green-400/10 px-4 py-3 text-center text-sm text-green-300"
                   >
-                    Thanks — your request was sent. I’ll get back to you soon.
+                    Thanks. Your request was sent successfully, and I will get back to you soon.
                   </p>
                 )}
                 {formState === "error" && (
-                  <p
+                  <div
                     id="contact-response-status"
                     role="alert"
-                    className="text-center text-sm text-red-400"
+                    className="rounded-xl border border-red-400/20 bg-red-400/10 px-4 py-3 text-sm text-red-200"
                   >
-                    {errorMessage || "Something went wrong while sending your message."}
-                  </p>
+                    <p>
+                      {errorMessage || "The form could not submit right now."}
+                    </p>
+                    <p className="mt-2 text-red-100/85">
+                      Direct fallback:{" "}
+                      <a className="font-semibold underline underline-offset-4" href={`mailto:${CONTACT_EMAIL}`}>
+                        {CONTACT_EMAIL}
+                      </a>{" "}
+                      or{" "}
+                      <a className="font-semibold underline underline-offset-4" href={`tel:${CONTACT_TEL}`}>
+                        {CONTACT_PHONE}
+                      </a>
+                      .
+                    </p>
+                  </div>
                 )}
               </form>
             </div>
