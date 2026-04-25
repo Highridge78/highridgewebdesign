@@ -29,7 +29,6 @@ export default function ContactSection() {
     phone: "",
     business: "",
     message: "",
-    botcheck: "",
   });
 
   const handleChange = (
@@ -38,53 +37,42 @@ export default function ContactSection() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState("sending");
     setErrorMessage("");
 
-    const subject = encodeURIComponent(
-      `New Lead from ${formData.name} — ${formData.business || "Website Inquiry"}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nBusiness: ${formData.business}\n\nMessage:\n${formData.message}`
-    );
+    const form = e.currentTarget;
+    const formPayload = new FormData(form);
 
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          business: formData.business,
-          message: formData.message,
-          botcheck: formData.botcheck,
-        }),
-      });
-
-      if (res.ok) {
-        setFormState("sent");
-        setFormData({ name: "", email: "", phone: "", business: "", message: "", botcheck: "" });
-        return;
-      }
-
-      const payload = await res.json().catch(() => null);
-      const message =
-        typeof payload?.message === "string"
-          ? payload.message
-          : "Unable to submit your request right now.";
-      setFormState("error");
-      setErrorMessage(message);
-    } catch {
-      setFormState("error");
-      setErrorMessage("Network issue detected. Opening your email app as a fallback.");
+    if (String(formPayload.get("bot-field") || "").trim()) {
+      setFormState("idle");
+      return;
     }
 
-    // Last-resort fallback to mailto to avoid losing lead details.
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    setFormData({ name: "", email: "", phone: "", business: "", message: "", botcheck: "" });
+    const encoded = new URLSearchParams();
+    formPayload.forEach((value, key) => {
+      encoded.append(key, String(value));
+    });
+
+    try {
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encoded.toString(),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Netlify form submit failed with status ${res.status}`);
+      }
+
+      setFormState("sent");
+      setFormData({ name: "", email: "", phone: "", business: "", message: "" });
+      form.reset();
+    } catch {
+      setFormState("error");
+      setErrorMessage("Something went wrong. Please call or email me directly.");
+    }
   };
 
   return (
@@ -114,11 +102,17 @@ export default function ContactSection() {
             {/* Form */}
             <div className="lg:col-span-3">
               <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 className="space-y-4"
                 noValidate
                 aria-describedby="contact-response-status"
               >
+                <input type="hidden" name="form-name" value="contact" />
+                <input type="hidden" name="bot-field" tabIndex={-1} autoComplete="off" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label
@@ -254,7 +248,7 @@ export default function ContactSection() {
                     aria-live="polite"
                     className="text-center text-sm text-green-400"
                   >
-                    Thanks. We will reach out with next steps shortly.
+                    Thanks — your request was sent. I’ll get back to you soon.
                   </p>
                 )}
                 {formState === "error" && (

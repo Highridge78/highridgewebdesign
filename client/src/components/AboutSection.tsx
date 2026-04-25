@@ -1,6 +1,6 @@
 export default function AboutSection() {
-  const FOUNDER_PHOTO = "/founder-jeremy.jpg";
-  const FALLBACK_PHOTO = "https://customer-assets.emergentagent.com/wingman/3d41f473-25d4-41a9-809e-7c50a1461173/attachments/1fd1651efcf44fbdb0968424f9be9b0c_founder-jeremy.jpg";
+  const FOUNDER_PHOTO = "/images/founder-jeremy-460.webp";
+  const FALLBACK_PHOTO = "/images/founder-jeremy-460.avif";
 
   return (
     <section id="about" className="relative py-48 overflow-hidden bg-[oklch(0.12_0.02_260)]">
@@ -11,8 +11,8 @@ export default function AboutSection() {
           
           {/* Founder Image Column — Zero Cropping, Balanced Scale */}
           <div className="lg:col-span-4 relative flex justify-center lg:justify-start">
-            <div className="relative w-full max-w-sm group">
-              <div className="relative rounded-[4rem] overflow-hidden border-4 border-white/5 shadow-[0_60px_100px_-20px_rgba(0,0,0,0.8)] transition-all duration-700 bg-white/[0.02]">
+            <div className="relative w-full max-w-[170px] sm:max-w-[190px] md:max-w-[220px] group">
+              <div className="relative rounded-[2rem] overflow-hidden border-2 border-white/5 shadow-[0_60px_100px_-20px_rgba(0,0,0,0.8)] transition-all duration-700 bg-white/[0.02]">
                 <img 
                   src={FOUNDER_PHOTO} 
                   alt="Jeremy Black - Founder of High Ridge Web Design" 
@@ -29,9 +29,9 @@ export default function AboutSection() {
               </div>
               
               {/* Floating Name Badge */}
-              <div className="absolute -bottom-10 -right-6 lg:-right-16 p-10 rounded-[3rem] bg-black/90 backdrop-blur-3xl border border-white/10 shadow-2xl transition-all group-hover:translate-y-[-10px] z-30">
-                <div className="text-4xl font-serif font-bold text-white mb-1">Jeremy Black</div>
-                <div className="text-sm uppercase tracking-[0.5em] text-brand-orange font-black">Founder & Lead Strategist</div>
+              <div className="absolute -bottom-6 -right-3 lg:-right-8 p-4 rounded-2xl bg-black/90 backdrop-blur-3xl border border-white/10 shadow-2xl transition-all group-hover:translate-y-[-10px] z-30">
+                <div className="text-lg font-serif font-bold text-white mb-1">Jeremy Black</div>
+                <div className="text-[10px] uppercase tracking-[0.25em] text-brand-orange font-black">Founder & Lead Strategist</div>
               </div>
             </div>
           </div>
