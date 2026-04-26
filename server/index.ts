@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
+import { contactPayloadSchema, normalizeContactPayload } from "../shared/contact";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,6 +31,90 @@ async function startServer() {
   });
 
   app.use(express.json({ limit: "1mb" }));
+
+  app.post("/api/contact", async (req, res) => {
+    const parsed = contactPayloadSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res.status(400).json({
+        ok: false,
+        error: "VALIDATION_ERROR",
+        message: "Please check the highlighted fields and try again.",
+        issues: parsed.error.issues.map((issue) => ({
+          field: issue.path.join("."),
+          message: issue.message,
+        })),
+      });
+    }
+
+    const payload = normalizeContactPayload(parsed.data);
+
+    if (payload.botcheck) {
+      return res.status(202).json({
+        ok: true,
+        accepted: true,
+      });
+    }
+
+    if (!process.env.RESEND_API_KEY || !process.env.CONTACT_FROM_EMAIL) {
+      return res.status(503).json({
+        ok: false,
+        error: "FORM_DELIVERY_NOT_CONFIGURED",
+        message:
+          "Direct form delivery is not configured yet. Please email or call High Ridge directly.",
+      });
+    }
+
+    try {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: process.env.CONTACT_FROM_EMAIL,
+          to: process.env.CONTACT_TO_EMAIL || "jeremy@highridgewebdesign.com",
+          reply_to: payload.email || undefined,
+          subject: `Website audit request from ${payload.name}`,
+          text: [
+            "New High Ridge website audit request",
+            "",
+            `Name: ${payload.name}`,
+            `Email: ${payload.email || "Not provided"}`,
+            `Phone: ${payload.phone || "Not provided"}`,
+            `Business: ${payload.business || "Not provided"}`,
+            `Website: ${payload.website || "Not provided"}`,
+            "",
+            "Project details:",
+            payload.message,
+          ].join("\n"),
+        }),
+      });
+
+      if (!response.ok) {
+        return res.status(502).json({
+          ok: false,
+          error: "FORM_DELIVERY_FAILED",
+          message:
+            "The form could not send right now. Please email or call High Ridge directly.",
+        });
+      }
+
+      return res.status(200).json({
+        ok: true,
+        message: "Your request was sent.",
+      });
+    } catch (error) {
+      console.error("Contact form failed", error);
+      return res.status(500).json({
+        ok: false,
+        error: "INTERNAL_ERROR",
+        message:
+          "The form could not send right now. Please email or call High Ridge directly.",
+      });
+    }
+  });
 
   app.post("/api/leads", async (req, res) => {
     const { createLead, leadPayloadSchema } = await import("./leads");
