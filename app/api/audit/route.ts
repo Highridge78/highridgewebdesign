@@ -62,6 +62,17 @@ export async function POST(request: NextRequest) {
         { status: 422 },
       );
     }
+    if (/HTTP 403|HTTP 429/.test(fullMessage)) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "FETCH_BLOCKED",
+          message:
+            "That site is blocking automated website checks. Try another site, or use a manual review for this one.",
+        },
+        { status: 502 },
+      );
+    }
     if (/fetch failed|ENOTFOUND|ECONNREFUSED|ECONNRESET|EAI_AGAIN|HTTP [45]/.test(fullMessage)) {
       return NextResponse.json(
         {

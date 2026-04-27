@@ -3,6 +3,7 @@ import { contactPayloadSchema, normalizeContactPayload } from "@/shared/contact"
 
 const CONTACT_EMAIL = "jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "828-598-9262";
+const DEFAULT_FROM_EMAIL = `High Ridge Web Design <${CONTACT_EMAIL}>`;
 
 function fallbackMessage() {
   return `The form could not send right now. Please call or text ${CONTACT_PHONE}, or email ${CONTACT_EMAIL}.`;
@@ -40,9 +41,35 @@ function logLead(payload: NormalizedContactPayload) {
   );
 }
 
+function isValidResendSender(value: string) {
+  return /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(value) ||
+    /^.+\s<[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+>$/.test(value);
+}
+
+function resolveFromEmail() {
+  const candidates = [
+    process.env.RESEND_FROM_EMAIL,
+    process.env.CONTACT_FROM_EMAIL,
+    DEFAULT_FROM_EMAIL,
+  ].filter(Boolean) as string[];
+
+  const from = candidates.find((value) => isValidResendSender(value.trim()))?.trim();
+
+  if (!from) return "";
+
+  if (from !== process.env.RESEND_FROM_EMAIL?.trim()) {
+    console.warn("Using fallback contact form sender because RESEND_FROM_EMAIL is invalid", {
+      hasResendFromEmail: Boolean(process.env.RESEND_FROM_EMAIL),
+      hasLegacyContactFromEmail: Boolean(process.env.CONTACT_FROM_EMAIL),
+    });
+  }
+
+  return from;
+}
+
 async function sendWithResend(payload: NormalizedContactPayload) {
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL || process.env.CONTACT_FROM_EMAIL;
+  const from = resolveFromEmail();
   const to = process.env.CONTACT_TO_EMAIL || CONTACT_EMAIL;
 
   if (!apiKey || !from) {

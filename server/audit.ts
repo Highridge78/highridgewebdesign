@@ -24,11 +24,30 @@ export function normalizeUrl(input: string): string {
   }
 }
 
+function buildAuditUrlCandidates(input: string): string[] {
+  const primaryUrl = new URL(normalizeUrl(input));
+  const hostVariants = primaryUrl.hostname.startsWith("www.")
+    ? [primaryUrl.hostname, primaryUrl.hostname.replace(/^www\./, "")]
+    : [primaryUrl.hostname, `www.${primaryUrl.hostname}`];
+  const protocolVariants = primaryUrl.protocol === "http:" ? ["http:", "https:"] : ["https:", "http:"];
+
+  const candidates = protocolVariants.flatMap((protocol) =>
+    hostVariants.map((hostname) => {
+      const candidate = new URL(primaryUrl.href);
+      candidate.protocol = protocol;
+      candidate.hostname = hostname;
+      return candidate.href;
+    })
+  );
+
+  return Array.from(new Set(candidates));
+}
+
 // ─── Homepage fetch ───────────────────────────────────────────────────────────
 
 export async function fetchHomepage(
   url: string
-): Promise<{ html: string; responseTimeMs: number }> {
+): Promise<{ html: string; responseTimeMs: number; finalUrl: string }> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 12_000);
   const startMs = Date.now();
@@ -59,7 +78,7 @@ export async function fetchHomepage(
     }
 
     const html = (await response.text()).slice(0, 2_000_000);
-    return { html, responseTimeMs };
+    return { html, responseTimeMs, finalUrl: response.url || url };
   } catch (err) {
     clearTimeout(timeoutId);
     if (err instanceof Error && err.name === "AbortError") {
@@ -67,6 +86,23 @@ export async function fetchHomepage(
     }
     throw err;
   }
+}
+
+async function fetchFirstReachableHomepage(
+  input: string
+): Promise<{ html: string; responseTimeMs: number; finalUrl: string }> {
+  const candidates = buildAuditUrlCandidates(input);
+  let lastError: unknown;
+
+  for (const candidate of candidates) {
+    try {
+      return await fetchHomepage(candidate);
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  throw lastError;
 }
 
 // ─── Signal extractors ────────────────────────────────────────────────────────
@@ -911,14 +947,13 @@ function buildSummary(
 // ─── Main entry point ─────────────────────────────────────────────────────────
 
 export async function runWebsiteAudit(url: string): Promise<AuditResult> {
-  const normalizedUrl = normalizeUrl(url);
-  const isHttps = normalizedUrl.startsWith("https://");
+  const { html, responseTimeMs, finalUrl } = await fetchFirstReachableHomepage(url);
+  const isHttps = finalUrl.startsWith("https://");
 
-  const { html, responseTimeMs } = await fetchHomepage(normalizedUrl);
-  const signals = extractSignals(html, isHttps, responseTimeMs, normalizedUrl);
+  const signals = extractSignals(html, isHttps, responseTimeMs, finalUrl);
   const scores = scoreAudit(signals);
   const findings = generateFindings(signals, scores);
   const summary = buildSummary(signals, scores, findings);
 
-  return { url: normalizedUrl, signals, scores, findings, summary };
+  return { url: finalUrl, signals, scores, findings, summary };
 }
