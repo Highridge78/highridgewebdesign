@@ -1,8 +1,7 @@
 {
   "buildCommand": "pnpm install && pnpm run build",
-  "outputDirectory": "dist/public",
   "installCommand": "pnpm install",
-  "framework": "vite",
+  "framework": "nextjs",
   "headers": [
     {
       "source": "/(.*)",
@@ -42,7 +41,5 @@
       ]
     }
   ],
-  "rewrites": [
-    { "source": "/((?!api/|robots\\.txt|sitemap\\.xml|favicon\\.ico|apple-touch-icon-180x180\\.png|favicon-32x32\\.png).*)", "destination": "/index.html" }
-  ]
+  "rewrites": []
 }
