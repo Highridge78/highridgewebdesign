@@ -24,7 +24,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true, audit });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error("Audit failed", { url: parsed.data.url, message });
+    const causeMessage =
+      err instanceof Error && err.cause instanceof Error ? err.cause.message : "";
+    const fullMessage = `${message} ${causeMessage}`;
+    console.error("Audit failed", { url: parsed.data.url, message, causeMessage });
 
     if (message.includes("Invalid URL")) {
       return NextResponse.json(
@@ -59,7 +62,7 @@ export async function POST(request: NextRequest) {
         { status: 422 },
       );
     }
-    if (/ENOTFOUND|ECONNREFUSED|ECONNRESET|HTTP [45]/.test(message)) {
+    if (/fetch failed|ENOTFOUND|ECONNREFUSED|ECONNRESET|EAI_AGAIN|HTTP [45]/.test(fullMessage)) {
       return NextResponse.json(
         {
           ok: false,
