@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { Slider } from "@/components/ui/slider";
 
 const TYPICAL_CVR = 0.023;
 const OPTIMIZED_CVR = 0.08;
@@ -78,14 +79,13 @@ export default function LeadImpactCalculator() {
                     {visitors.toLocaleString()}
                   </span>
                 </div>
-                <input
-                  type="range"
+                <Slider
                   min={50}
                   max={2000}
                   step={50}
-                  value={visitors}
-                  onChange={(e) => setVisitors(Number(e.target.value))}
-                  className="w-full cursor-pointer"
+                  value={[visitors]}
+                  onValueChange={([val]) => setVisitors(val)}
+                  className="[&_[data-slot=slider-track]]:h-2 [&_[data-slot=slider-track]]:bg-white/10 [&_[data-slot=slider-range]]:bg-brand-orange [&_[data-slot=slider-thumb]]:size-5 [&_[data-slot=slider-thumb]]:bg-brand-orange [&_[data-slot=slider-thumb]]:border-0 [&_[data-slot=slider-thumb]]:shadow-[0_0_10px_rgba(232,93,4,0.6)]"
                 />
                 <div className="flex justify-between text-xs text-white/25">
                   <span>50</span>
@@ -98,14 +98,13 @@ export default function LeadImpactCalculator() {
                   <label className="text-sm font-semibold text-white">Average Job Value</label>
                   <span className="text-lg font-black text-brand-orange">{fmt(jobValue)}</span>
                 </div>
-                <input
-                  type="range"
+                <Slider
                   min={500}
                   max={10000}
                   step={250}
-                  value={jobValue}
-                  onChange={(e) => setJobValue(Number(e.target.value))}
-                  className="w-full cursor-pointer"
+                  value={[jobValue]}
+                  onValueChange={([val]) => setJobValue(val)}
+                  className="[&_[data-slot=slider-track]]:h-2 [&_[data-slot=slider-track]]:bg-white/10 [&_[data-slot=slider-range]]:bg-brand-orange [&_[data-slot=slider-thumb]]:size-5 [&_[data-slot=slider-thumb]]:bg-brand-orange [&_[data-slot=slider-thumb]]:border-0 [&_[data-slot=slider-thumb]]:shadow-[0_0_10px_rgba(232,93,4,0.6)]"
                 />
                 <div className="flex justify-between text-xs text-white/25">
                   <span>$500</span>
