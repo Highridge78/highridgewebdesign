@@ -9,10 +9,10 @@ const CONTACT_EMAIL = "jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
 
 const footerLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Results", href: "#results" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Services", href: "/#services" },
+  { label: "Results", href: "/#results" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
   { label: "Demo Sites", href: "/demos" },
 ];
 
@@ -22,6 +22,15 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const handleNavClick = (href: string) => {
+    if (href.startsWith("/#")) {
+      if (pathname === "/") {
+        document.querySelector(href.slice(1))?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.location.href = href;
+      }
+      return;
+    }
+
     if (href.startsWith("/")) {
       router.push(href);
       return;
@@ -95,9 +104,17 @@ export default function Footer() {
 
         {/* Legal/Bottom Bar */}
         <div className="mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-          <p className="text-sm font-medium text-foreground/30">
-            &copy; {new Date().getFullYear()} High Ridge Web Design. Results driven.
-          </p>
+          <div className="flex flex-col items-center gap-3 md:items-start">
+            <p className="text-sm font-medium text-foreground/30">
+              &copy; {new Date().getFullYear()} High Ridge Web Design. Results driven.
+            </p>
+            <Link
+              href="/privacy"
+              className="text-xs font-semibold uppercase tracking-widest text-foreground/30 transition-colors hover:text-brand-orange"
+            >
+              Privacy Policy
+            </Link>
+          </div>
           <button
             onClick={scrollToTop}
             className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-foreground/40 hover:text-white transition-all"

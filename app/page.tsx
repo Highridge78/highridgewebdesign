@@ -12,7 +12,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "High Ridge Web Design",
-  url: "https://www.highridgewebdesign.com/",
+  url: "https://highridgewebdesign.com/",
   telephone: "+1-828-598-9262",
   email: "jeremy@highridgewebdesign.com",
   areaServed: ["Western North Carolina", "Sylva, NC"],

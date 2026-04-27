@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   description:
     "Compare three strategic homepage concepts built to improve conversion, positioning, and differentiation for local business websites.",
   alternates: {
-    canonical: "/demos",
+    canonical: "https://highridgewebdesign.com/demos",
   },
 };
 
@@ -54,7 +54,7 @@ const schema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   name: "High Ridge Website Demo Concepts",
-  url: "https://www.highridgewebdesign.com/demos",
+  url: "https://highridgewebdesign.com/demos",
   description:
     "Three homepage concept directions for service businesses focused on conversion, positioning, and lead quality.",
 };

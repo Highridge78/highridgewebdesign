@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   description:
     "Preview a conversion-first homepage concept built to help local service businesses generate more qualified leads and booked jobs.",
   alternates: {
-    canonical: "/demos/demo-conversion",
+    canonical: "https://highridgewebdesign.com/demos/demo-conversion",
   },
 };
 

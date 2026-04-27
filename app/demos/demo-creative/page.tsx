@@ -81,7 +81,7 @@ export const metadata: Metadata = {
   description:
     "See an AI-first agency homepage concept that combines website strategy, chatbots, and automation into a 24/7 sales system.",
   alternates: {
-    canonical: "/demos/demo-creative",
+    canonical: "https://highridgewebdesign.com/demos/demo-creative",
   },
 };
 

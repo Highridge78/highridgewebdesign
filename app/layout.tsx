@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.highridgewebdesign.com"),
+  metadataBase: new URL("https://highridgewebdesign.com"),
   title: {
     default:
       "High Ridge Web Design | Contractor Websites That Generate Leads and Booked Jobs",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description:
     "High Ridge Web Design builds conversion-focused websites for contractors and service businesses that need more qualified leads, booked calls, and revenue growth.",
   alternates: {
-    canonical: "/",
+    canonical: "https://highridgewebdesign.com/",
   },
   openGraph: {
     title:

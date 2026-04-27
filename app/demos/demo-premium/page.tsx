@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   description:
     "A high-ticket premium agency concept for local brands that need stronger positioning, trust, and conversion quality.",
   alternates: {
-    canonical: "/demos/demo-premium",
+    canonical: "https://highridgewebdesign.com/demos/demo-premium",
   },
 };
 
