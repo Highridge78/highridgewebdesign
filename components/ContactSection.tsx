@@ -22,6 +22,8 @@ import ScrollReveal from "./ScrollReveal";
 const CONTACT_EMAIL = "jeremy@highridgewebdesign.com";
 const CONTACT_PHONE = "(828) 598-9262";
 const CONTACT_TEL = "+18285989262";
+const FOUNDER_PHOTO = "/images/founder-jeremy-profile.webp";
+const FALLBACK_PHOTO = "/images/founder-jeremy-460.webp";
 
 type FormDataState = {
   name: string;
@@ -470,6 +472,33 @@ export default function ContactSection() {
                   ))}
                 </ul>
               </div>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={220}>
+          <div className="mx-auto mt-10 grid max-w-md grid-cols-[auto_minmax(0,1fr)] items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)]">
+            <div className="relative w-[104px] overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] sm:w-[118px]">
+              <img
+                src={FOUNDER_PHOTO}
+                alt="Jeremy Black - Founder of High Ridge Web Design"
+                className="block h-auto w-full object-contain"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  if (target.src !== FALLBACK_PHOTO) {
+                    target.src = FALLBACK_PHOTO;
+                  }
+                }}
+              />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[10px] font-black uppercase tracking-[0.24em] text-brand-orange">
+                Founder-led
+              </p>
+              <p className="mt-2 text-lg font-black text-white">You work directly with Jeremy.</p>
+              <p className="mt-2 text-sm leading-6 text-foreground/60">
+                Small enough to stay personal. Focused enough to stay practical.
+              </p>
             </div>
           </div>
         </ScrollReveal>

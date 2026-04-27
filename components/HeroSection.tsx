@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, ShieldCheck } from "lucide-react";
-import TransformationMockup from "./TransformationMockup";
+import WebsiteAuditPreview from "./WebsiteAuditPreview";
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {
@@ -85,9 +85,9 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* RIGHT: Interactive Transformation Slider */}
+          {/* RIGHT: Website audit preview */}
           <div className="min-w-0">
-            <TransformationMockup />
+            <WebsiteAuditPreview />
           </div>
 
         </div>
