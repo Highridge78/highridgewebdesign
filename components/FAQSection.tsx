@@ -14,8 +14,8 @@ const faqs = [
     a: "We have live demo sites built to show exactly how a contractor website performs. Every layout decision, CTA, and speed optimization is real and measurable. Visit /demos to explore them. Client case studies will be added here as projects launch.",
   },
   {
-    q: "Why should I hire someone without a long client list?",
-    a: "Because you are not buying a portfolio. You are buying a system. The strategy behind this site, from fast load speed to local SEO structure and direct CTAs, is the same system we build for clients.",
+    q: "How do I know this will work for my business?",
+    a: "We start with your market, services, and current lead flow before recommending anything. The goal is a practical system built around the jobs you actually want: fast pages, clear service positioning, local SEO structure, and direct calls to action.",
   },
   {
     q: "How long does a website build take?",

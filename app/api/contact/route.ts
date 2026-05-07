@@ -46,18 +46,24 @@ function isValidResendSender(value: string) {
     /^.+\s<[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+>$/.test(value);
 }
 
+function readEnvValue(value: string | undefined) {
+  const trimmed = value?.trim();
+  if (!trimmed || trimmed === `""` || trimmed === "''") return "";
+  return trimmed;
+}
+
 function resolveFromEmail() {
   const candidates = [
-    process.env.RESEND_FROM_EMAIL,
-    process.env.CONTACT_FROM_EMAIL,
+    readEnvValue(process.env.RESEND_FROM_EMAIL),
+    readEnvValue(process.env.CONTACT_FROM_EMAIL),
     DEFAULT_FROM_EMAIL,
-  ].filter(Boolean) as string[];
+  ].filter(Boolean);
 
-  const from = candidates.find((value) => isValidResendSender(value.trim()))?.trim();
+  const from = candidates.find((value) => isValidResendSender(value));
 
   if (!from) return "";
 
-  if (from !== process.env.RESEND_FROM_EMAIL?.trim()) {
+  if (from !== readEnvValue(process.env.RESEND_FROM_EMAIL)) {
     console.warn("Using fallback contact form sender because RESEND_FROM_EMAIL is invalid", {
       hasResendFromEmail: Boolean(process.env.RESEND_FROM_EMAIL),
       hasLegacyContactFromEmail: Boolean(process.env.CONTACT_FROM_EMAIL),
@@ -68,9 +74,9 @@ function resolveFromEmail() {
 }
 
 async function sendWithResend(payload: NormalizedContactPayload) {
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = readEnvValue(process.env.RESEND_API_KEY);
   const from = resolveFromEmail();
-  const to = process.env.CONTACT_TO_EMAIL || CONTACT_EMAIL;
+  const to = readEnvValue(process.env.CONTACT_TO_EMAIL) || CONTACT_EMAIL;
 
   if (!apiKey || !from) {
     console.error("Contact form delivery is not configured", {

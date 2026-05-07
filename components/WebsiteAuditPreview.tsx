@@ -37,24 +37,25 @@ type AuditResponse =
   | { ok: false; message: string };
 
 const defaultScores = [
-  { label: "Conversion", value: 4.2, icon: TrendingUp },
-  { label: "Local Visibility", value: 5.6, icon: SearchCheck },
-  { label: "Trust Signals", value: 3.8, icon: ShieldCheck },
-  { label: "Technical", value: 6.4, icon: Gauge },
+  { label: "Conversion", value: null, icon: TrendingUp },
+  { label: "Local Visibility", value: null, icon: SearchCheck },
+  { label: "Trust Signals", value: null, icon: ShieldCheck },
+  { label: "Technical", value: null, icon: Gauge },
 ];
 
 function toDisplayUrl(value: string) {
   return value.replace(/^https?:\/\//i, "").replace(/\/$/, "");
 }
 
-function scoreColor(value: number) {
+function scoreColor(value: number | null) {
+  if (value === null) return "text-white/35";
   if (value >= 7.5) return "text-emerald-300";
   if (value >= 5) return "text-brand-amber";
   return "text-brand-orange";
 }
 
 export default function WebsiteAuditPreview() {
-  const [url, setUrl] = useState("highridgewebdesign.com");
+  const [url, setUrl] = useState("");
   const [audit, setAudit] = useState<AuditResult | null>(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -77,10 +78,16 @@ export default function WebsiteAuditPreview() {
           4) *
           10,
       ) / 10
-    : 5;
+    : null;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!url.trim()) {
+      setAudit(null);
+      setError("Enter a website URL to analyze.");
+      return;
+    }
+
     setIsLoading(true);
     setError("");
 
@@ -169,7 +176,7 @@ export default function WebsiteAuditPreview() {
               </p>
               <div className="mt-4 flex items-end gap-2">
                 <span className={`text-6xl font-black leading-none ${scoreColor(average)}`}>
-                  {average}
+                  {average ?? "--"}
                 </span>
                 <span className="pb-2 text-sm font-bold text-white/30">/10</span>
               </div>
@@ -191,7 +198,7 @@ export default function WebsiteAuditPreview() {
                       {score.label}
                     </p>
                     <p className={`mt-1 text-2xl font-black ${scoreColor(score.value)}`}>
-                      {score.value}
+                      {score.value ?? "--"}
                     </p>
                   </div>
                 );

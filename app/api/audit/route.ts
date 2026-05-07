@@ -1,8 +1,16 @@
 export const runtime = "nodejs";
 
 import { NextRequest, NextResponse } from "next/server";
+import { File } from "node:buffer";
 import { auditRequestSchema } from "@/shared/audit";
-import { runWebsiteAudit } from "@/server/audit";
+
+if (!("File" in globalThis)) {
+  Object.defineProperty(globalThis, "File", {
+    value: File,
+    configurable: true,
+    writable: true,
+  });
+}
 
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => ({}));
@@ -20,6 +28,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const { runWebsiteAudit } = await import("@/server/audit");
     const audit = await runWebsiteAudit(parsed.data.url);
     return NextResponse.json({ ok: true, audit });
   } catch (err) {

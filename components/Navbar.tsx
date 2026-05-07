@@ -91,7 +91,14 @@ export default function Navbar() {
               </a>
             ))}
           </div>
-          
+
+          <a
+            href="tel:8285989262"
+            className="text-sm font-bold uppercase tracking-widest text-white/90 hover:text-brand-orange transition-colors font-mono"
+          >
+            (828) 598-9262
+          </a>
+
           <Button
             onClick={() => handleNavClick("#contact")}
             className="bg-brand-orange hover:bg-brand-orange-bright text-white font-bold px-6 py-5 text-sm rounded-lg shadow-brand-orange/30 transition-all hover:scale-[1.03] active:scale-95 glow-orange"
@@ -126,6 +133,12 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+          <a
+            href="tel:8285989262"
+            className="block w-full text-center text-lg font-bold uppercase tracking-widest text-white/90 hover:text-brand-orange transition-colors font-mono py-4 border-b border-white/10"
+          >
+            (828) 598-9262
+          </a>
           <Button
             onClick={() => handleNavClick("#contact")}
             className="w-full bg-brand-orange hover:bg-brand-orange-bright text-white font-bold py-6 text-base rounded-lg shadow-brand-orange/40"
