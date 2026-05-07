@@ -8,17 +8,17 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://highridgewebdesign.com"),
   title: {
     default:
-      "High Ridge Web Design | Contractor Websites That Generate Leads and Booked Jobs",
+      "Contractor Websites That Generate Leads | Sylva, NC",
     template: "%s | High Ridge Web Design",
   },
   description:
-    "High Ridge Web Design builds conversion-focused websites for contractors and service businesses that need more qualified leads, booked calls, and revenue growth.",
+    "High Ridge Web Design builds lead-generation websites for contractors and service businesses in Western NC. More calls, more booked jobs.",
   alternates: {
     canonical: "https://highridgewebdesign.com/",
   },
   openGraph: {
     title:
-      "High Ridge Web Design | Contractor Websites That Generate Leads and Booked Jobs",
+      "Contractor Websites That Generate Leads | Sylva, NC",
     description:
       "Conversion-focused websites and lead generation systems for contractors and local service businesses.",
     url: "/",
