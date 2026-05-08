@@ -94,10 +94,10 @@ export default function Footer() {
                 <Phone size={20} className="text-brand-orange" />
                 {CONTACT_PHONE}
               </a>
-              <div className="flex items-start gap-4 text-base text-foreground/50">
+              <a href="https://share.google/tyJrKqJPpdUbIeQHD" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 text-base text-foreground/50 hover:text-brand-orange transition-colors">
                 <MapPin size={20} className="text-brand-orange mt-1 shrink-0" />
                 <span>Serving all of Western North Carolina & Globally available.</span>
-              </div>
+              </a>
             </div>
           </div>
         </div>
