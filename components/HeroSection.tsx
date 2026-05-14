@@ -51,6 +51,22 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-col gap-8">
+              <div className="flex flex-wrap gap-x-8 gap-y-2">
+                {["Free Beacon Audit", "No-Obligation Consultation", "Results You Can Measure"].map(item => (
+                  <span key={item} className="flex items-center gap-2 text-sm text-white/50">
+                    <span className="text-green-400 font-semibold">✓</span>
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <button
+                onClick={() => scrollTo("#contact")}
+                className="w-full sm:w-auto self-start bg-[#C8922A] hover:bg-[#b07d24] text-white font-bold px-8 py-4 rounded-xl transition-colors text-base shadow-[0_8px_28px_rgba(200,146,42,0.35)]"
+              >
+                Get Your Free Site Audit
+              </button>
+
               <div className="flex flex-col sm:flex-row items-center gap-8">
                 <Button
                   onClick={() => scrollTo("#contact")}
