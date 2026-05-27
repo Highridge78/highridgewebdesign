@@ -22,6 +22,7 @@ const systemSteps = [
       "Fast load speed and technical quality",
       "Quote, call, and form paths above the fold",
     ],
+    cta: "See How We Build It",
   },
   {
     icon: Search,
@@ -37,6 +38,7 @@ const systemSteps = [
       "On-page SEO structure and schema",
       "Content plan tied to lead intent",
     ],
+    cta: "Audit My Local Visibility",
   },
   {
     icon: Bot,
@@ -52,6 +54,7 @@ const systemSteps = [
       "Qualification prompts for fit and urgency",
       "Calendar and handoff routing options",
     ],
+    cta: "Discuss Lead Capture Setup",
   },
   {
     icon: Zap,
@@ -67,6 +70,7 @@ const systemSteps = [
       "Review generation workflows",
       "Simple CRM and dashboard handoff",
     ],
+    cta: "Discuss Follow-Up Systems",
   },
 ];
 
@@ -150,7 +154,7 @@ export default function ServicesSection() {
                     onClick={scrollToContact}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-brand-orange hover:text-white hover:bg-brand-orange px-4 py-2 rounded-md transition-all duration-300"
                   >
-                    Discuss Your Growth Plan
+                    {step.cta}
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>

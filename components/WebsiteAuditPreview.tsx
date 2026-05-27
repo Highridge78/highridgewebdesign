@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import type React from "react";
 import {
   AlertCircle,
   ArrowRight,
@@ -36,19 +37,28 @@ type AuditResponse =
   | { ok: true; audit: AuditResult }
   | { ok: false; message: string };
 
-const defaultScores = [
-  { label: "Conversion", value: null, icon: TrendingUp },
-  { label: "Local Visibility", value: null, icon: SearchCheck },
-  { label: "Trust Signals", value: null, icon: ShieldCheck },
-  { label: "Technical", value: null, icon: Gauge },
+type ScoreValue = number | string | null;
+
+const EXAMPLE_OPPORTUNITY = 4;
+
+const defaultScores: { label: string; value: ScoreValue; icon: React.ElementType }[] = [
+  { label: "Conversion", value: "Weak", icon: TrendingUp },
+  { label: "Local Visibility", value: "Moderate", icon: SearchCheck },
+  { label: "Trust Signals", value: "Weak", icon: ShieldCheck },
+  { label: "Technical", value: "Strong", icon: Gauge },
 ];
 
 function toDisplayUrl(value: string) {
   return value.replace(/^https?:\/\//i, "").replace(/\/$/, "");
 }
 
-function scoreColor(value: number | null) {
+function scoreColor(value: ScoreValue) {
   if (value === null) return "text-white/35";
+  if (typeof value === "string") {
+    if (value === "Strong") return "text-emerald-300";
+    if (value === "Moderate") return "text-brand-amber";
+    return "text-brand-orange";
+  }
   if (value >= 7.5) return "text-emerald-300";
   if (value >= 5) return "text-brand-amber";
   return "text-brand-orange";
@@ -60,7 +70,7 @@ export default function WebsiteAuditPreview() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const scores = audit
+  const scores: { label: string; value: ScoreValue; icon: React.ElementType }[] = audit
     ? [
         { label: "Conversion", value: audit.scores.conversionScore, icon: TrendingUp },
         { label: "Local Visibility", value: audit.scores.localVisibilityScore, icon: SearchCheck },
@@ -69,7 +79,7 @@ export default function WebsiteAuditPreview() {
       ]
     : defaultScores;
 
-  const average = audit
+  const average: number | null = audit
     ? Math.round(
         ((audit.scores.conversionScore +
           audit.scores.localVisibilityScore +
@@ -78,7 +88,7 @@ export default function WebsiteAuditPreview() {
           4) *
           10,
       ) / 10
-    : null;
+    : EXAMPLE_OPPORTUNITY;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -128,7 +138,7 @@ export default function WebsiteAuditPreview() {
                 <p className="text-[10px] font-black uppercase tracking-[0.24em] text-brand-orange/75">
                   Live Website Check
                 </p>
-                <h2 className="font-serif text-2xl font-bold text-white">Lead Leak Audit</h2>
+                <h2 className="font-serif text-2xl font-bold text-white">Beacon Audit</h2>
               </div>
             </div>
             <div className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-white/40">
@@ -176,7 +186,7 @@ export default function WebsiteAuditPreview() {
               </p>
               <div className="mt-4 flex items-end gap-2">
                 <span className={`text-6xl font-black leading-none ${scoreColor(average)}`}>
-                  {average ?? "--"}
+                  {average}
                 </span>
                 <span className="pb-2 text-sm font-bold text-white/30">/10</span>
               </div>
@@ -232,7 +242,13 @@ export default function WebsiteAuditPreview() {
         </div>
       </div>
 
-      <div className="mt-8 flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-[0.28em] text-white/25 sm:gap-6 sm:tracking-[0.4em]">
+      {!audit && (
+        <p className="mt-4 text-center text-[11px] text-white/30 italic">
+          Example audit shown. Enter your URL above for your real score.
+        </p>
+      )}
+
+      <div className="mt-6 flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-[0.28em] text-white/25 sm:gap-6 sm:tracking-[0.4em]">
         <span>Conversion</span>
         <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
         <span>Trust</span>

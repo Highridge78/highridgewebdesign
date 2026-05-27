@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { contactPayloadSchema, normalizeContactPayload } from "@/shared/contact";
 
 const CONTACT_EMAIL = "jeremy@highridgewebdesign.com";
-const CONTACT_PHONE = "828-598-9262";
+const CONTACT_PHONE = "(828) 598-9262";
 const DEFAULT_FROM_EMAIL = `High Ridge Web Design <${CONTACT_EMAIL}>`;
 
 function fallbackMessage() {

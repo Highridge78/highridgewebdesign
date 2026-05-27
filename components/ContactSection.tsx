@@ -12,7 +12,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Globe,
   Send,
   CheckCircle2,
   Loader2,
@@ -234,7 +233,7 @@ export default function ContactSection() {
                       onChange={handleChange}
                       autoComplete="tel"
                       inputMode="tel"
-                      placeholder="828-598-9262"
+                      placeholder="(828) 598-9262"
                       aria-invalid={Boolean(fieldErrors.phone)}
                       className="h-12 bg-[oklch(0.15_0.02_260)] border-border px-4 text-base focus:border-brand-orange"
                     />
@@ -433,19 +432,6 @@ export default function ContactSection() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0">
-                      <Globe className="w-4 h-4 text-brand-orange" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-foreground/80">
-                        Available Globally
-                      </div>
-                      <div className="text-xs text-foreground/50">
-                        Remote projects welcome worldwide
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -495,9 +481,9 @@ export default function ContactSection() {
               <p className="text-[10px] font-black uppercase tracking-[0.24em] text-brand-orange">
                 Founder-led
               </p>
-              <p className="mt-2 text-lg font-black text-white">You work directly with Jeremy.</p>
+              <p className="mt-2 text-lg font-black text-white">You work directly with Jeremy Black, founder of High Ridge Web Design.</p>
               <p className="mt-2 text-sm leading-6 text-foreground/60">
-                Small enough to stay personal. Focused enough to stay practical.
+                Built specifically for Western NC contractors — no lifestyle brands, no e-commerce, no generalist work. Also the builder of Beacon, the diagnostic tool that scores every site we touch for lead generation performance, not just technical speed.
               </p>
             </div>
           </div>
