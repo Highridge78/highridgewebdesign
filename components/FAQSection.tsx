@@ -10,8 +10,8 @@ import ScrollReveal from "./ScrollReveal";
 
 const faqs = [
   {
-    q: "Do you have past client examples I can look at?",
-    a: "We have live demo sites built to show exactly how a contractor website performs. Every layout decision, CTA, and speed optimization is real and measurable. Visit /demos to explore them. Client case studies will be added here as projects launch.",
+    q: "What can you show me before I commit?",
+    a: "More than most agencies will. Three things: First, our demo sites built for the contractor verticals we serve — see /demos for working examples. Second, we run a free Beacon audit on your current site before any sales conversation, so you see exactly how we evaluate websites for lead generation. Third, our own website is the live case study — built using the same methodology we'd use for yours. First named client case studies publish Q1 2026.",
   },
   {
     q: "How do I know this will work for my business?",
