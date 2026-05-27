@@ -96,7 +96,7 @@ export default function Footer() {
               </a>
               <a href="https://share.google/tyJrKqJPpdUbIeQHD" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 text-base text-foreground/50 hover:text-brand-orange transition-colors">
                 <MapPin size={20} className="text-brand-orange mt-1 shrink-0" />
-                <span>Serving all of Western North Carolina & Globally available.</span>
+                <span>Serving all of Western North Carolina.</span>
               </a>
             </div>
           </div>

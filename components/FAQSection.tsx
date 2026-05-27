@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "Do you work with businesses outside Western NC?",
-    a: "Yes. We are based in Sylva, NC, but we work with contractors and service businesses remotely across the US. If you are a fit for the system, location does not matter.",
+    a: "No. We focus exclusively on contractors and home service businesses in Western North Carolina. The narrow focus is intentional — it means sharper local SEO knowledge, faster results, and a system built for this specific market.",
   },
   {
     q: "What happens after the site launches?",
@@ -34,8 +34,8 @@ const faqs = [
     a: "Most of our work is rebuilds, not blank-slate builds. We audit what you have, keep what works, and replace what is costing you leads. The free audit call is designed to answer this for your specific situation.",
   },
   {
-    q: "How is this different from a $500 Wix site?",
-    a: "Speed, structure, and intent. Templates often load slowly, rank poorly in local search, and give visitors no clear reason to call. We build a custom stack optimized for Core Web Vitals, service clarity, and buyer psychology.",
+    q: "What's included that other web designers don't deliver?",
+    a: "Conversion-first design built around how contractor buyers actually decide. Local SEO structure wired for service-area visibility. A Beacon audit that scores your site before and after on the signals that drive calls. Lead capture setup with form and speed-to-lead flow included. And founder-led delivery — you work directly with Jeremy, not a project coordinator.",
   },
 ];
 
