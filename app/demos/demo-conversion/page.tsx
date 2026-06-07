@@ -2,17 +2,15 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
   BadgeCheck,
-  Bot,
   CheckCircle2,
   Gauge,
   Rocket,
+  Search,
   ShieldCheck,
-  Workflow,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  demoTestimonials,
   localBusinessAudience,
   objectionFaq,
   trustBarItems,
@@ -25,21 +23,21 @@ const serviceCards = [
     outcome: "Turn more clicks into calls and quote requests from local buyers.",
   },
   {
-    icon: Bot,
-    title: "24/7 AI Lead Chatbot",
-    outcome: "Capture and qualify leads instantly, even after business hours.",
+    icon: Search,
+    title: "Local SEO & Visibility",
+    outcome: "Show up first when local customers search for your services.",
   },
   {
-    icon: Workflow,
-    title: "Business Automation Workflows",
-    outcome: "Automate follow-up, reminders, and lead routing to close faster.",
+    icon: Rocket,
+    title: "Lead Capture & Fast Follow-Up",
+    outcome: "Capture inquiries instantly and respond before your competition does.",
   },
 ];
 
 const resultPoints = [
   "Mobile pages tuned for speed to reduce drop-off and boost trust.",
-  "AI lead capture that replies instantly and books qualified calls.",
-  "Automated follow-up so warm leads don't go cold.",
+  "Lead capture forms that route inquiries to you instantly.",
+  "Structured follow-up so warm leads don't go cold.",
 ];
 
 export const metadata: Metadata = {
@@ -77,9 +75,9 @@ export default function DemoConversionPage() {
                 Websites That Turn Visitors Into Paying Customers
               </h1>
               <p className="mt-5 max-w-2xl text-lg text-slate-300">
-                We build high-converting websites, AI chatbots, and automations for local businesses.
-                Turn your website into a 24/7 sales system that captures, qualifies, and follows up with
-                leads while you sleep.
+                We build high-converting websites for local service businesses.
+                Turn your site into a lead generation machine that captures, qualifies, and
+                follows up with prospects around the clock.
               </p>
               <p className="mt-3 text-sm text-slate-400">{localBusinessAudience}</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -138,8 +136,8 @@ export default function DemoConversionPage() {
               <article className="rounded-2xl border border-brand-orange/30 bg-brand-orange/10 p-6">
                 <h3 className="text-lg font-semibold text-white">The High Ridge solution</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-100">
-                  We combine conversion-centered design, AI chatbots, and automation workflows so every visitor gets a
-                  clear next step, instant response, and consistent follow-up.
+                  We combine conversion-centered design, fast lead capture, and structured follow-up so every visitor gets a
+                  clear next step, instant response, and consistent communication.
                 </p>
               </article>
             </div>
@@ -168,7 +166,7 @@ export default function DemoConversionPage() {
               {[
                 { step: "01", title: "Build", copy: "We design your site around your offer, local audience, and conversion goals." },
                 { step: "02", title: "Launch", copy: "We deploy a high-speed, mobile-first site with trust signals and clear CTAs." },
-                { step: "03", title: "Automate", copy: "AI chat and workflows capture, route, and follow up with leads automatically." },
+                { step: "03", title: "Follow Up", copy: "Structured intake and follow-up sequences capture, route, and respond to leads fast." },
               ].map((item) => (
                 <article key={item.title} className="rounded-2xl border border-white/10 bg-white/5 p-6">
                   <p className="text-3xl font-bold text-brand-orange/80">{item.step}</p>
@@ -196,21 +194,6 @@ export default function DemoConversionPage() {
           </div>
         </section>
 
-        <section className="border-b border-white/10 py-14">
-          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-            <h2 className="font-serif text-3xl font-bold text-white">What clients say</h2>
-            <div className="mt-8 grid gap-5 md:grid-cols-3">
-              {demoTestimonials.map((testimonial) => (
-                <blockquote key={testimonial.name} className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                  <p className="text-sm leading-relaxed text-slate-200">“{testimonial.quote}”</p>
-                  <footer className="mt-4 text-xs uppercase tracking-wider text-brand-amber">
-                    {testimonial.name} • {testimonial.business}
-                  </footer>
-                </blockquote>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section className="border-b border-white/10 py-14">
           <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -229,7 +212,7 @@ export default function DemoConversionPage() {
         <section id="cta" className="py-16">
           <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="rounded-2xl border border-brand-orange/25 bg-gradient-to-br from-brand-orange/20 to-slate-900 p-8 text-center">
-              <h2 className="font-serif text-3xl font-bold text-white">Ready for a website that sells for you 24/7?</h2>
+              <h2 className="font-serif text-3xl font-bold text-white">Ready for a website that generates leads consistently?</h2>
               <p className="mt-3 text-slate-200">
                 Get a free demo concept tailored to your business type and local market.
               </p>

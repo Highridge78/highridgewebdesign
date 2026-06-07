@@ -10,32 +10,13 @@ export interface DemoFaq {
 }
 
 export const trustBarItems = [
-  "4.9 Average Client Satisfaction",
+  "Founder-Built, Every Project",
   "Built for Local Lead Generation",
   "Mobile-First Performance Standards",
-  "AI + Automation Integrated",
+  "Contractors & Home Services Only",
 ];
 
-export const demoTestimonials: DemoTestimonial[] = [
-  {
-    quote:
-      "Our old website was just a digital brochure. After the rebuild, we started getting qualified leads every week.",
-    name: "Michael Turner",
-    business: "Owner, Turner HVAC Services",
-  },
-  {
-    quote:
-      "The chatbot pre-qualifies inquiries so our office team spends less time on weak leads and more time closing real cases.",
-    name: "Elena Brooks",
-    business: "Managing Partner, Brooks Legal Group",
-  },
-  {
-    quote:
-      "We finally have a site that reflects our quality. Visitors understand our value quickly and call us ready to move forward.",
-    name: "Daniel Ortiz",
-    business: "Founder, Ridgeview Outdoor Design",
-  },
-];
+export const demoTestimonials: DemoTestimonial[] = [];
 
 export const objectionFaq: DemoFaq[] = [
   {
@@ -48,11 +29,7 @@ export const objectionFaq: DemoFaq[] = [
     answer:
       "Most local business websites launch in 2-4 weeks depending on scope, assets, and feedback turnaround.",
   },
-  {
-    question: "Do I need AI automation right away?",
-    answer:
-      "Not always. We can launch your new site first, then layer in chatbot and automation workflows as phase two once your lead flow increases.",
-  },
+
   {
     question: "Will this work for my industry if it's not listed here?",
     answer:

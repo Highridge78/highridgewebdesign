@@ -5,20 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { localBusinessAudience, objectionFaq, trustBarItems } from "../data";
 
-const featuredWork = [
-  {
-    title: "Regional HVAC Group",
-    summary: "Modernized brand presentation and lead capture flow for premium residential installs.",
-  },
-  {
-    title: "Boutique Family Law Firm",
-    summary: "Refined digital positioning to attract higher-intent consultation requests.",
-  },
-  {
-    title: "Luxury Outdoor Builder",
-    summary: "Elevated trust and project value perception with visual-first storytelling.",
-  },
-];
+const featuredWork: { title: string; summary: string }[] = [];
 
 const services = [
   {
@@ -27,31 +14,18 @@ const services = [
       "Conversion architecture, copy strategy, and premium visual design tailored to your ideal clients.",
   },
   {
-    name: "AI Assistant Integration",
+    name: "Local SEO & Visibility",
     detail:
-      "A custom chatbot trained on your offers to capture and qualify leads around the clock.",
+      "Service-area pages, schema markup, and Google Business Profile alignment so the right buyers find you first.",
   },
   {
-    name: "Automation Systems",
+    name: "Lead Capture & Follow-Up",
     detail:
-      "Follow-up workflows, appointment nurturing, and lead routing so no opportunity is lost.",
+      "Fast intake forms, instant acknowledgment, and structured follow-up so no opportunity is lost.",
   },
 ];
 
-const testimonials = [
-  {
-    quote:
-      "Their team repositioned our entire online presence. We started attracting better-fit clients almost immediately.",
-    name: "L. Mitchell",
-    role: "Managing Partner, Mitchell Legal Group",
-  },
-  {
-    quote:
-      "The website feels premium and intentional. It now reflects the caliber of our actual service.",
-    name: "D. Carter",
-    role: "Owner, Carter Elite Contracting",
-  },
-];
+const testimonials: { quote: string; name: string; role: string }[] = [];
 
 const process = [
   {
@@ -60,7 +34,7 @@ const process = [
   },
   {
     title: "Design & Systems Architecture",
-    body: "We craft your website and AI-enhanced flow to support trust, speed, and lead quality.",
+    body: "We craft your website and conversion flow to support trust, speed, and lead quality.",
   },
   {
     title: "Launch & Performance Iteration",
@@ -109,7 +83,7 @@ export default function DemoPremium() {
             </h1>
             <p className="mt-8 max-w-3xl text-lg md:text-xl text-foreground/70 leading-relaxed">
               For local businesses ready to be perceived as market leaders, we combine elegant
-              design with AI-enabled systems that improve lead quality and client experience.
+              design with conversion-focused systems that improve lead quality and client experience.
             </p>
             <p className="mt-3 text-sm text-foreground/60">{localBusinessAudience}</p>
             <div className="mt-10 flex flex-wrap gap-4">
@@ -164,7 +138,7 @@ export default function DemoPremium() {
                 </p>
                 <p>
                   We build websites that communicate expertise in seconds, then guide visitors into
-                  high-intent actions with AI support and automation behind the scenes.
+                  high-intent actions with structured follow-up behind the scenes.
                 </p>
               </div>
             </div>
@@ -190,6 +164,7 @@ export default function DemoPremium() {
           </div>
         </section>
 
+        {featuredWork.length > 0 && (
         <section className="py-20 md:py-24">
           <div className="container max-w-5xl">
             <p className="text-xs uppercase tracking-[0.2em] text-brand-orange/80 mb-4">
@@ -208,6 +183,7 @@ export default function DemoPremium() {
             </div>
           </div>
         </section>
+        )}
 
         <section className="py-16 md:py-20 border-y border-white/10">
           <div className="container max-w-5xl">
@@ -226,26 +202,6 @@ export default function DemoPremium() {
           </div>
         </section>
 
-        <section className="py-20 md:py-24">
-          <div className="container max-w-5xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {testimonials.map((testimonial) => (
-                <blockquote
-                  key={testimonial.name}
-                  className="rounded-2xl border border-white/10 bg-[oklch(0.13_0.02_260)] p-7 md:p-8"
-                >
-                  <p className="text-foreground/80 leading-relaxed">“{testimonial.quote}”</p>
-                  <footer className="mt-5 border-t border-white/10 pt-4">
-                    <p className="text-white font-semibold">{testimonial.name}</p>
-                    <p className="text-xs uppercase tracking-wider text-foreground/50">
-                      {testimonial.role}
-                    </p>
-                  </footer>
-                </blockquote>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section className="py-16 md:py-20 border-y border-white/10">
           <div className="container max-w-5xl">
@@ -254,7 +210,7 @@ export default function DemoPremium() {
               {[
                 "Sharper positioning that filters out low-fit inquiries.",
                 "Higher perceived value through intentional brand storytelling.",
-                "AI-supported response systems that protect lead quality.",
+                "Structured response systems that protect lead quality.",
               ].map((point) => (
                 <article key={point} className="rounded-xl border border-white/10 bg-[oklch(0.13_0.02_260)] p-5">
                   <div className="flex items-start gap-2">

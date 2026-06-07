@@ -1,4 +1,4 @@
-import { ArrowRight, Gauge, Palette, Sparkles } from "lucide-react";
+import { ArrowRight, Gauge, Palette } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -27,18 +27,7 @@ const demoOptions = [
       "Consultative process framing",
     ],
   },
-  {
-    title: "AI-Powered",
-    path: "/demos/demo-creative",
-    description:
-      "A differentiation-first concept showing how websites, chatbots, and automations work together as one system.",
-    icon: Sparkles,
-    highlights: [
-      "AI + automation narrative",
-      "Lead-to-close system breakdown",
-      "Outcome and efficiency metrics",
-    ],
-  },
+
 ];
 
 export const metadata: Metadata = {
