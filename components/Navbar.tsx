@@ -102,7 +102,7 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <button
-          className="lg:hidden text-white p-2 focus:outline-none"
+          className="lg:hidden text-white p-3 -mr-1 focus:outline-none min-w-[48px] min-h-[48px] flex items-center justify-center"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
@@ -121,7 +121,7 @@ export default function Navbar() {
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              className="block text-xl font-black uppercase tracking-widest text-foreground/90 border-b border-white/10 pb-5"
+              className="block text-xl font-black uppercase tracking-widest text-foreground/90 border-b border-white/10 pb-5 min-h-[48px]"
             >
               {link.label}
             </a>

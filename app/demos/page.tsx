@@ -123,10 +123,10 @@ export default function DemosIndexPage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-brand-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-orange-bright transition-colors"
+              href="/#beacon-audit"
+              className="inline-flex items-center gap-2 rounded-full bg-brand-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-orange-bright transition-colors min-h-[48px]"
             >
-              Request Your Version
+              Run My Free Beacon Audit
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

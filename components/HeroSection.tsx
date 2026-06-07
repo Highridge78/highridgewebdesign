@@ -56,10 +56,10 @@ export default function HeroSection() {
             <div className="flex flex-col gap-8">
               <div className="flex flex-col sm:flex-row items-center gap-8">
                 <Button
-                  onClick={() => scrollTo("#contact")}
+                  onClick={() => scrollTo("#beacon-audit")}
                   className="w-full sm:w-auto bg-brand-orange hover:bg-brand-orange-bright text-white font-black text-base sm:text-lg px-7 sm:px-9 py-6 rounded-xl shadow-[0_20px_50px_rgba(255,106,0,0.3)] transition-all hover:-translate-y-1 active:scale-95 glow-orange"
                 >
-                  Get My Free Website Audit
+                  Run My Free Beacon Audit
                 </Button>
 
                 <a

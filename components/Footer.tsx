@@ -45,7 +45,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-white/5 bg-[oklch(0.08_0.02_260)] py-24">
+    <footer className="relative border-t border-white/5 bg-[oklch(0.08_0.02_260)] py-24 pb-32 md:pb-24">
       <div className="container px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-12">
           

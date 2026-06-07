@@ -28,8 +28,6 @@ type FormDataState = {
   name: string;
   email: string;
   phone: string;
-  business: string;
-  website: string;
   message: string;
   botcheck: string;
 };
@@ -40,8 +38,6 @@ const initialFormData: FormDataState = {
   name: "",
   email: "",
   phone: "",
-  business: "",
-  website: "",
   message: "",
   botcheck: "",
 };
@@ -217,70 +213,27 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label
-                      htmlFor="contact-phone"
-                      className="text-sm font-semibold text-foreground/80 mb-2 block"
-                    >
-                      Phone Number
-                    </label>
-                    <Input
-                      id="contact-phone"
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      autoComplete="tel"
-                      inputMode="tel"
-                      placeholder="(828) 598-9262"
-                      aria-invalid={Boolean(fieldErrors.phone)}
-                      className="h-12 bg-[oklch(0.15_0.02_260)] border-border px-4 text-base focus:border-brand-orange"
-                    />
-                    {fieldErrors.phone && (
-                      <p className="mt-2 text-xs text-red-300">{fieldErrors.phone}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="contact-business"
-                      className="text-sm font-semibold text-foreground/80 mb-2 block"
-                    >
-                      Business Name
-                    </label>
-                    <Input
-                      id="contact-business"
-                      name="business"
-                      value={formData.business}
-                      onChange={handleChange}
-                      autoComplete="organization"
-                      placeholder="Smith's HVAC"
-                      className="h-12 bg-[oklch(0.15_0.02_260)] border-border px-4 text-base focus:border-brand-orange"
-                    />
-                  </div>
-                </div>
-
                 <div>
                   <label
-                    htmlFor="contact-website"
+                    htmlFor="contact-phone"
                     className="text-sm font-semibold text-foreground/80 mb-2 block"
                   >
-                    Current Website
+                    Phone Number
                   </label>
                   <Input
-                    id="contact-website"
-                    name="website"
-                    type="url"
-                    value={formData.website}
+                    id="contact-phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
                     onChange={handleChange}
-                    autoComplete="url"
-                    inputMode="url"
-                    placeholder="https://yourbusiness.com"
-                    aria-invalid={Boolean(fieldErrors.website)}
+                    autoComplete="tel"
+                    inputMode="tel"
+                    placeholder="(828) 598-9262"
+                    aria-invalid={Boolean(fieldErrors.phone)}
                     className="h-12 bg-[oklch(0.15_0.02_260)] border-border px-4 text-base focus:border-brand-orange"
                   />
-                  {fieldErrors.website && (
-                    <p className="mt-2 text-xs text-red-300">{fieldErrors.website}</p>
+                  {fieldErrors.phone && (
+                    <p className="mt-2 text-xs text-red-300">{fieldErrors.phone}</p>
                   )}
                 </div>
 
@@ -289,18 +242,18 @@ export default function ContactSection() {
                     htmlFor="contact-message"
                     className="text-sm font-semibold text-foreground/80 mb-2 block"
                   >
-                    Project Details *
+                    What do you need? *
                   </label>
                   <Textarea
                     id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="What services do you offer, where do you serve, and where are leads dropping off today?"
+                    placeholder="New site, redesign, more leads — tell us what you're looking for."
                     required
-                    rows={5}
+                    rows={4}
                     aria-invalid={Boolean(fieldErrors.message)}
-                    className="min-h-32 bg-[oklch(0.15_0.02_260)] border-border px-4 py-3 text-base leading-relaxed focus:border-brand-orange resize-none"
+                    className="min-h-28 bg-[oklch(0.15_0.02_260)] border-border px-4 py-3 text-base leading-relaxed focus:border-brand-orange resize-none"
                   />
                   {fieldErrors.message && (
                     <p className="mt-2 text-xs text-red-300">{fieldErrors.message}</p>

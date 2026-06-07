@@ -57,8 +57,8 @@ export default function DemoConversionPage() {
           <Link href="/demos" className="text-sm font-semibold tracking-wide text-brand-amber">
             High Ridge Redesign Concepts
           </Link>
-          <Button asChild size="sm" className="bg-brand-orange hover:bg-brand-orange-bright text-white">
-            <a href="#cta">Get a Free Demo Site</a>
+          <Button asChild size="sm" className="bg-brand-orange hover:bg-brand-orange-bright text-white min-h-[48px]">
+            <a href="/#beacon-audit">Run My Free Beacon Audit</a>
           </Button>
         </div>
       </header>
@@ -81,13 +81,13 @@ export default function DemoConversionPage() {
               </p>
               <p className="mt-3 text-sm text-slate-400">{localBusinessAudience}</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-orange-bright text-white">
-                  <a href="#cta">
-                    Get a Free Demo Site
+                <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-orange-bright text-white min-h-[48px]">
+                  <a href="/#beacon-audit">
+                    Run My Free Beacon Audit
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-white/25 text-white hover:bg-white/10">
+                <Button asChild size="lg" variant="outline" className="border-white/25 text-white hover:bg-white/10 min-h-[48px]">
                   <a href="#how-it-works">See How It Works</a>
                 </Button>
               </div>
