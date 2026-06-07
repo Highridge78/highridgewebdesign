@@ -1,9 +1,13 @@
 import HeroSection from "@/components/HeroSection";
 import ProofBar from "@/components/ProofBar";
+import FourPillarsSection from "@/components/FourPillarsSection";
 import BeaconAuditSection from "@/components/BeaconAuditSection";
 import ServicesSection from "@/components/ServicesSection";
-import AboutSection from "@/components/AboutSection";
 import ResultsSection from "@/components/ResultsSection";
+import FounderBlock from "@/components/FounderBlock";
+import PricingSection from "@/components/PricingSection";
+import RiskReversalSection from "@/components/RiskReversalSection";
+import WhoWeWontWorkWith from "@/components/WhoWeWontWorkWith";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 
@@ -29,10 +33,14 @@ export default function HomePage() {
       />
       <HeroSection />
       <ProofBar />
+      <FourPillarsSection />
       <BeaconAuditSection />
       <ServicesSection />
-      <AboutSection />
       <ResultsSection />
+      <FounderBlock />
+      <PricingSection />
+      <RiskReversalSection />
+      <WhoWeWontWorkWith />
       <FAQSection />
       <ContactSection />
     </>
