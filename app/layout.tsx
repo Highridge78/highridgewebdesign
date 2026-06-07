@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StickyCallBar from "@/components/StickyCallBar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
         <main id="main-content">{children}</main>
         <Footer />
+        <StickyCallBar />
         <Analytics />
       </body>
     </html>

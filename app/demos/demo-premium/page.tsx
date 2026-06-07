@@ -89,18 +89,18 @@ export default function DemoPremium() {
             <div className="mt-10 flex flex-wrap gap-4">
               <Button
                 asChild
-                className="rounded-full bg-brand-orange px-7 py-3.5 text-sm font-semibold text-white hover:bg-brand-orange-bright"
+                className="rounded-full bg-brand-orange px-7 py-3.5 text-sm font-semibold text-white hover:bg-brand-orange-bright min-h-[48px]"
               >
-                <Link href="/#contact">
-                  Start a Project
+                <Link href="/#beacon-audit">
+                  Run My Free Beacon Audit
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>
               <Link
-                href="/demos"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-sm font-medium text-white hover:bg-white/10 transition-colors"
+                href="/#contact"
+                className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-sm font-medium text-white hover:bg-white/10 transition-colors min-h-[48px]"
               >
-                Back to Demo Index
+                Start a Project
               </Link>
             </div>
           </div>
