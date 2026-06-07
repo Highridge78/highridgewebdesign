@@ -13,7 +13,7 @@ export default function PerformanceVisual() {
           
           <div className="w-16 h-1.5 bg-brand-orange mb-6 rounded-full shadow-[0_0_15px_rgba(255,106,0,0.5)]" />
           <h4 className="text-4xl font-serif font-bold text-white mb-4 leading-tight tracking-tight">The High Ridge Framework</h4>
-          <p className="text-xl text-gray-400 max-w-sm mb-10 leading-relaxed font-medium">We replace generic templates with custom high-performance sales systems.</p>
+          <p className="text-xl text-gray-400 max-w-sm mb-10 leading-relaxed font-medium">We replace generic templates with custom high-performance websites built to convert.</p>
           
           <div className="flex gap-4">
              <div className="h-1 bg-white/20 flex-1 rounded-full overflow-hidden">

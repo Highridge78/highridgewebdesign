@@ -54,7 +54,7 @@ export default function Footer() {
               <BrandLogo variant="footer" imgClassName="max-h-16 md:max-h-20 brightness-110" />
             </Link>
             <p className="text-lg text-foreground/60 leading-relaxed max-w-sm">
-              We help local service businesses turn underperforming websites into lead-generating machines. Design. Automate. Grow.
+              We help local service businesses turn underperforming websites into lead-generating machines. Design. Build. Grow.
             </p>
             <div className="pt-4 space-y-2 border-t border-white/5 w-fit pr-10">
               <p className="text-base font-bold text-white uppercase tracking-widest">Jeremy Black</p>
